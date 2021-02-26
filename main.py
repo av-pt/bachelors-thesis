@@ -1,14 +1,6 @@
-from nltk.corpus import brown
-import phonetics
+from converters import g2p, g2sc
 
-#a = [phonetics.nysiis(w) for w in brown.words()[:10000]]
-#print(a[:5])
-
-brown_words = brown.words()[:10]
-l = []
-for w in brown_words:
-    try:
-        l.append(phonetics.nysiis(w))
-    except Exception:
-        print(f'|{w}|')
-print(l)
+hello = 'Hello World!'
+print('Original: ' + hello)
+print('IPA: ' + g2p(hello))
+print('Dolgo: ' + g2sc(hello))

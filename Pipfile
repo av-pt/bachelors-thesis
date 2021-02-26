@@ -4,10 +4,13 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-phonetics = "*"
 nltk = "*"
+g2p-en = "*"
+pyclts = "*"
+pyphonetics = "*"
 
 [dev-packages]
+pylint = "*"
 
 [requires]
-python_version = "3.9"
+python_version = "3.8"
