@@ -3,10 +3,13 @@ from pyphonetics import Soundex, FuzzySoundex, RefinedSoundex, Metaphone, Matchi
 from nltk import word_tokenize
 from nltk.tokenize.treebank import TreebankWordDetokenizer
 from pyclts import CLTS
+import spacy
 
 clts = CLTS('clts/')
 
 g2p_en = G2p()
+
+nlp = spacy.load('en_core_web_sm')
 
 # Arpabet to IPA dict with stress
 arpanet2ipa_orig = {'AA': 'ɑ', 'AE': 'æ', 'AH': 'ʌ', 'AO': 'ɔ', 'AW': 'aʊ', 'AX': 'ə', 'AXR': 'ɚ', 'AY': 'aɪ', 'EH': 'ɛ', 'ER': 'ɝ', 'EY': 'eɪ', 'IH': 'ɪ', 'IX': 'ɨ', 'IY': 'i', 'OW': 'oʊ', 'OY': 'ɔɪ', 'UH': 'ʊ', 'UW': 'u', 'UX': 'ʉ', 'B': 'b', 'CH': 'tʃ', 'D': 'd', 'DH': 'ð', 'DX': 'ɾ', 'EL': 'l̩', 'EM': 'm̩', 'EN': 'n̩', 'F': 'f', 'G': 'ɡ', 'HH': 'h', 'H': 'h', 'JH': 'dʒ', 'K': 'k', 'L': 'l', 'M': 'm', 'N': 'n', 'NG': 'ŋ', 'NX': 'ɾ̃', 'P': 'p', 'Q': 'ʔ', 'R': 'ɹ', 'S': 's', 'SH': 'ʃ', 'T': 't', 'TH': 'θ', 'V': 'v', 'W': 'w', 'WH': 'ʍ', 'Y': 'j', 'Z': 'z', 'ZH': 'ʒ'}
@@ -84,3 +87,26 @@ def g2sc(verbatim, sound_class_system='dolgo'):
     char_ipa = [(arpabet2ipa_no_stress[symbol], 's') if symbol in arpabet2ipa_no_stress.keys() else (symbol, 'p') for symbol in char_tokens]
     char_sound_class = ''.join([clts.bipa.translate(symbol, dest_sound_class) if tag == 's' else symbol for symbol, tag in char_ipa])
     return char_sound_class
+
+def lemmatize(verbatim, system):
+    """
+    Takes a verbatim string, removes all punctuation, stems all words.
+    Returns space separated stems.
+    """
+    doc = nlp(verbatim)
+    if system == 'lemma':
+        return ' '.join([token.lemma_ for token in doc])
+    elif system == 'lemma_punct':
+        return ' '.join([token.lemma_ for token in doc if not token.is_punct])
+    elif system == 'lemma_punct_stop':
+        return ' '.join([token.lemma_ for token in doc if (not token.is_stop and not token.is_punct and not token.like_num)])
+
+def transcribe(verbatim, system):
+    if system in {'art', 'asjp', 'color', 'cv', 'dolgo', 'sca'}:
+        return g2sc(verbatim, system)
+    elif system in {'ipa', 'soundex', 'fuzzy_soundex', 'refined_soundex', 'metaphone', 'mra', 'lein'}:
+        return g2p(verbatim, system)
+    elif system in {'lemma', 'lemma_punct', 'lemma_punct_stop'}:
+        return lemmatize(verbatim, system)
+    else:
+        pass #return lambda verbatim: verbatim  # Throws something when used

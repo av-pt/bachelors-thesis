@@ -8,6 +8,8 @@ nltk = "*"
 g2p-en = "*"
 pyclts = "*"
 pyphonetics = "*"
+tqdm = "*"
+spacy = "*"
 
 [dev-packages]
 pylint = "*"
