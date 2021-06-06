@@ -1,0 +1,49 @@
+\chapter{Experiments}\label{experiments}
+\subsection{Methods using sub-segmental features}
+We will start of with a naive approach using sub-segmental features. In a preprocessing step, one of the datasets is standardized. Then, the data is transcribed using the transcription and transformation methods $t_{phonetic}$ and $t_{other}$ defined earlier. The resulting data (together with the original data) are then used as the inputs to two already existing Authorship Verification algorithms. This way we can examine the effect of said transformation methods to the results.
+% ref ... shows a diagram of the process.
+
+\subsubsection{Datasets}
+We use learning-based classification algorithms. This means, given a set of rules, they try to induce the underlying patterns of a training set. The resulting patterns are then used to classify unseen entities of a test set. Each of the two data sets used consists of labeled text pairs. A pair has the label $True$ if both texts were authored by the same person and $False$ if not.\\\\
+% PAN20 fan-fiction
+First, we will use the small official dataset from the PAN2020 task on Authorship Verification. This allows us to compare our results to the other methods submitted. It consists of 52.601 text pairs collected from the fanfiction website \url{fanfiction.net}. The dataset file is formatted in the PAN20 format with each line containing a text pair, an ID, and optionally some additional information such as the corresponding fandoms\footnote{The franchise a fanfiction text belongs to. Can be seen as the topical domain of the text.}. With 256.000 samples, the large dataset contains roughly five (4.86) times as many samples as the small data set. Efforts have been made to maximally optimize the methods used, but due to some (out of control) implementation details(?), the utilization of this dataset is infeasible for now. (Also, 53k samples is quite a lot already. And unmasking is reaaaally slow, won't even work on 53k samples.)\\
+% Gutenberg
+We source the second dataset from \cite{stein2019unbiasedGutenbergCorpus}. It presents a dataset containing science fiction and adventure texts from the 19th and 20th century, compiled from books from Project Gutenberg \footnote{https://www.gutenberg.org/}. The aim of this dataset is to reduce common biases in data sets for Authorship Verification. This makes it a good candidate for evaluating new authorship verifiers. As it contains only 182(?) text pairs, it is well suited for the much slower Unmasking algorithm, but might lead to overfitting. To mitigate this, we use out-of-fold cross-validation to evaluate the models instead of a standard train-test-split method. This dataset is in the old PAN format\footnote{XXX Enter PANXX-PANXX years} and is converted to the new PAN20 format for standardization \footnote{The code for the conversion can be accessed at XXX}.\\
+% Transcribing
+Test
+
+% 1.1 TFIDF cosine sim => Out of scope!
+%\subsubsection{}
+
+% 1.2 Compression Approach
+\subsubsection{Compression Approach}
+The second approach, also introduced in PAN2020 and based on \cite{teahan2003compression}, uses a text compression method to determine the chance that two texts were written by the same author.
+The compression of a text can be seen as encoding said text with a given encoding. Thus, text compression can be used to estimate an upper bound to the entropy, i.e. the amount of information, of characters in English text \ref{brown1992upperBoundEntropy}. More specific, by using the compression model of some text A, the cross-entropy of encoding a text B with this model can be calculated.
+This approach uses the Prediction by Partical Matching (PPM) model, a standard model for lossless text compression, first introduced by \cite{cleary1984PPM}. During training, for each pair, the PPM of the first text is used to encode the second text and vice-versa. In this process, the cross-entropy of the first to the second text can be calculated and vice-versa.
+In other words, if the compression of one text with the compression model (i.e. the "encoding") of the second text works well, the chance that both are written by the same author can be considered high.
+The source code used is based on a reimplementation of the Authorship Attribution approach from \cite{teahan2003compression} as part of a reproducibility study in \cite{potthast2016reimplementation}. An adaption for Authorship Verification stems from PAN20\footnote{https://github.com/pan-webis-de/pan-code/tree/master/clef20/authorship-verification}. The source code extending the algorithm to use phonetic features is available on GitHub\footnote{...}. (Code sources are a bit more complicated.)
+% 1.3 Unmasking Approach
+\subsubsection{Unmasking Approach}
+% -> Description of original algorithm and metrics used (should this be here or in Theory?)
+% -> Modifications / Setup
+% Footnote: Would take X hours on fan-fiction dataset, infeasible. (Maybe point to difficulties in optimizing)
+
+% Note characteristics of approaches: Char-based, learning-based...?
+
+
+
+\subsection{Methods using supra-segmental features}
+% Time Series Modelling in the Analysis of Homeric Verse, Pawłowski 2010
+Manual annotation of long / short syllables and stress / no-stress syllables (p.86).
+ARIMA method for time series modelling.\\
+Rhythmical series are easier to model -> goodness of fit ~ rhythmicity
+
+
+"All the suprasegmental features are characterized by the fact that they must be described in relation to other items in the same utterance.
+It is the relative values of pitch, length, or degree of stress of an item that are significant.
+... The absolute values are never linguistically important.
+But they do, of course, convey information about the speaker's age, sex, emotional state, and attitude toward the topic under discussion."\cite{ladefoged2014courseInPhonetics}
+
+% http://udel.edu/~dlarsen/ling101/slides/Suprasegmentalshandout.pdf
+% english has non-distinctive length differences.
+% p.15 In English, stress is sometime non-predictable, sometimes predictable.

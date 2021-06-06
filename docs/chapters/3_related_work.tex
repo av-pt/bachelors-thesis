@@ -1,0 +1,21 @@
+\chapter{Related Work}\label{related_work}
+
+% Introduce PAN to embed other related work into context
+% Other workshops?
+
+% Maybe put this after 4. Experiments, so readers don't have to wait?
+% 1. Related work regarding non-phonological AI approaches
+\cite{stein2019unbiasedGutenbergCorpus} gives related work in Authorship Verification.
+-> Also list possible biases here! XXX Only keep if used later!\\
+Model Bias\\
+B1: Corpus-relative features, e.g. document frequency -> overfitting\\
+B2: Feature scaling -> Overfitting towards corpus specifics\\
+Data Bias\\
+B3: Plain text heterogeneity, artifacts that are unlikely to signal authorial style,but rather originate from other sources, e.g. features like white spaces which vary across authors but were not necessarily introduced by them. Data sets should be fully homogenized.\\
+B4: Population homogeneity, reusing chunks when creating the corpus might over- / underrepresent certain authors' styles.\\
+B5: Accidental text overlap, named entities / topic words / repetitions / unique character sequences might give same author pairs away, so that algorithms learn these things instead of the wanted patterns.\\
+Evaluation Bias\\
+B6: Test conflation, verifiers can usually access the entire test dataset, this is not how a forensic linguist would do things -> test one case at a time.\\
+% 2. phonetic approaches for other approaches
+% phonological approaches
+% -> Native language identification paper

@@ -1,0 +1,106 @@
+%\documentclass[german,bachelor]{webisthesis}
+\documentclass[english,bachelor]{webisthesis}
+% When you change the language, pdflatex may halt on recompilation.
+% Just hit enter to continue and recompile again. This should fix it.
+
+%
+% Values
+% ------
+\ThesisSetTitle{Authorship Identification with Phonological Features}
+\ThesisSetKeywords{These, Are, My keywords} % only for PDF meta attributes
+
+\ThesisSetAuthor{David Reinartz}
+\ThesisSetStudentNumber{3706997}
+\ThesisSetDateOfBirth{2}{2}{1998}
+\ThesisSetPlaceOfBirth{Ostercappeln}
+
+\ThesisSetSupervisors{Prof.\ Dr.\ Martin Potthast,Prof.\ Dr.\ Benno Stein}
+
+\ThesisSetSubmissionDate{31}{7}{2021}
+
+%
+% Suggested Packages
+% ------------------
+\usepackage[sort&compress]{natbib}
+%   Allows citing in different ways (e.g., only the authors if you use the
+%   citation again within a short time).
+%
+\usepackage{booktabs}
+%    For tables ``looking the right way''.
+%
+\usepackage{tabularx}
+%    Enables tables with columns that automatically fill the page width.
+%
+%\usepackage[ruled,algochapter]{algorithm2e}
+%    A package for pseudo code algorithms.
+%
+%\usepackage{amsmath}
+%    For tabular-style formatting of mathematical environments.
+%
+
+%
+% Commenting (by your supervisor)
+% -------------------------------
+\usepackage{xcolor}
+\usepackage{soul}
+\newcommand{\bscom}[2]{%
+  % #1 Original text.
+  % #2 Replacement text.
+    \st{\scriptsize\,#1}{\color{blue}\scriptsize\,#2}%
+  }
+
+% Create links in the pdf document
+% Hyperref has some incompatibilities with other packages
+% Some other packages must be loaded before, some after hyperref
+% Additional options to the hyperref package can be provided in the braces []
+\usehyperref[backref] % This will add back references in the bibliography
+
+\begin{document}
+\begin{frontmatter}
+\include{chapters/0_abstract}
+
+  \tableofcontents
+
+  %\chapter*{Acknowledgements} % optional
+  %I thank the authors of the webisthesis template for their excellent work!
+
+  %\listoffigures % optional
+
+  %\listoftables % optional
+
+  %\listofalgorithms % optional
+  %    requires package algorithm2e
+
+  % optional: list of symbols/notation (e.g., using the nomencl package)
+\end{frontmatter}
+
+\input{chapters/1_introduction}
+\input{chapters/2_theory}
+\input{chapters/3_related_work}
+\input{chapters/4_experiments}
+\input{chapters/5_results}
+\input{chapters/6_conclusion}
+
+% Structure
+% 0. Abstract
+% 1. Introduction
+% 2. Basics (What is phonetics, transcriptions)
+% 3. Related Work
+% 4. Experiments
+%   4.1 Sub-segmental
+%   4.2 Supra-segmental
+% 5. Results / Analysis / Discussion
+% 6. Conclusion / Outlook
+
+
+% Appendix
+\appendix
+\chapter{My First Appendix}
+This was just missing.
+
+% Bibliography
+\bibliographystyle{plainnat} % requires package natbib. An alternative is apalike
+\bibliography{literature}    % load file literature.bib
+
+\end{document}
+

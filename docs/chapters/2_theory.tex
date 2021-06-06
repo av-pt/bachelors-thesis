@@ -1,0 +1,71 @@
+\chapter{Theory}\label{theory}
+% subsection Authorship Identification
+\subsection{Authorship Verification}
+% Text is an important medium.
+Humans are, by nature, beings deriving the biggest part of their information from eyesight. It comes as no surprise that a large amount of communication and information transfer is done via a visual medium: text. The people, composing their thoughts into texts are called authors of these texts.
+% History of literacy, printing press
+Over time it has become increasingly simple for the public to produce and distribute content in text form. Smt like: From XXXX onwards, the amount of literate people doubled every X years, until in XXXX XX percent of the population where literate. Writing supplies became cheaper. Letterpress allowed for much faster and wider distribution of text content. More literate people means text can become more important.
+With text gaining traction as a medium, the concept of authorship of texts also becomes more important. Often, the author of a given text is unknown (intentionally or unintentionally). Example for unknown authorship.
+List some cases of authorship verification: ... %https://en.wikipedia.org/wiki/Stylometry#Case_studies_of_interest
+% History of copyright / author-importance, probably when distribution started to become better.
+% Areas of importance: forensics, (copyright) law / Motivation
+Author Identification is an area in broader field of stylometry, the
+% History of Stylometry
+Stylometry was done by hand. With the adoption of computers by the linguistic community, stylometry was increasingly done with computers. The wide availability of training data and the speed of computers allow for more involved and complex stylometric methods [holmes1998].
+
+
+\cite{stein2019unbiasedGutenbergCorpus} says: "Authorship verification is a young task in the fieldof authorship analysis.  Proposed by Koppel andSchler (2004)...".
+
+Authorship Verification falls into the larger area of Author Identification, which aims at determining authors of given texts. The task of Authorship Verification is defined in \cite{bevendorff2020shared} as: Given a pair of documents, determine whether they a written by the same author. For example, XXX. Note that we do not consider the actual authors but only whether they are different or not. This also means we cannot use methods that profile individual authors, because the test set might exclusively consist of texts by authors that were not seen before.\\
+% Contrasts Authorship Attribution.
+
+
+% Following is a simplified version of the task. -> Describe full version first.
+XXXX ROUGHLY based on the notation in \cite{bevendorff2020shared} the task can be formalized as follows. Given a text pair $(d_1, d_2)$, classify it to ${True, False}$, i.e. approximate the target function $\phi{}:(d_1, d_2)\to\{True, False\}$ where $\phi(d_1, d_2)=True$ iff $d_1$ and $d_2$ have the same author.
+
+% subsection Phonetics
+% What is phonetics?
+% Einbetten in Kontext + history
+\subsection{Phonetic Features}
+Before the written form of language came into use, humans communicated complex thoughts mainly with spoken language.
+According to \cite{ogrady2017introToLinguistics}, phonetics is a branch of linguistics concerned with the inventory and structure of sounds in a given language. Therefore, phonetic features
+% -> Different definitions
+% -> Differentialize from phonology
+Phonology is the sounds function in a language.
+% Phonetics vs. phonemics
+
+% My definition of phonology
+
+
+% What are phonological features? Examples
+% My definition of phonological features
+
+% How deep to go into linguistic side? Method / Manner of articulation. Each of the possible states? Probably not, as this is not all that relevant later. Transcriptions are seen as black boxes.
+
+
+% Transcription systems: IPA, Soundex, ...
+% Sorted by amount of vocabulary reduction?
+As we work on plain text, we have to use methods to extract the phonetic features from the text. One of those methods is a phonetic transcription.\\
+TS are data reduction methods. We hope that unimportant data is not squished.
+One of the most commonly used transcription systems is the International Phonetic Alphabet (IPA).
+% Main idea(s)
+% Statistical properties. Should this be here?
+% Random transcription. Should this be here?
+% Narrow vs. broad
+% Sound classes
+
+% Technically l/lp/lps/p can also be seen as transcriptions
+% We also use t_other = {l, lp, lps, p}
+We define the set of "phonetic transcriptions systems" as follows:
+$t_{phonetic} = {}$
+
+And the other one as $t_{other} = {}$
+
+% Table with example words
+
+% Problem: LingPy needs segmented transcriptions (List paper)
+
+
+% Warum und Wie wird beides verbunden?
+
+Integrating phonetics into stylometric methods is not an entirely new endeavour...
