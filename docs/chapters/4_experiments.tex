@@ -10,7 +10,11 @@ First, we will use the small official dataset from the PAN2020 task on Authorshi
 % Gutenberg
 We source the second dataset from \cite{stein2019unbiasedGutenbergCorpus}. It presents a dataset containing science fiction and adventure texts from the 19th and 20th century, compiled from books from Project Gutenberg \footnote{https://www.gutenberg.org/}. The aim of this dataset is to reduce common biases in data sets for Authorship Verification. This makes it a good candidate for evaluating new authorship verifiers. As it contains only 182(?) text pairs, it is well suited for the much slower Unmasking algorithm, but might lead to overfitting. To mitigate this, we use out-of-fold cross-validation to evaluate the models instead of a standard train-test-split method. This dataset is in the old PAN format\footnote{XXX Enter PANXX-PANXX years} and is converted to the new PAN20 format for standardization \footnote{The code for the conversion can be accessed at XXX}.\\
 % Transcribing
-Test
+To use these transcription systems in our experiments, we first transcribe a given text to IPA.
+This is done using g2pen because CLTS needs segmented IPA.  % List paper
+Then CLTS is used to transcribe to sound classes.
+For Soundex and RefSoundex the package X is used.
+
 
 % 1.1 TFIDF cosine sim => Out of scope!
 %\subsubsection{}
