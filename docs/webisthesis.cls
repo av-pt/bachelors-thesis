@@ -216,7 +216,7 @@
 \newtoks\thesisdeclarationtext
 \newtoks\thesisfrontmatterkeywords
 \ifthenelse{\equal{\documentlanguage}{english}}{%
-  \global\thesisfrontpagefaculty{Faculty of Media}
+  \global\thesisfrontpagefaculty{Faculty of Computer Science}
   \global\thesisfrontpagecourse{Degree Programme }
   \global\thesisfrontpagetypename{'s Thesis}
   \global\thesisfrontpagestudentnumber{Matriculation Number}
@@ -247,7 +247,7 @@
 
 \newtoks\thesisfrontpagecoursename
 \ifthenelse{\equal{\thesistype}{Bachelor}}{%
-  \global\thesisfrontpagecoursename{Medieninformatik}%
+  \global\thesisfrontpagecoursename{BSc. Computer Science}%
 }{}
 \ifthenelse{\equal{\thesistype}{Master}}{%
   \global\thesisfrontpagecoursename{Computer Science and Media}%
@@ -258,7 +258,7 @@
   \begin{titlepage}
 		\vspace{2cm}
 		\hspace*{-1cm}
-    \parbox{10cm}{\normalsize Bauhaus-Universit\"at Weimar\\
+    \parbox{10cm}{\normalsize University of Leipzig\\
       \the\thesisfrontpagefaculty\\
       \the\thesisfrontpagecourse\the\thesisfrontpagecoursename}
 

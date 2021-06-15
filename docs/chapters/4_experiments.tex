@@ -1,15 +1,37 @@
 \chapter{Experiments}\label{experiments}
 \subsection{Methods using sub-segmental features}
-We will start of with a naive approach using sub-segmental features. In a preprocessing step, one of the datasets is standardized. Then, the data is transcribed using the transcription and transformation methods $t_{phonetic}$ and $t_{other}$ defined earlier. The resulting data (together with the original data) are then used as the inputs to two already existing Authorship Verification algorithms. This way we can examine the effect of said transformation methods to the results.
+We will start of with a naive approach using sub-segmental features.
+In a preprocessing step, one of the datasets is standardized.
+Then, the data is transcribed using the transcription and transformation methods $t_{phonetic}$ and $t_{other}$ defined earlier.
+The resulting data (together with the original data) are then used as the inputs to two already existing Authorship Verification algorithms.
+This way we can examine the effect of said transformation methods to the results.
 % ref ... shows a diagram of the process.
+% Also note that we'll use other features in unmasking!
 
 \subsubsection{Datasets}
-We use learning-based classification algorithms. This means, given a set of rules, they try to induce the underlying patterns of a training set. The resulting patterns are then used to classify unseen entities of a test set. Each of the two data sets used consists of labeled text pairs. A pair has the label $True$ if both texts were authored by the same person and $False$ if not.\\\\
+We use learning-based classification algorithms.
+This means, given a set of rules, they try to induce the underlying patterns of a training set.
+The resulting patterns are then used to classify unseen entities of a test set.
+Each of the two data sets used consists of labeled text pairs.
+A pair has the label $True$ if both texts were authored by the same person and $False$ if not.\\\\
 % PAN20 fan-fiction
-First, we will use the small official dataset from the PAN2020 task on Authorship Verification. This allows us to compare our results to the other methods submitted. It consists of 52.601 text pairs collected from the fanfiction website \url{fanfiction.net}. The dataset file is formatted in the PAN20 format with each line containing a text pair, an ID, and optionally some additional information such as the corresponding fandoms\footnote{The franchise a fanfiction text belongs to. Can be seen as the topical domain of the text.}. With 256.000 samples, the large dataset contains roughly five (4.86) times as many samples as the small data set. Efforts have been made to maximally optimize the methods used, but due to some (out of control) implementation details(?), the utilization of this dataset is infeasible for now. (Also, 53k samples is quite a lot already. And unmasking is reaaaally slow, won't even work on 53k samples.)\\
+First, we will use the small official dataset from the PAN2020 task on Authorship Verification.
+This allows us to compare our results to the other methods submitted.
+It consists of 52.601 text pairs collected from the fanfiction website \url{fanfiction.net}.
+The dataset file is formatted in the PAN20 format with each line containing a text pair, an ID, and optionally some additional information such as the corresponding fandoms\footnote{The franchise a fanfiction text belongs to. Can be seen as the topical domain of the text.}.
+With 256.000 samples, the large dataset contains roughly five (4.86) times as many samples as the small data set.
+Efforts have been made to maximally optimize the methods used, but due to some (out of control) implementation details(?), the utilization of this dataset is infeasible for now. (Also, 53k samples is quite a lot already.
+And unmasking is reaaaally slow, won't even work on 53k samples.)\\
 % Gutenberg
-We source the second dataset from \cite{stein2019unbiasedGutenbergCorpus}. It presents a dataset containing science fiction and adventure texts from the 19th and 20th century, compiled from books from Project Gutenberg \footnote{https://www.gutenberg.org/}. The aim of this dataset is to reduce common biases in data sets for Authorship Verification. This makes it a good candidate for evaluating new authorship verifiers. As it contains only 182(?) text pairs, it is well suited for the much slower Unmasking algorithm, but might lead to overfitting. To mitigate this, we use out-of-fold cross-validation to evaluate the models instead of a standard train-test-split method. This dataset is in the old PAN format\footnote{XXX Enter PANXX-PANXX years} and is converted to the new PAN20 format for standardization \footnote{The code for the conversion can be accessed at XXX}.\\
+We source the second dataset from \cite{stein2019unbiasedGutenbergCorpus}.
+It presents a dataset containing science fiction and adventure texts from the 19th and 20th century, compiled from books from Project Gutenberg \footnote{https://www.gutenberg.org/}.
+The aim of this dataset is to reduce common biases in data sets for Authorship Verification.
+This makes it a good candidate for evaluating new authorship verifiers.
+As it contains only 262(?) text pairs, it is well suited for the much slower Unmasking algorithm, but might lead to overfitting.
+To mitigate this, we use out-of-fold cross-validation to evaluate the models instead of a standard train-test-split method.
+This dataset is in the old PAN format\footnote{XXX Enter PANXX-PANXX years} and is converted to the new PAN20 format for standardization \footnote{The code for the conversion can be accessed at XXX}.\\
 % Transcribing
+% Repeat that the transcriptions are used as inputs
 To use these transcription systems in our experiments, we first transcribe a given text to IPA.
 This is done using g2pen because CLTS needs segmented IPA.  % List paper
 Then CLTS is used to transcribe to sound classes.
@@ -22,19 +44,67 @@ For Soundex and RefSoundex the package X is used.
 % 1.2 Compression Approach
 \subsubsection{Compression Approach}
 The second approach, also introduced in PAN2020 and based on \cite{teahan2003compression}, uses a text compression method to determine the chance that two texts were written by the same author.
-The compression of a text can be seen as encoding said text with a given encoding. Thus, text compression can be used to estimate an upper bound to the entropy, i.e. the amount of information, of characters in English text \ref{brown1992upperBoundEntropy}. More specific, by using the compression model of some text A, the cross-entropy of encoding a text B with this model can be calculated.
-This approach uses the Prediction by Partical Matching (PPM) model, a standard model for lossless text compression, first introduced by \cite{cleary1984PPM}. During training, for each pair, the PPM of the first text is used to encode the second text and vice-versa. In this process, the cross-entropy of the first to the second text can be calculated and vice-versa.
+The compression of a text can be seen as encoding said text with a given encoding.
+Thus, text compression can be used to estimate an upper bound to the entropy, i.e. the amount of information, of characters in English text \ref{brown1992upperBoundEntropy}.
+More specific, by using the compression model of some text A, the cross-entropy of encoding a text B with this model can be calculated.
+This approach uses the Prediction by Partical Matching (PPM) model, a standard model for lossless text compression, first introduced by \cite{cleary1984PPM}.
+During training, for each pair, the PPM of the first text is used to encode the second text and vice-versa.
+In this process, the cross-entropy of the first to the second text can be calculated and vice-versa.
 In other words, if the compression of one text with the compression model (i.e. the "encoding") of the second text works well, the chance that both are written by the same author can be considered high.
-The source code used is based on a reimplementation of the Authorship Attribution approach from \cite{teahan2003compression} as part of a reproducibility study in \cite{potthast2016reimplementation}. An adaption for Authorship Verification stems from PAN20\footnote{https://github.com/pan-webis-de/pan-code/tree/master/clef20/authorship-verification}. The source code extending the algorithm to use phonetic features is available on GitHub\footnote{...}. (Code sources are a bit more complicated.)
+The source code used is based on a reimplementation of the Authorship Attribution approach from \cite{teahan2003compression} as part of a reproducibility study in \cite{potthast2016reimplementation}.
+An adaption for Authorship Verification stems from PAN20\footnote{https://github.com/pan-webis-de/pan-code/tree/master/clef20/authorship-verification}.
+The source code extending the algorithm to use phonetic features is available on GitHub\footnote{...}. (Code sources are a bit more complicated.)
+% Add figure, only showing cross-validation side!
+
 % 1.3 Unmasking Approach
 \subsubsection{Unmasking Approach}
-% -> Description of original algorithm and metrics used (should this be here or in Theory?)
-% -> Modifications / Setup
-% Footnote: Would take X hours on fan-fiction dataset, infeasible. (Maybe point to difficulties in optimizing)
+% Intro: Embedding in context of related work (at the time), more complex but now baseline
+% Invented by Koppel & Schler, cite paper
+Unmasking was first introduced by \cite{koppel2004unmasking} in 2004.
+% Main idea 1-2 sentences: Why is it called Unmasking? feature removal -> degradation
+In short, it exploits the degradation of classifier accuracy when removing distinguishing features.
+It turns out that removing those features iteratively leads to a faster degradation on text pairs by one author than on those by different authors.
+Thus, the algorithm "unmasks" the text pairs and thereby reveals the information needed for classification.\\
 
-% Note characteristics of approaches: Char-based, learning-based...?
+% Formal definiton & explanation: unmasking step
+This approach comprises two steps: First, a cross-validation method is employed to create the accuracy degradation curves for all training samples.
+Secondly, a meta-classifier is trained on the resulting curves to differentiate between same-author and different-author curves.\\
+For a given pair, the texts are seen to be created by two generative processes $p_1$ and $p_2$.
+To compute a curve for a pair, both texts are chunked into parts longer then 500 words without splitting paragraphs.
+The 250 words with highest average frequencies in the two texts are used as features.
+In a 10-fold cross-validation linear SVM models are trained to classify if a chunk belongs to $p_1$ or $p_2$.
+The resulting accuracy is noted and the three most influential(?) positive and negative features are removed from the feature set.
+The cross-validation and feature removal are repeated until there are no features left.\\
+% meta-learning step
+The set of curves is then used to train a meta-classifier linear SVM model.
+Features used are "the curve points, the curves' point-wise first- and second-order deriva
+tives, and the derivatives sorted by steepest point-wise drop" \cite{bevendorff2019unmaskingShortTexts}(how to paraphrase this?!).\\
+% Adaptation for short texts by Bevendorff et al., how is this different? Which features are actually being used?
+Unmasking is one of the most robust Authorship Verification algorithms (\cite{bevendorff2019unmaskingShortTexts}).
+But as it requires sufficient chunks of no less than 500 words length, it is only applicable for book-length texts.
+To counter this, \cite{bevendorff2019unmaskingShortTexts} generalizes the algorithm to accommodate for short texts.
+Chunks are generated by oversampling the bag-of-words pool of a given text.
+Words from this pool are picked randomly without replacement until a length of 700 words is reached and the pool is reset afterwards.
+In total, 30 chunks are generated, which are then used for curve generation as above, with the only exception that the five most positive and negative features are removed instead of only three.
+As this approach introduces a significant amount of variance in the resulting curves, the unmasking step is repeated three times and the curves are averaged.
+This time, the meta-classifier uses the curves' "central-difference gradients (first- and second-order), as well as their gradients sorted by magnitude" \cite{bevendorff2019unmaskingShortTexts}.
+\cite{bevendorff2019unmaskingShortTexts} also supplies an implementation of the generalized unmasking algorithm which is used as the base of our research\footnote{\url{https://github.com/webis-de/unmasking}}.\\
 
+We conduct two experiments using the unmasking algorithm\footnote{GitHub repo...}.
+First, we simply used phonetic transcriptions of text pairs as the input to the unmasking algorithm.
+Secondly, we use the features $features_{clever}$ instead of the averagely most frequent words.
+Note that we only use the Gutenberg dataset for unmasking, as processing the fanfiction dataset would take multiple weeks.
+We suspect that the differences would not be significant. (Can I phrase that like this??)
+We added out-of-fold cross-validation functionality to the unmasking framework to extract as much information as possible from the much smaller Gutenberg dataset.
+The results are then compared to results obtained from verbatim text.
+(Maybe add more code details! What else was added etc.)
 
+%Notes (Koppel and Schler 2004):
+%AV as described in the paper is Authorship Attribution -> Goes on to reformulate: AV's question is whether a pair of text sets were created by the same process (author) or different processes.
+%-> How does this extend to sets when there's more than 1 author in the "investigated" set?
+%-> It sounds like the set of same-author texts must have one author.
+%-> Also in paper we have 2 sets of texts, in PAN AV we have a list of pairs. Is this the same?
+%Determines "depth of difference" between two sets of texts
 
 \subsection{Methods using supra-segmental features}
 % Time Series Modelling in the Analysis of Homeric Verse, Pawłowski 2010

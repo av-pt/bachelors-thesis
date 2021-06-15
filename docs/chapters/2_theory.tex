@@ -23,15 +23,20 @@ Stylometry was done by hand.
 With the adoption of computers by the linguistic community, stylometry was increasingly done with computers.
 The wide availability of training data and the speed of computers allow for more involved and complex stylometric methods [holmes1998].
 
-
 \cite{stein2019unbiasedGutenbergCorpus} says: "Authorship verification is a young task in the fieldof authorship analysis.
- Proposed by Koppel andSchler (2004)...".
+ Proposed by Koppel and Schler (2004)...".
 
 Authorship Verification falls into the larger area of Author Identification, which aims at determining authors of given texts.
 The task of Authorship Verification is defined in \cite{bevendorff2020shared} as: Given a pair of documents, determine whether they a written by the same author.
 For example, XXX. Note that we do not consider the actual authors but only whether they are different or not.
-This also means we cannot use methods that profile individual authors, because the test set might exclusively consist of texts by authors that were not seen before.\\
-% Contrasts Authorship Attribution.
+This also means we cannot use methods that profile individual authors, because the test set might exclusively consist of texts by authors that were not seen before. % Extend on this with an example. e.g. compiling a set of tolien / non-tolkien samples for learning is not possible. \\
+% One Class Classification: Wikipedia "A feature of OCC is that it uses only sample points from the assigned class" (also Koppel & Schler 2004)
+% Delineation of Tasks! Authorship Attribution.
+%AUTHORSHIP ATTRIBUTION: given a document and a set of candidate authors, determine which of them wrote  the  document  (2011–2012,  2016–2020)
+%AUTHORSHIP VERIFICATION: given a pair of documents, determine whether they are written by the same author (2013–2015)
+%AUTHORSHIP OBFUSCATION: given a document and a set of documents from the same author, paraphrase the former so that its author cannot be identified anymore (2016–2018)
+%OBFUSCATION EVALUATION: devise and implement performance measures that quantify safeness, soundness, and/or sensibleness of an obfuscation software (2016–2018)
+%→ from bevendorff2020shared
 
 
 % Following is a simplified version of the task. -> Describe full version first.
@@ -98,6 +103,13 @@ CV -> broadest transcriptions
 
 % Statistical analysis
 % Vocab reduction on some corpus
+
+% "Clever Features"
+% - n-gram approach instead of word-tokenization
+% - phonetic richness / complexity (over time)
+% - vowel-phoneme over time
+% - sound-classes over time (e.g. hard sounds / plosives compared to soft sounds)
+
 
 
 

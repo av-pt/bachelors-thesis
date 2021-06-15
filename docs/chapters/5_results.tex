@@ -1,5 +1,35 @@
 \chapter{Results}\label{results}
+% Introduction: PAN20 uses these measures, so we do, too.
+For the evaluation of our approaches we use several traditional as well as newly proposed measures.
+We use the convention that a pair is in the positive class iff both texts are written by the same author.\\
+% Precision (maybe)
+The \textbf{precision} $pre = \frac{tp}{tp+fp}$ of a classifier is the percentage of correct positive classifications $tp$ over all classifications $tp+fp$.
+Thus, a precision approaching 1 indicates that an AV classifier's same-author predictions are near fully correct.\\
+% Recall (maybe)
+The \textbf{recall} $rec = \frac{tp}{tp+fn}$ of a classifier is the percentage of correctly classified positive samples $tp$ over all positive samples $tp+fn$.
+The lower the recall, the fewer same-author cases are recognized and predicted as such by an AV classifier.\\
+% F1
+Ideally, we want a system that classifies all same-author cases and only those as positive.
+To measure this behavior, the \textbf{F1-score} $F_1 = 2\cdot\frac{prec\cdot{}rec}{prec+rec}$ can be used.
+If both, precision and recall, approach 1 the F1-score of an AV classifier is at its maximum and thus makes near perfect predictions.\\
+% Add shortcomings of F1
+% C@1, Point: non-answers (0.5) are possible
+
+% F0.5u
+
+
+
+% Add more explanations / examples if the results appear. e.g. to explain differences between algorithms.
+
+
+% PAN20 measures:     AUC, C@1, F0.5u, F1, overall
+% Unmasking measures: Precision, Recall, C@1, F0.5u
+
 As indicated earlier, through cross validation, we can use the entire data set for training and for testing, thus milking it in the most effective way.
+
+% Note run time for (transcription &) algorithms
+% Explain OOF crossval (with diagram?)
+
 
 % Note Gutenberg dataset is really small
 
