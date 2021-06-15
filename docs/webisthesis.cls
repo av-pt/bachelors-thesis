@@ -152,7 +152,7 @@
 
 \newtoks\thesislocation
 \newcommand{\ThesisSetLocation}[1]{\global\thesislocation{#1}}
-\ThesisSetLocation{Weimar} % default
+\ThesisSetLocation{Leipzig} % default
 
 \newtoks\thesisauthorstudentnumber
 \newcommand{\ThesisSetStudentNumber}[1]{\global\thesisauthorstudentnumber{#1}}
