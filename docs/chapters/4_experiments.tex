@@ -1,45 +1,62 @@
 \chapter{Experiments}\label{experiments}
 \subsection{Methods using sub-segmental features}
 We will start of with a naive approach using sub-segmental features.
-In a preprocessing step, one of the datasets is standardized.
-Then, the data is transcribed using the transcription and transformation methods $t_{phonetic}$ and $t_{other}$ defined earlier.
-The resulting data (together with the original data) are then used as the inputs to two already existing Authorship Verification algorithms.
-This way we can examine the effect of said transformation methods to the results.
-% ref ... shows a diagram of the process.
+In a preprocessing step, one of the datasets is standardized to the PAN20 format.
+Then, the datasets are transcribed using the transcription and transformation methods $t_{phonetic}$ and $t_{other}$ defined earlier.
+The resulting datasets (together with the original dataset) are then used as the inputs to two widely used Authorship Verification algorithms.
+This way we can examine the effect of the transformation methods to the results.
+\ref{fig:process} gives an overview of the experimental process.
+%
+%\begin{figure}
+%    \label{fig:process}
+%    \centering
+%    \includesvg[width=0.6\columnwidth](process.svg)
+%\end{figure}
 % Also note that we'll use other features in unmasking!
 
 \subsubsection{Datasets}
 We use learning-based classification algorithms.
 This means, given a set of rules, they try to induce the underlying patterns of a training set.
 The resulting patterns are then used to classify unseen entities of a test set.
-Each of the two data sets used consists of labeled text pairs.
+To train and test our algorithms we use two datasets, each consisting of labeled text pairs.
 A pair has the label $True$ if both texts were authored by the same person and $False$ if not.\\\\
 % PAN20 fan-fiction
-First, we will use the small official dataset from the PAN2020 task on Authorship Verification.
+First, we will use the small official dataset from the PAN2020 task on Authorship Verification from \cite{bevendorff2020overview}.
 This allows us to compare our results to the other methods submitted.
 It consists of 52.601 text pairs collected from the fanfiction website \url{fanfiction.net}.
-The dataset file is formatted in the PAN20 format with each line containing a text pair, an ID, and optionally some additional information such as the corresponding fandoms\footnote{The franchise a fanfiction text belongs to. Can be seen as the topical domain of the text.}.
-With 256.000 samples, the large dataset contains roughly five (4.86) times as many samples as the small data set.
-Efforts have been made to maximally optimize the methods used, but due to some (out of control) implementation details(?), the utilization of this dataset is infeasible for now. (Also, 53k samples is quite a lot already.
-And unmasking is reaaaally slow, won't even work on 53k samples.)\\
+The dataset file is formatted in the PAN20 format with each line containing a json object with the text pair, an ID, and optionally some additional information such as the corresponding fandoms\footnote{The franchise a fanfiction text belongs to. Can be seen as the topical domain of the text.}.
+In contrast, the large official dataset contains 256.000 samples.
+This is roughly five (4.86) times as many samples as the small data set.
+Efforts have been made to maximally optimize the methods used, but due to some implementation details, the utilization of this dataset is infeasible for now.\\
 % Gutenberg
 We source the second dataset from \cite{stein2019unbiasedGutenbergCorpus}.
-It presents a dataset containing science fiction and adventure texts from the 19th and 20th century, compiled from books from Project Gutenberg \footnote{https://www.gutenberg.org/}.
-The aim of this dataset is to reduce common biases in data sets for Authorship Verification.
+It presents a dataset containing science fiction and adventure texts from the 19th and 20th century, compiled from books from Project Gutenberg\footnote{https://www.gutenberg.org/}.
+As discussed earlier, the aim of this dataset is to reduce common biases in data sets for Authorship Verification.
 This makes it a good candidate for evaluating new authorship verifiers.
-???As it contains only 262 text pairs, it is well suited for the much slower Unmasking algorithm, but might lead to overfitting.
-To mitigate this, we use out-of-fold cross-validation to evaluate the models instead of a standard train-test-split method.
-This dataset is in the old PAN format\footnote{XXX Enter PANXX-PANXX years} and is converted to the new PAN20 format for standardization \footnote{The code for the conversion can be accessed at XXX}.\\
+With only 262 text pairs, it is much smaller than the first dataset used.
+% It is well suited for the much slower Unmasking algorithm, but might lead to overfitting.
+To mitigate overfitting, we use out-of-fold cross-validation to evaluate the models instead of a standard train-test-split method.
+This dataset is in the old PAN format\footnote{XXX Enter PANXX-PANXX years} and is converted to the new PAN20 format for standardization \footnote{The code for the conversion is available at \url{https://github.com/torond/NAACL-19}}.\\
+
 % Transcribing
 % Repeat that the transcriptions are used as inputs
-To use these transcription systems in our experiments, we first transcribe a given text to IPA.
-This is done using g2pen because CLTS needs segmented IPA.  % List paper
-Then CLTS is used to transcribe to sound classes.
-For Soundex and RefSoundex the package X is used.
+We use a range of open-source libraries to transcribe the datasets.
+First, we transcribe a given text to IPA using g2pE introduced by \cite{kyubyong2019g2pE}.
+Then we use the resulting transcription to generate the broader sound class transcriptions using CLTS by \cite{list2018cltsIntro}.\\
+To begin with, g2pE expands numbers and currency symbols (e.g.,\ '\$400' -> 'four hundred dollars').
+It uses part-of-speech tags to find the correct pronunciations for heteronyms and then looks up pronunciations in the CMU Pronouncing Dictionary\footnote{}.
+For out-of-vocabulary words it employs a neural net model to predict their correct pronunciations.\\
+We use this algorithm, because it produces IPA representations, segmented into phonemes.
+\cite{list2018sequence} recommends using these segmented IPA representations.
+Words in IPA can contain arbitrary supra-segmental letters, and it is hard to segment these words into phonemes after transcribing.
+Transcribing, for example, the word "make" to IPA results in \textipa{[meIk]}.
+In contrast to other algorithms, g2pE produces the correct segmentation \textipa{[m eI k]}.
+Using CLTS to convert this to the $dolgo$ system we correctly get "MVK".
+If we were to naively segment \textipa{[meIk]} to \textipa{[m e I k]}, for example by interpreting each IPA symbol as a phoneme, we would incorrectly get "MVVK" as a result for the $dolgo$ system.\\
+As Soundex and Refined Soundex work on verbatim text directly, transcriptions are created with a different library, pyphonetics\footnote{https://github.com/Lilykos/pyphonetics}.
+The conversions in $t_{other}$ are done with spaCy\footnote{https://spacy.io/} for speed and robustness.
+The source code for transcribing PAN20 datasets is available on GitHub\footnote{\url{https://github.com/torond/ba-util}}.
 
-
-% 1.1 TFIDF cosine sim => Out of scope!
-%\subsubsection{}
 
 % 1.2 Compression Approach
 \subsubsection{Compression Approach}
