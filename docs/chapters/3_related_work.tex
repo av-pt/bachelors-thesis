@@ -2,21 +2,28 @@
 
 % Introduce PAN to embed other related work into context
 % Other workshops?
+\cite{stein2019unbiasedGutenbergCorpus} gives related work in Authorship Verification.
 
 % Maybe put this after 4. Experiments, so readers don't have to wait?
 % 1. Related work regarding non-phonological AI approaches
 % - Unmasking approach: Forwards reference functionality, note significance
-\cite{stein2019unbiasedGutenbergCorpus} gives related work in Authorship Verification.
--> Also list possible biases here! XXX Only keep if used later!\\
-Model Bias\\
-B1: Corpus-relative features, e.g. document frequency -> overfitting\\
-B2: Feature scaling -> Overfitting towards corpus specifics\\
-Data Bias\\
-B3: Plain text heterogeneity, artifacts that are unlikely to signal authorial style,but rather originate from other sources, e.g. features like white spaces which vary across authors but were not necessarily introduced by them. Data sets should be fully homogenized.\\
-B4: Population homogeneity, reusing chunks when creating the corpus might over- / underrepresent certain authors' styles.\\
-B5: Accidental text overlap, named entities / topic words / repetitions / unique character sequences might give same author pairs away, so that algorithms learn these things instead of the wanted patterns.\\
-Evaluation Bias\\
-B6: Test conflation, verifiers can usually access the entire test dataset, this is not how a forensic linguist would do things -> test one case at a time.\\
+\cite{stein2019unbiasedGutenbergCorpus} reveals possible biases ($B1$--$B6$) in Authorship Verification and presents ways to mitigate these.
+First, biases of AV algorithms are discussed.
+$B1$: Models using corpus-relative features such as TF-IDF are prone to overfitting as in most cases the document frequencies are derived from the training set themselves.
+$B2$: In a similar vein, models employing feature scaling also tend to overfit to the specifics of the training set.
+Thus, care should be taken to avoid modelling the training data to closely.\\
+Next, biases concerning the data are examined.
+$B3$: A text may contain artifacts that were not introduced by the author, such as editorial marks or plain text conversion errors.
+To prevent fitting to erroneous artifacts, texts should be fully homogenized to only contain artifacts entered by the author.
+$B4$: To increase the size of a dataset, text chunks are often reused.
+This should not be done, as the resulting corpus might over- or underrepresent certain authors' styles.
+$B5$: Reusing text might lead to overlap including topic words, named entities and other unique character sequences.
+To inhibit an AV algorithm learning these features, text overlap should be analyzed and corrected.\\
+$B6$: Lastly, it is unrealistic for an AV algorithm to be used in situations where it has access to a large test set.
+Therefore, while evaluating the algorithms should only have access to one text pair at a time.
+This more closely models manual Authorship Verification where a forensic linguist also inspects text pairs on a case-by-case basis.\\
+To mitigate the biases stemming from the data, a corpus containing texts from project Gutenberg is presented.
+We will use this dataset in our experiments.
 
 % 2. phonetic approaches for other approaches
 % phonological approaches
