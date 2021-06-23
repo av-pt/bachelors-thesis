@@ -1,26 +1,42 @@
 \chapter{Results}\label{results}
 % Introduction: PAN20 uses these measures, so we do, too.
-For the evaluation of our approaches we use several traditional as well as newly proposed measures.
-We use the convention that a pair is in the positive class iff both texts are written by the same author.\\
-% Precision (maybe)
+For the evaluation of our approaches we use several traditional as well as recently proposed measures.
+We use the convention that a pair is in the positive class iff both texts are written by the same author.
+$tp$, $tn$, $fp$, $fn$ stand for the number of cases that where classified correctly as positive (true positives), correctly as negative (true negatives), falsely as positive (false positives) and falsely as negative (false negatives) respectively.\\
+% Explain OOF cross-validation
+% Precision
 The \textbf{precision} $pre = \frac{tp}{tp+fp}$ of a classifier is the percentage of correct positive classifications $tp$ over all classifications $tp+fp$.
-Thus, a precision approaching 1 indicates that an AV classifier's same-author predictions are near fully correct.\\
-% Recall (maybe)
+Thus, a precision approaching 1 indicates that an AV classifier's same-author predictions are near fully correct, meaning that there are nearly no false positives.\\
+% Recall
 The \textbf{recall} $rec = \frac{tp}{tp+fn}$ of a classifier is the percentage of correctly classified positive samples $tp$ over all positive samples $tp+fn$.
-The lower the recall, the fewer same-author cases are recognized and predicted as such by an AV classifier.\\
+The lower the recall, the fewer same-author cases are recognized and predicted as such by an AV classifier.
+In turn, a recall of 1 indicates that all same-author cases have been correctly identified.\\
 % F1
 Ideally, we want a system that classifies all same-author cases and only those as positive.
 To measure this behavior, the \textbf{F1-score} $F_1 = 2\cdot\frac{prec\cdot{}rec}{prec+rec}$ can be used.
-If both, precision and recall, approach 1 the F1-score of an AV classifier is at its maximum and thus makes near perfect predictions.\\
-% Add shortcomings of F1
+If both, precision and recall, approach 1 the F1-score of an AV classifier also approaches its maximum of 1.
+Note that the F1 score weights precision and recall equally.
+Especially for forensic Authorship Verification applications though, a high precision is more important than a high recall, as same-author decisions might be used as evidence and therefore must be reliable.
+Also, in our setup, the F1 score ignores true negatives and therefore does not give an insight into how well the classifier detects different-author cases correctly.
+For this, the different-author class would need to be assigned the positive label.\\
+To mitigate some of the problems of the measures above and to better asses AV classifier performance, we use two more recently introduced measures.
 % C@1, Point: non-answers (0.5) are possible
-
+To measure include same-author and different-author classifications in the evaluation, one could use the accuracy $acc = \frac{tp+tn}{n}$, where $n = tp+tn+fp+fn$ is the total number of cases.
+However, as \cite{bevendorff2019unmaskingShortTexts} points out, the results are often uncertain.
+Also, in real-world applications wrong answers might be worse than non-answers.
+Therefore, to give classification systems the option to withhold answers for difficult-to-decide cases, we use the \textbf{c@1-score} introduced by \cite{penas2011c_at_1} and adopted by PAN.
+It is defined as $c@1 = \frac{n_{ac}}{n}+\frac{n_{ac}}{n}\cdot{}\frac{n_u}{n} = \frac{1}{n}\cdot{}\left(n_{ac}+\frac{n_{ac}}{n}\cdot{}n_u\right)$ where $n$ is again the total number of cases, $n_{ac} = tp+tn$ is the number of accurately classified cases and $n_u$ is the number of undecided cases.
+This way, undecided cases count towards the c@1-score as if they were answered with the accuracy of the decided cases.
+When an AV classifier gives an answer to all cases, the C@1-score is reduced to the accuracy.
+A system that leaves all cases unanswered, receives a score of 0.\\
 % F0.5u
-
-
-
-% Add more explanations / examples if the results appear. e.g. to explain differences between algorithms.
-
+Lastly, we use the \textbf{F0.5u-score} introduced by \cite{bevendorff2019unmaskingShortTexts}.
+It is defined as $F_{0.5u} = \frac{(1+0.5^2)\cdot{}n_{tp}}{(1+0.5^2)\cdot{}n_{tp}+0.5^2\cdot{}(n_{fn}+n_u)+n_{fp}}$.
+As mentioned above, a high precision result is more robust than a high recall one.
+To account for this, the F0.5u-score weights precision two times as much as recall.
+In addition, it also allows the classifiers to give non-answers.
+However, as unanswered cases are often not useful in real-world applications, it interprets them as wrong answers.
+Thus, the F0.5u-score highly emphasizes on the precision of an AV classifier.\\
 
 % PAN20 measures:     AUC, C@1, F0.5u, F1, overall
 % Unmasking measures: Precision, Recall, C@1, F0.5u
