@@ -76,9 +76,9 @@ These are transformations assigning a symbol to each phoneme of a text.
 Phonetic transcriptions can be seen as data reduction methods.
 By applying them, we anticipate that the phonetic features stay apparent while other, less relevant features stand out less(?).
 In total, we use X different transcription systems of different granularity.
-The narrower a transcription, the more closely it follows the phonetic details of an utterance.
+The \textit{narrower} a transcription, the more closely it follows the phonetic details of an utterance.
 This often leads to the system having a bigger alphabet, such as the IPA described below.
-The broader a transcription, the more it generalizes phonetic features.
+The \textit{broader} a transcription, the more it generalizes phonetic features.
 Table \ref{tab:transcription_systems} shows more information on the properties of these systems, from most narrow to most broad.
 % IPA
 The most widely used phonetic transcription system is the International Phonetic Alphabet. % Cite O'Grady?! I mean, this is fact...
@@ -104,14 +104,27 @@ CV -> broadest transcriptions
 % Statistical analysis
 % Vocab reduction on some corpus
 % Vocab size counting: Space Tokenize, count tokens that are not punctuation and are not numbers, upper- / lower-case is dismissed. This leaves soundex tokens in. Texts of a pair are concatenated
-To assess the statistical characteristics of phonetic transcription systems, we conducted some preliminary investigations.
-Figure X shows...
+To give an understanding for the statistical characteristics of phonetic transcription systems, we conducted some preliminary investigations (only one investigation at the moment).
+Figure X shows the vocabulary size of the texts from the Gutenberg dataset used later.
+% Describe verbatim
+% Describe higher, describe lower
+% Calculate percentages, "IPA increases vocab size by 18.5%..."
+% IPA is larger because narrow
+% Why is asjp larger? Ask supervisors
+% Say why lemma Lemma_punct (punct. is ignored) lemma_punct_stop have the same height (stop a bit lower, lacks stop words...)
+% Refsoundex is higher because uncapped length
+% soundex is capped at length 4
+% cv has only two letters
+% Forward reference that this information will be used later on.
+% Other statistics: text length (in characters)
+
 
 % "Clever Features"
 % - n-gram approach instead of word-tokenization
 % - phonetic richness / complexity (over time)
 % - vowel-phoneme over time
 % - sound-classes over time (e.g. hard sounds / plosives compared to soft sounds)
+% - sound classes: consonants and place of articulation (e.g. labial, nasal, ...)
 
 
 
