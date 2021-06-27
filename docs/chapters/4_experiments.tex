@@ -1,11 +1,11 @@
 \chapter{Experiments}\label{experiments}
-\section{Methods using sub-segmental features}
-We will start of with a naive approach using sub-segmental features.
-In a preprocessing step, one of the datasets is standardized to the PAN20 format.
-Then, the datasets are transcribed using the transcription and transformation methods $t_{phonetic}$ and $t_{other}$ defined earlier.
-The resulting datasets (together with the original dataset) are then used as the inputs to two widely used Authorship Verification algorithms.
+%\section{Methods using sub-segmental features}
+%We will start of with a naive approach using sub-segmental features.
+In a preprocessing step, we standardize one of the datasets to the PAN20 format.
+Then, we transcribe the datasets using the phonetic transcription and non-phonetic conversion methods defined earlier.
+The resulting datasets, as well as the original dataset, are then used as the inputs to two widely used Authorship Verification algorithms.
 This way we can examine the effect of the transformation methods to the results.
-%\ref{fig:process} gives an overview of the experimental process.
+\ref{fig:process} gives an overview of the experimental process.
 %
 %\begin{figure}
 %    \label{fig:process}
@@ -14,7 +14,7 @@ This way we can examine the effect of the transformation methods to the results.
 %\end{figure}
 % Also note that we'll use other features in unmasking!
 
-\subsection{Datasets}
+\section{Datasets}
 We use learning-based classification algorithms.
 This means, given a set of rules, they try to induce the underlying patterns of a training set.
 The resulting patterns are then used to classify unseen entities of a test set.
@@ -53,8 +53,8 @@ We use this algorithm, because it produces IPA representations, segmented into p
 Words in IPA can contain arbitrary supra-segmental letters, and it is hard to segment these words into phonemes after transcribing.
 Transcribing, for example, the word "make" to IPA results in \textipa{[meIk]}.
 In contrast to other algorithms, g2pE produces the correct segmentation \textipa{[m eI k]}.
-Using CLTS to convert this to the $dolgo$ system we correctly get "MVK".
-If we were to naively segment \textipa{[meIk]} to \textipa{[m e I k]}, for example by interpreting each IPA symbol as a phoneme, we would incorrectly get "MVVK" as a result for the $dolgo$ system.\\
+Using CLTS to convert this to the $Dolgo$ system we correctly get "MVK".
+If we were to naively segment \textipa{[meIk]} to \textipa{[m e I k]}, for example by interpreting each IPA symbol as a phoneme, we would incorrectly get "MVVK" as a result for the $Dolgo$ system.\\
 As Soundex, Refined Soundex and Metaphone work on verbatim text directly, we create those transcriptions with a different library, pyphonetics\footnote{https://github.com/Lilykos/pyphonetics}.
 The source code in this library is based (on Talisman.js which itself is based) on the Apache commons codec\footnote{\url{http://commons.apache.org/proper/commons-codec/userguide.html}}.
 The conversions in $t_{other}$ are done with spaCy\footnote{https://spacy.io/} for speed and robustness.
@@ -62,7 +62,7 @@ The source code for transcribing PAN20 datasets is available on GitHub\footnote{
 
 
 % 1.2 Compression Approach
-\subsection{Compression Approach}
+\section{Compression Approach}
 The first approach, introduced in PAN2020 and based on \cite{teahan2003compression}, uses a text compression method to determine the chance that two texts were written by the same author.
 The compression of a text can be seen as encoding said text with a given encoding.
 Thus, as discussed in \cite{brown1992upperBoundEntropy}, text compression can be used to estimate an upper bound to the entropy, i.e. the amount of information of characters in English text.
@@ -77,7 +77,7 @@ The source code extending the algorithm to use phonetic features is available on
 % Add figure, only showing cross-validation side!
 
 % 1.3 Unmasking Approach
-\subsection{Unmasking Approach}
+\section{Unmasking Approach}
 % Intro: Embedding in context of related work (at the time), more complex but now baseline
 % Invented by Koppel & Schler, cite paper
 Unmasking was first introduced by \cite{koppel2004unmasking} in 2004.
@@ -110,15 +110,14 @@ In total, 30 chunks are generated, which are then used for curve generation as a
 As this approach introduces a significant amount of variance in the resulting curves, the unmasking step is repeated three times and the curves are averaged.
 This time, the meta-classifier uses the curves' "central-difference gradients (first- and second-order), as well as their gradients sorted by magnitude" \cite{bevendorff2019unmaskingShortTexts}.
 \cite{bevendorff2019unmaskingShortTexts} also supplies an implementation of the generalized unmasking algorithm which is used as the base of our research\footnote{\url{https://github.com/webis-de/unmasking}}.\\
-
-We conduct two experiments using the unmasking algorithm\footnote{GitHub repo...}.
+We conduct two experiments using the unmasking algorithm.
 First, we simply used phonetic transcriptions of text pairs as the input to the unmasking algorithm.
-Secondly, we use the features $features_{clever}$ instead of the averagely most frequent words.
+Secondly, we use the features $features_{clever}$ (change notation) instead of the averagely most frequent words.
 Note that we only use the Gutenberg dataset for unmasking, as processing the fanfiction dataset would take multiple weeks.
 We suspect that the differences would not be significant. (Can I phrase that like this??)
 We added out-of-fold cross-validation functionality to the unmasking framework to extract as much information as possible from the much smaller Gutenberg dataset.
 The results are then compared to results obtained from verbatim text.
-(Maybe add more code details! What else was added etc.)
+%(Maybe add more code details! What else was added etc.)
 
 %Notes (Koppel and Schler 2004):
 %AV as described in the paper is Authorship Attribution -> Goes on to reformulate: AV's question is whether a pair of text sets were created by the same process (author) or different processes.
@@ -127,17 +126,17 @@ The results are then compared to results obtained from verbatim text.
 %-> Also in paper we have 2 sets of texts, in PAN AV we have a list of pairs. Is this the same?
 %Determines "depth of difference" between two sets of texts
 
-\section{Methods using supra-segmental features}
-% Time Series Modelling in the Analysis of Homeric Verse, Pawłowski 2010
-Manual annotation of long / short syllables and stress / no-stress syllables (p.86).
-ARIMA method for time series modelling.\\
-Rhythmical series are easier to model -> goodness of fit ~ rhythmicity
-
-
-"All the suprasegmental features are characterized by the fact that they must be described in relation to other items in the same utterance.
-It is the relative values of pitch, length, or degree of stress of an item that are significant.
-... The absolute values are never linguistically important.
-But they do, of course, convey information about the speaker's age, sex, emotional state, and attitude toward the topic under discussion."\cite{ladefoged2014courseInPhonetics}
+%\section{Methods using supra-segmental features}
+%% Time Series Modelling in the Analysis of Homeric Verse, Pawłowski 2010
+%Manual annotation of long / short syllables and stress / no-stress syllables (p.86).
+%ARIMA method for time series modelling.\\
+%Rhythmical series are easier to model -> goodness of fit ~ rhythmicity
+%
+%
+%"All the suprasegmental features are characterized by the fact that they must be described in relation to other items in the same utterance.
+%It is the relative values of pitch, length, or degree of stress of an item that are significant.
+%... The absolute values are never linguistically important.
+%But they do, of course, convey information about the speaker's age, sex, emotional state, and attitude toward the topic under discussion."\cite{ladefoged2014courseInPhonetics}
 
 % http://udel.edu/~dlarsen/ling101/slides/Suprasegmentalshandout.pdf
 % english has non-distinctive length differences.

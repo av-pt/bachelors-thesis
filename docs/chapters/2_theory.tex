@@ -31,7 +31,7 @@ The task of Authorship Verification is defined in \cite{bevendorff2020shared} as
 For example, XXX. Note that we do not consider the actual authors but only whether they are different or not.
 This also means we cannot use methods that profile individual authors, because the test set might exclusively consist of texts by authors that were not seen before. % Extend on this with an example. e.g. compiling a set of tolien / non-tolkien samples for learning is not possible. \\
 
-% Define AV classifier
+
 
 % One Class Classification: Wikipedia "A feature of OCC is that it uses only sample points from the assigned class" (also Koppel & Schler 2004)
 % Delineation of Tasks! Authorship Attribution.
@@ -45,6 +45,8 @@ This also means we cannot use methods that profile individual authors, because t
 % Following is a simplified version of the task. -> Describe full version first.
 XXXX ROUGHLY based on the notation in \cite{bevendorff2020shared} the task can be formalized as follows.
 Given a text pair $(d_1, d_2)$, classify it to ${True, False}$, i.e.,\ approximate the target function $\phi{}:(d_1, d_2)\to\{True, False\}$ where $\phi(d_1, d_2)=True$ iff $d_1$ and $d_2$ have the same author.
+% Define AV classifier
+We call an algorithm that differentiates between same-author and different-author text pairs an AV classifier.
 
 % Phonetics
 \section{Phonetics}
@@ -257,7 +259,7 @@ Figure \ref{tab:system_characteristics} shows the vocabulary size of the texts f
 % Describe higher, describe lower
 % Calculate percentages, "IPA increases vocab size by 18.5%..."
 % IPA is larger because narrow
-% Why is asjp larger? Ask supervisors
+% Why is asjp larger? Look at least (/ most) common words
 % Say why lemma Lemma_punct (punct. is ignored) lemma_punct_stop have the same height (stop a bit lower, lacks stop words...)
 % Refsoundex is higher because uncapped length
 % soundex is capped at length 4
@@ -267,22 +269,28 @@ Figure \ref{tab:system_characteristics} shows the vocabulary size of the texts f
 % Forward reference that this information will be used later on.
 % Other statistics: text length (in characters)
 
+\newcommand{\specialcell}[2][c]{%
+  \begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
+
 \begin{table}
-\caption{Statistical properties of the transcription systems used. "Verbatim" represents original English text. Punctuation and whitespace not included in alphabet size.}
+\caption{Characteristics of the transcription systems used. "Verbatim" represents original English text. Punctuation and whitespace not included in alphabet size.}
 \label{tab:system_characteristics}
 \centering\small
-\begin{tabular}{@{}l@{\hspace{3\tabcolsep}}cccc@{}} % Use @{\hspace{2\tabcolsep}} to double the spacing
+\begin{tabular}{@{}l@{\hspace{1\tabcolsep}}lll@{}} % Use @{\hspace{2\tabcolsep}} to double the spacing
 \toprule
-\bf System & \bf Alphabet size & \bf Vocab size scaling factor (Gutenberg) & \bf Vocab. red. (Fan-fiction) \\
+\bf System & \bf Alphabet size & \bf \specialcell{VSSF (absolute)\\Gutenberg} & \bf \specialcell{VSSF (absolute)\\Fan-fiction} \\
 \midrule
-Verbatim   & (?)                & -- & -- \\
-IPA        & >100(?)            &  &  \\
-Dolgo      & 10                 &  &  \\
-ASJP       & 41(?)              &  &  \\
-CV         & 2                  &  &  \\
-Soundex    & 26(A-Z)+6(1-6)=32  &  &  \\
-RefSoundex & 26(A-Z)+10(0-9)=36 &  &  \\
-Metaphone  & 21                 &  &  \\
+$IPA$        & >100(?) & 1.2688 (60675) &  \\
+$ASJP$       & 41(?)   & 1.1688 (55894) &  \\
+$Verbatim$   & 26(?)   & 1.0    (47820) &  \\
+$P$          & 26(?)   & 0.9977 (47710) &  \\
+$PL$         & 26(?)   & 0.8002 (38264) &  \\
+$PLS$        & 26(?)   & 0.7968 (38101) &  \\
+$Dolgo$      & 11      & 0.7588 (36288) &  \\
+$RefSoundex$ & 36      & 0.6157 (29441) &  \\
+$Metaphone$  & 21      & 0.5534 (26464) &  \\
+$Soundex$    & 32      & 0.0889 (4250)  &  \\
+$CV$         & 2       & 0.0409 (1954)  &  \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -324,7 +332,9 @@ Metaphone  & WK ANT RS ANT STP INT 0 KRN OTTRS \\
 % Integrating phonetics into stylometric methods is not an entirely new endeavour...
 % Hypothesis: Phonetic preference
 
-% Discuss problem: text to phonemes is difficult.
+% Discuss problem 1: text to phonemes is difficult and information is lost.
 As discussed above, converting speech to a detailed and accurate phonetic transcription is hard.
 Even more difficult is creating said transcription from text instead of speech.
 ...
+
+% Discuss problem 2: We examine mostly sub-segmental features. Author freedom is small. Maybe supra-segmental features are better.
