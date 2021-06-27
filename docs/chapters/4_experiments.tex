@@ -42,7 +42,9 @@ This dataset is in the old PAN format\footnote{XXX Enter PANXX-PANXX years} and 
 % Repeat that the transcriptions are used as inputs
 We use a range of open-source libraries to transcribe the datasets.
 First, we transcribe a given text to IPA using g2pE introduced by \cite{kyubyong2019g2pE}.
-Then we use the resulting transcription to generate the broader sound class transcriptions using CLTS by \cite{list2018cltsIntro}.\\
+Then we use the resulting transcription to generate the broader sound class transcriptions using the Cross-Linguistic Transcription Systems project by \cite{list2018cltsIntro}.
+CLTS serves as a mapping between different transcription and sound class systems.
+Given a list of IPA transcribed phonemes, they can be mapped to a range of different transcription systems.\\
 To begin with, g2pE expands numbers and currency symbols (e.g.,\ '\$400' -> 'four hundred dollars').
 It uses part-of-speech tags to find the correct pronunciations for heteronyms and then looks up pronunciations in the CMU Pronouncing Dictionary\footnote{}.
 For out-of-vocabulary words it employs a neural net model to predict their correct pronunciations.\\
@@ -53,7 +55,8 @@ Transcribing, for example, the word "make" to IPA results in \textipa{[meIk]}.
 In contrast to other algorithms, g2pE produces the correct segmentation \textipa{[m eI k]}.
 Using CLTS to convert this to the $dolgo$ system we correctly get "MVK".
 If we were to naively segment \textipa{[meIk]} to \textipa{[m e I k]}, for example by interpreting each IPA symbol as a phoneme, we would incorrectly get "MVVK" as a result for the $dolgo$ system.\\
-As Soundex and Refined Soundex work on verbatim text directly, transcriptions are created with a different library, pyphonetics\footnote{https://github.com/Lilykos/pyphonetics}.
+As Soundex, Refined Soundex and Metaphone work on verbatim text directly, we create those transcriptions with a different library, pyphonetics\footnote{https://github.com/Lilykos/pyphonetics}.
+The source code in this library is based (on Talisman.js which itself is based) on the Apache commons codec\footnote{\url{http://commons.apache.org/proper/commons-codec/userguide.html}}.
 The conversions in $t_{other}$ are done with spaCy\footnote{https://spacy.io/} for speed and robustness.
 The source code for transcribing PAN20 datasets is available on GitHub\footnote{\url{https://github.com/torond/ba-util}}.
 
