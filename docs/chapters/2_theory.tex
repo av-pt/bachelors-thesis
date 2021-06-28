@@ -1,55 +1,41 @@
-\chapter{Theory}\label{theory}
-% subsection Authorship Identification
-\section{Authorship Verification}
-% Text is an important medium.
-Humans are, by nature, beings deriving the biggest part of their information from eyesight.
-It comes as no surprise that a large amount of communication and information transfer is done through a visual medium: text.
-The people, composing their thoughts into texts are called authors of these texts.
-% History of literacy, printing press
-Over time it has become increasingly simple for the public to produce and distribute content in text form.
-Smt like: From XXXX onwards, the amount of literate people doubled every X years, until in XXXX XX percent of the population where literate.
-Writing supplies became cheaper.
-Letterpress allowed for much faster and wider distribution of text content.
-More literate people means text can become more important.
-With text gaining traction as a medium, the concept of authorship of texts also becomes more important.
-Often, the author of a given text is unknown (intentionally or unintentionally).
-Example for unknown authorship.
-List some cases of authorship verification: ... %https://en.wikipedia.org/wiki/Stylometry#Case_studies_of_interest
-% History of copyright / author-importance, probably when distribution started to become better.
-% Areas of importance: forensics, (copyright) law / Motivation
-Author Identification is an area in broader field of stylometry, the
-% History of Stylometry
-Stylometry was done by hand.
-With the adoption of computers by the linguistic community, stylometry was increasingly done with computers.
-The wide availability of training data and the speed of computers allow for more involved and complex stylometric methods [holmes1998].
-
-\cite{stein2019unbiasedGutenbergCorpus} says: "Authorship verification is a young task in the fieldof authorship analysis.
- Proposed by Koppel and Schler (2004)...".
-
-Authorship Verification falls into the larger area of Author Identification, which aims at determining authors of given texts.
-The task of Authorship Verification is defined in \cite{bevendorff2020shared} as: Given a pair of documents, determine whether they a written by the same author.
-For example, XXX. Note that we do not consider the actual authors but only whether they are different or not.
-This also means we cannot use methods that profile individual authors, because the test set might exclusively consist of texts by authors that were not seen before. % Extend on this with an example. e.g. compiling a set of tolien / non-tolkien samples for learning is not possible. \\
-
-
-
-% One Class Classification: Wikipedia "A feature of OCC is that it uses only sample points from the assigned class" (also Koppel & Schler 2004)
-% Delineation of Tasks! Authorship Attribution.
-%AUTHORSHIP ATTRIBUTION: given a document and a set of candidate authors, determine which of them wrote  the  document  (2011–2012,  2016–2020)
-%AUTHORSHIP VERIFICATION: given a pair of documents, determine whether they are written by the same author (2013–2015)
-%AUTHORSHIP OBFUSCATION: given a document and a set of documents from the same author, paraphrase the former so that its author cannot be identified anymore (2016–2018)
-%OBFUSCATION EVALUATION: devise and implement performance measures that quantify safeness, soundness, and/or sensibleness of an obfuscation software (2016–2018)
-%→ from bevendorff2020shared
-
-
-% Following is a simplified version of the task. -> Describe full version first.
-XXXX ROUGHLY based on the notation in \cite{bevendorff2020shared} the task can be formalized as follows.
+\chapter{Theory}\label{ch:theory}
+% Authorship Verification
+\section{Authorship Verification}\label{sec:authorship-verification}
+In our world a large amount of communication and information transfer is done through a visual medium: text.
+This was not always the case.
+According to \cite{owidliteracy}, for most of history, reading and writing was reserved to an elite and associated with power.
+Through the spread of public education over time, increasingly more people were able to read and write.
+World-wide literacy rates are estimated to have been at 12\% in 1820 and have risen to 86\% in 2016.
+\cite{buringh2009charting} estimates that the number of books produced annually in Western Europe in the sixth and seventh centuries was only around 120.
+In contrast, and not only due to the invention of letterpress printing with movable type, the production in 1790 was at a peak of 20,000,000 books per year.
+These historical processes gave rise to the linguistic branch of Stylometry, the analysis of "an author's work based especially on the recurrence of particular turns of expression or trends of thought"\footnote{\url{https://www.merriam-webster.com/dictionary/stylometry}}.
+The worth of profiling authors can be exemplified with a court case from 1979 (cit. needed, this is from wikipedia).
+The American linguist Roger Shuy was able to infer that the author of a ransom note linked to a kidnapping case had to be well-educated and from Akron, Ohio.
+Using this information, the offender was caught and later confessed the crime.\\
+With the adoption of computers by the linguistic community, stylometry was increasingly done automatically.
+The wide availability of training data and the increasing speed of computers allowed for more involved and complex stylometric methods (cit. needed) [holmes1998].
+Nowadays, Author Identification (/Authorship Analysis?), aiming at determining authors of given texts, is consolidated as a subbranch of stylometry.
+According to \cite{bevendorff2020shared}, it can be further parted into the four disciplines \textit{Authorship Attribution}, \textit{Authorship Verification}, \textit{Authorship Obfuscation}, and \textit{Obfuscation Evaluation}.
+Of these tasks only \textit{Authorship Verification} is of interest to our research.
+It is defined as: "[G]iven a pair of documents, determine whether they are written by the same author"\footnote{
+Further definitions from \cite{bevendorff2020shared} (move to appendix?):
+\begin{itemize}
+  \item \textit{Authorship Attribution}: given a document and a set of candidate authors, determine which of them wrote  the  documen
+  \item \textit{Authorship Obfuscation}: given a document and a set of documents from the same author, paraphrase the former so that its author cannot be identified anymore
+  \item \textit{Obfuscation Evaluation}: devise and implement performance measures that quantify safeness, soundness, and/or sensibleness of an obfuscation software
+\end{itemize}
+}.
+According to \cite{stein2019unbiasedGutenbergCorpus}, this task was first proposed in 2004 by \cite{koppel2004unmasking}, and thus is a rather recent development.
+As stated in \cite{bevendorff2020shared}, the PAN series of shared tasks\footnote{\url{https://pan.webis.de/}}\footnote{Wikipedia: "originally, plagiarism analysis, authorship identification, and near-duplicate detection, later more generally workshop on uncovering plagiarism, authorship, and social software misuse", \url{https://en.wikipedia.org/wiki/Stylometry\#PAN}} included Authorship Verification from 2013 to 2015 and picked them back up with PAN2020, with a planned total of three tasks over the years 2020 to 2022.
+In the course of reintegrating the task to PAN, a new data format has been devised, which we will use in our research.//
+Roughly based on the notation in \cite{bevendorff2020shared} the task can be formalized as follows.
 Given a text pair $(d_1, d_2)$, classify it to ${True, False}$, i.e.,\ approximate the target function $\phi{}:(d_1, d_2)\to\{True, False\}$ where $\phi(d_1, d_2)=True$ iff $d_1$ and $d_2$ have the same author.
-% Define AV classifier
-We call an algorithm that differentiates between same-author and different-author text pairs an AV classifier.
+We call an algorithm that approximates $\phi$ an Authorship Verification classifier, or AV classifier for short.
+Note that we do not classify actual authors but only the fact of whether they are different or not.
+Thus, the goal is to implant those mechanics into an AV classifier that are applicable for classification universally, regardless of the style of one specific author.
 
 % Phonetics
-\section{Phonetics}
+\section{Phonetics}\label{sec:phonetics}
 As defined in \cite{ogrady2017introToLinguistics}, phonetics\footnote{Merriam-Webster: "borrowed from New Latin ph$\bar{\mbox{o}}$n$\bar{\mbox{e}}$ticus "(of written characters) representing speech sounds rather than ideas,"[...]", \url{https://www.merriam-webster.com/dictionary/phonetics}. (Etymology is a bit more complicated.)} is the branch of linguistics concerned with "the inventory and structure of the sounds of speech" (the following definitions are mostly taken from that book, too; do i need to cite it again?).
 Not all sounds humans can articulate are present in the worlds languages.
 Yet a wide range of these sounds, estimated to 600 consonants and 200 vowels, occur in human language.
