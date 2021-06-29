@@ -1,5 +1,5 @@
 \chapter{Related Work}\label{related_work}
-
+Through the PAN workshops in 2013--15 and 2020 onward, numerous approaches aiming at solving Authorship Verification have been developed.
 % Introduce PAN to embed other related work into context
 % Other workshops?
 \cite{stein2019unbiasedGutenbergCorpus} gives related work in Authorship Verification.
@@ -25,10 +25,24 @@ This more closely models manual Authorship Verification where a forensic linguis
 To mitigate the biases stemming from the data, a corpus containing texts from project Gutenberg is presented.
 We will use this dataset in our experiments.
 
+
+% Khomytska
+\cite{khomytska2018authorship} analyzes the influence of eight different consonant phoneme classes in differentiating between belles-lettres, colloquial and scientific styles of writing.
+The consonant phoneme classes used were "labial, forelingual, mediolingual, backlingual, nasal, constrictive,occlusive and sonorant" (verbatim, but quotes needed?).
+First, text data was transcribed and then processed to yield a sample of 31,000 consonant phonemes.
+The sample was divided into 31 parts and the mean frequencies of the classes was calculated.
+By comparing the frequencies between texts of different styles, differentiation-capabilities for each of the phoneme classes have been determined.
+It has been shown that the classes differ in their capability to serve for style differentiation based on the styles that are to be distinguished.
+(Based on these results, we use $Dolgo$ sound class $n$-grams in multiple ways.)
+(The above is the best I could do in understanding that paper, but I'm still unsure whether I actually understand it.
+It reads as if it was computer-generated.
+They also have papers directly on AV, but their research is really cryptic...)
+
+%\\
 % 2. phonetic approaches for other approaches
 % phonological approaches
 % -> Native language identification paper
-Phonetic features have been used in the task of Native Language Identification in \cite{smiley2017native}.
+Phonetic features have also been used in the task of Native Language Identification in \cite{smiley2017native}.
 Given a text, the goal is to determine the native language of the author from a closed set of possible languages.
 Labeled texts from a training set were transcribed using one of four algorithms.
 Three of the algorithms used were Soundex, Double Metaphone and New York State Identification and Intelligence System.
