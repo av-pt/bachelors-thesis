@@ -12,7 +12,7 @@ These historical processes gave rise to the linguistic branch of Stylometry, the
 The worth of profiling authors can be exemplified with a court case from 1979 (cit. needed, this is from wikipedia).
 The American linguist Roger Shuy was able to infer that the author of a ransom note linked to a kidnapping case had to be well-educated and from Akron, Ohio.
 Using this information, the offender was caught and later confessed the crime.\\
-With the adoption of computers by the linguistic community, stylometry was increasingly done automatically.
+With the adaption of computers by the linguistic community, stylometry was increasingly done automatically.
 The wide availability of training data and the increasing speed of computers allowed for more involved and complex stylometric methods (cit. needed) [holmes1998].
 Nowadays, Author Identification (/Authorship Analysis?), aiming at determining authors of given texts, is consolidated as a subbranch of stylometry.
 According to \cite{bevendorff2020shared}, it can be further parted into the four disciplines \textit{Authorship Attribution}, \textit{Authorship Verification}, \textit{Authorship Obfuscation}, and \textit{Obfuscation Evaluation}.
@@ -27,7 +27,7 @@ Further definitions from \cite{bevendorff2020shared} (move to appendix?):
 }.
 According to \cite{stein2019unbiasedGutenbergCorpus}, this task was first proposed in 2004 by \cite{koppel2004unmasking}, and thus is a rather recent development.
 As stated in \cite{bevendorff2020shared}, the PAN series of shared tasks\footnote{\url{https://pan.webis.de/}}\footnote{Wikipedia: "originally, plagiarism analysis, authorship identification, and near-duplicate detection, later more generally workshop on uncovering plagiarism, authorship, and social software misuse", \url{https://en.wikipedia.org/wiki/Stylometry\#PAN}} included Authorship Verification from 2013 to 2015 and picked them back up with PAN2020, with a planned total of three tasks over the years 2020 to 2022.
-In the course of reintegrating the task to PAN, a new data format has been devised, which we will use in our research.//
+In the course of reintegrating the task to PAN, a new data format has been devised, which we will use in our research.\\
 Roughly based on the notation in \cite{bevendorff2020shared} the task can be formalized as follows.
 Given a text pair $(d_1, d_2)$, classify it to ${True, False}$, i.e.,\ approximate the target function $\phi{}:(d_1, d_2)\to\{True, False\}$ where $\phi(d_1, d_2)=True$ iff $d_1$ and $d_2$ have the same author.
 We call an algorithm that approximates $\phi$ an Authorship Verification classifier, or AV classifier for short.
@@ -36,9 +36,9 @@ Thus, the goal is to implant those mechanics into an AV classifier that are appl
 
 % Phonetics
 \section{Phonetics}\label{sec:phonetics}
-As defined in \cite{ogrady2017introToLinguistics}, phonetics\footnote{Merriam-Webster: "borrowed from New Latin ph$\bar{\mbox{o}}$n$\bar{\mbox{e}}$ticus "(of written characters) representing speech sounds rather than ideas,"[...]", \url{https://www.merriam-webster.com/dictionary/phonetics}. (Etymology is a bit more complicated.)} is the branch of linguistics concerned with "the inventory and structure of the sounds of speech" (the following definitions are mostly taken from that book, too; do i need to cite it again?).
+As defined in \cite{ogrady2017introToLinguistics}, which serves as a reference for the notions in this section, phonetics\footnote{Merriam-Webster: "borrowed from New Latin ph$\bar{\mbox{o}}$n$\bar{\mbox{e}}$ticus "(of written characters) representing speech sounds rather than ideas,"[...]", \url{https://www.merriam-webster.com/dictionary/phonetics}. (Etymology is more complicated. Should it be expanded?)} is the branch of linguistics concerned with "the inventory and structure of the sounds of speech".
 Not all sounds humans can articulate are present in the worlds languages.
-Yet a wide range of these sounds, estimated to 600 consonants and 200 vowels, occur in human language.
+Yet a wide range, estimated to consist of 600 consonant and 200 vowel sounds, occur in human language.
 Note that phonetics is different from phonology, in that phonology examines how sounds create meaning in a language.
 Two subbranches of phonetics are articulatory phonetics and acoustic phonetics.
 The former concerns itself with the physiological processes involved in speech production while the latter examines acoustic characteristics of speech.
@@ -48,7 +48,7 @@ On a more abstract level, linguists segment speech into \textit{phonemes}.
 Phonemes are defined as the smallest unit of sound distinguishing meaning in the words of a language.
 Swapping a phoneme in a word changes its meaning, while replacing a phone with a different one does not necessarily alter its meaning.
 Those sets of phones that do not evoke a change of meaning when exchanged are called \textit{allophones} of their respective phonemes.
-For example, the alveolar nasal consonant [n] and the dental nasal consonant [\textipa{\|[n}] are allophones of the phoneme /n/ as they are not used to differentiate meaning in English -- [\textipa{w2n}] and [\textipa{w2\|[n}] both point to the same concept "one".
+For example, the alveolar nasal consonant [n] and the dental nasal consonant [\textipa{\|[n}] are allophones of the phoneme /n/ as they are not used to differentiate meaning in English -- [\textipa{w2n}] and [\textipa{w2\|[n}] both point to the same concept "one" \textcolor{teal}{(Do I need to explain [] notation? Is // ok here for phoneme notation?)}.
 However, the alveolar nasal consonant [n] and the bilabial nasal consonant [m] are different, contrasting phonemes -- [\textipa{m\ae{}p}] and [\textipa{n\ae{}p}] indicate the two distinct concepts "map" and "nap".
 While phones are universal, phonemes are language specific (source?).\\
 As hypothesized in the introduction, we suspect that information valuable for identifying authorship exists on the phonetic level.
@@ -65,7 +65,7 @@ The \textit{broader} a transcription, the more it generalizes phonetic features.
 
 % IPA
 The most widely used phonetic transcription system is the International Phonetic Alphabet (\textbf{IPA}). % Cite O'Grady?! I mean, this is fact...
-As outlined in \cite{ipa1999ipaHandbook}, it was developed by the International Phonetic Association founded in 1886.
+As outlined in Handbook of the International Phonetic Association [1999], it was developed by the International Phonetic Association founded in 1886 \textcolor{teal}{(How to cite the Handbook of the International Phonetic Association? There is no author.)}.
 It serves as a system to notate the sounds of languages in an internationally agreed-upon manner.
 Pulmonic consonants - consonants initiated by a buildup of pressure from the lungs - are distinguished in their place and manner of articulation.
 The place of articulation describes the position in the vocal tract where the sound is produced.
@@ -80,9 +80,10 @@ Therefore, the produced transcriptions are usually the narrowest.
 It should be noted that when using the IPA system a transcription can be much more detailed than just using the correct symbols for the phonemes.
 Using diacritics, many other qualities of speech, such as the roundedness of the lips, can be indicated.
 Creating accurate and detailed transcriptions of a given speech sample on the level of phones is a difficult task usually done manually by linguists.
-This ties into a problem we have found in our research that we shall discuss later on.
+This ties into a problem we have found in our research that we will discuss later on.
 To achieve more stable results, we use a slightly broader version of the IPA omitting prosodic markers and diacritics. % Note exact size?
-Table \ref{tab:example_transcriptions} shows examples for IPA and the other transcription systems as used in our research.\\
+Table \ref{tab:example_transcriptions} shows examples for IPA and the other transcription systems used.
+\phantom{\cite{ipa1999ipaHandbook}}\\
 
 
 % Sound Classes
@@ -92,8 +93,8 @@ The following ones can be categorized as sound class systems organizing speech s
 % Dolgo
 According to \cite{list2012multiple}, the term sound class was first devised and detailed in \cite{dolgopolsky1986dolgoOriginal}.
 For conciseness, we will use the term more generically as defined above.
-The Dolgopolsky sound class system (\textbf{Dolgo}) was introduced in \cite{dolgopolsky1986dolgoOriginal} (Paper not found).
-Based on empirical data, phonemes are organized into ten classes, so that the difference between sounds inside of a class is less than the difference between classes.
+In the Dolgopolsky sound class system (\textbf{Dolgo}), phonemes are organized into ten classes, so that the difference between sounds inside of a class is less than the difference between classes.
+These classes are derived manually from empirical data.
 % Based on empirical data, phonemes are organized into the classes, so that 'phonetic correspondences inside a "type" are more regular than between different types'.
 (Info is from List paper above, a bit unclear if "correspondence relations" simply means "coocurrences (of phonemes)".)
 We use a slightly extended version of the original $Dolgo$ sound class system, as implemented in \cite{list2018cltsIntro}.
@@ -126,14 +127,14 @@ V & \textipa{A, E, I}           & other vowels (simple and diphtongs) \\
 
 
 % ASJP
-The Automated Similarity Judgment Program is a project aiming to classify the worlds languages introduced in \cite{brown2008asjpCode}.
+The Automated Similarity Judgment Program is a project aiming to classify the world's languages introduced in \cite{brown2008asjpCode}.
 As of June (26,) 2021, it consists of a database comprising 40-word lists of core vocabulary translated to 9,788 languages.
 The word lists include meanings such as "I", "drink", and "water".
 Each word is transcribed using the asjpCode transcription system.
 This way, phonetic similarities between language pairs can be computed.
 Language-similarity-trees created with ASJP produce near expert-level classifications.
 AsjpCode (\textbf{ASJP}) consists of 34 consonant and 7 vowel symbols.
-It can be interpreted as a simplified variant of the IPA system, with the difference that some symbols represent a broader class of speech sounds.
+It can be seen as a simplified variant of the IPA system, with some symbols representing a broader class of speech sounds.
 For example, "N" represents the velar nasal [\textipa{N}] directly, while "o" represents all rounded and unrounded mid and low back vowels [\textipa{7, 2, A, o, O, 6}].
 Another benefit of asjpCode, although not directly influential to our research, is that it consists of only those symbols which are found on a standard QWERTY keyboard.
 This facilitates manual transcription.\\
@@ -157,7 +158,7 @@ The remaining letters are encoded using the mapping from \ref{tab:soundex_sound_
 If two equal sound classes appear next to each other, the second occurrence is removed.
 The resulting code is truncated to a length of four characters in total.
 If the code is shorter than four characters it is filled up with trailing zeros.
-(Citation needed: patent differenciates between m and n, algorithms do not (-> class 5))\\
+(\textcolor{olive}{citation needed}: patent differenciates between m and n, algorithms do not (-> class 5))\\
 
 \begin{table}
 \caption{Soundex sound classes as used in our research.}
@@ -177,7 +178,7 @@ If the code is shorter than four characters it is filled up with trailing zeros.
 \end{tabular}
 \end{table}
 
-The Refined Soundex algorithm (\textbf{RefSoundex})(citation needed) improves upon its predecessor, with the main difference being that the resulting codes are no longer truncated or extended to a length of 4 but instead retain their original length.
+The Refined Soundex algorithm (\textbf{RefSoundex}) improves upon its predecessor, with the main difference being that the resulting codes are no longer truncated or extended to a length of 4 but instead retain their original length.
 Also, the number of the sound classes is increased to nine, instead of six, leading to a narrower transcription.
 The alternate mapping can be seen in \ref{tab:refsoundex_sound_classes}.
 Lastly, the digit sequence following the first character also includes this character's sound class symbol.
@@ -209,12 +210,13 @@ The word "and", for example, is transcribed to "A086", not "A86".
 % Metaphone
 \textbf{Metaphone} is also a phonetic indexing algorithm first published in \cite{philips1990metaphone} (Paper not found).
 It improves on the Soundex family of algorithms by taking a larger number of inconsistencies and edge-cases of English pronunciation into account.
-Also, its focus does not only lie on indexing names but rather English words in general.
+Also its focus does not only lie on indexing names but rather English words in general.
 It consists of a series of roughly 27 (see source code) context-aware transformations, sequentially replacing phonetically similar patterns with representative symbols or removing them if they are not pronounced (unpronounced?).
 For example, one such transformation is removing the first letter of a word if that word starts with "KN", "GN", "PN", "AE", or "WR".
 $Metaphone$'s alphabet consists of only 21 symbols -- 16 for consonants and 5 for vowels -- representing classes of phonemes (speech sounds?).
 Vowel symbols only appear at the beginning of transcribed words.
-Metaphone was later superseded by Double Metaphone and the closed-source Metaphone 3, both of which use a substantially larger rule set.
+Metaphone was later superseded by Double Metaphone and the closed-source Metaphone 3, both of which use a substantially larger rule set.\\
+SMt like: There are more systems but they are not well supported for automatic transcription etc.
 
 For normalization, we remove all inter-word punctuation in the texts.
 Intra-word punctuation, such as in "don't", is phonetically significant and thus not removed.
@@ -231,30 +233,44 @@ We handle $Verbatim$ text and the three non-phonetic conversions the same way as
 % Statistical analysis
 % Vocab reduction on some corpus
 % Vocab size counting: Space Tokenize, count tokens that are not punctuation and are not numbers, upper- / lower-case is dismissed. This leaves soundex tokens in. Texts of a pair are concatenated
-To better understand the characteristics of phonetic transcription systems, we conducted some preliminary investigations (only one investigation at the moment).
-Figure X insert plot X shows the vocabulary size of the texts from the Gutenberg dataset used later.
-Table \ref{tab:system_characteristics} shows the vocabulary size scaling factors (abreviated as VSSF) (and more)
-% ToDo:
-% Add labels with VSSF to vocab size plots
-% Add VSSFs to table
+To better understand the characteristics of the phonetic transcription systems used, we conduct some preliminary investigations.
+We calculate the vocabulary size scaling factor ($VSSF$) for each transcription system by determining the ratio of the number of distinct lexical types before and after transcribing.
+A $VSSF$ of 1.5, for example, indicates that the transcription system examined increases the vocabulary size by 50\%.
+This way, we can assess the granularity of the different transcription systems.
+A vocabulary reduction of 50\%, for example, indicates that on average two words are binned to the same transcription.
+In practice, there might be many words which have a unique transcription and some transcriptions which group many words.
+(This is done on both datasets we use, explain further.)
+Table \ref{tab:system_characteristics} shows the $VSSFs$ for the transcription system we use.
+Figure \ref{XXX} shows the absolute number of types for each transcription system as well as the $VSSF$ on top for both datasets.\\
+First, let us take a look at the Gutenberg dataset.
+The $Verbatim$ text contains 47820 types.
+Both $IPA$ and $ASJP$ increase the vocabulary size by a significant amount, 26.88\% and 16.88\% respectively.
+This is to be expected as the alphabet of both systems is larger than the alphabet of verbatim text.
+The text with removed punctuation ($P$) retains the same amount of types as punctuation symbols are not counted towards them.
+By further lemmatizing the texts ($PL$), more tokens are binned and the resulting vocabulary is reduced by 18.56\%.
+Eliminating stop words ($PLS$) removes 218 more types.
+The $Dolgo$ system has an even smaller amount of types, but still retains more type granularity than the more simple phonetic algorithms.
+$RefSoundex$ and $Metaphone$ reduce the vocabulary size by 41.44\% and 47.29\% respectively.
+Because of its length restriction to four characters, $Soundex$ can at most produce 8,918 unique types (A000 to Z666) with only 4250 of them appearing in the data.
+Lastly, $CV$ reduces the number of types the most and retains only 1954 types.
+A reduction to 3.89\% of the original vocabulary size implies that on average ca.\ 26 words are binned to one transcription.\\
+\textcolor{violet}{TBD: Analysis of Fan-fiction dataset & comparison.}
+
+
+% Fan-fiction
+% Most changes are ok, things are the same
+% 1. ASJP moved down:
+%   Difference in VSSF between IPA->Dolgo and IPA->ASJP are similar for both datasets.
+%   -> Maybe Verbatim->IPA is the problem.
+% 2. Lemmatization doesn't have a big impact anymore. Unclear why.
+% 3. Soundex and CV switched places: prob. bc Soundex is capped, CV isn't
+
+
+% Other statistics: text length (in characters)
+% Other todo:
 % Add function to count character length of text
 % Maybe rename vocab_sizes.py to characteristics.py
 % Change "properties" in text to "characteristics"
-
-
-% Describe verbatim
-% Describe higher, describe lower
-% Calculate percentages, "IPA increases vocab size by 18.5%..."
-% IPA is larger because narrow
-% Why is asjp larger? Look at least (/ most) common words
-% Say why lemma Lemma_punct (punct. is ignored) lemma_punct_stop have the same height (stop a bit lower, lacks stop words...)
-% Refsoundex is higher because uncapped length
-% soundex is capped at length 4
-%As soundex is capped at 4, max vocab size is 26k types
-
-% cv has only two letters
-% Forward reference that this information will be used later on.
-% Other statistics: text length (in characters)
 
 \newcommand{\specialcell}[2][c]{%
   \begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
@@ -265,19 +281,19 @@ Table \ref{tab:system_characteristics} shows the vocabulary size scaling factors
 \centering\small
 \begin{tabular}{@{}l@{\hspace{1\tabcolsep}}lll@{}} % Use @{\hspace{2\tabcolsep}} to double the spacing
 \toprule
-\bf System & \bf Alphabet size & \bf \specialcell{VSSF (absolute)\\Gutenberg} & \bf \specialcell{VSSF (absolute)\\Fan-fiction} \\
+\bf System & \bf \specialcell{VSSF (absolute)\\Gutenberg} & \bf \specialcell{VSSF (absolute)\\Fan-fiction} & \bf Alphabet size \\
 \midrule
-$IPA$        & >100(?) & 1.2688 (60675) &  \\
-$ASJP$       & 41(?)   & 1.1688 (55894) &  \\
-$Verbatim$   & 26(?)   & 1.0    (47820) &  \\
-$P$          & 26(?)   & 0.9977 (47710) &  \\
-$PL$         & 26(?)   & 0.8002 (38264) &  \\
-$PLS$        & 26(?)   & 0.7968 (38101) &  \\
-$Dolgo$      & 11      & 0.7588 (36288) &  \\
-$RefSoundex$ & 36      & 0.6157 (29441) &  \\
-$Metaphone$  & 21      & 0.5534 (26464) &  \\
-$Soundex$    & 32      & 0.0889 (4250)  &  \\
-$CV$         & 2       & 0.0409 (1954)  &  \\
+$IPA$ & 1.2068 (60673) &  & >100(?) \\
+$ASJP$ & 1.1121 (55913) &  & 41(?) \\
+$Verbatim$ & 1.0 (50277) &  & 26(?) \\
+$P$ & 1.0 (50277) &  & 26(?) \\
+$PL$ & 0.8146 (40957) &  & 26(?) \\
+$PLS$ & 0.8103 (40739) &  & 26(?) \\
+$Dolgo$ & 0.7218 (36288) &  & 11 \\
+$RefSoundex$ & 0.5856 (29441) &  & 36 \\
+$Metaphone$ & 0.5271 (26501) &  & 21 \\
+$Soundex$ & 0.0845 (4250) &  & 32 \\
+$CV$ & 0.0389 (1954) &  & 2 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -319,10 +335,3 @@ Metaphone  & WK ANT RS ANT STP INT 0 KRN OTTRS \\
 % Integrating phonetics into stylometric methods is not an entirely new endeavour...
 % Hypothesis: Phonetic preference
 
-% Discuss problem 1: text to phonemes is difficult and information is lost.
-As discussed above, converting speech to a detailed and accurate phonetic transcription is hard.
-Even more difficult is creating said transcription from text instead of speech.
-...
-
-% Discuss problem 2: We examine mostly sub-segmental features. Author freedom is small. Maybe supra-segmental features are better.
-% ladefoged p278: phonetics of the individual [... are ...] difficult to describe een with spectrograms of the person's speech.
