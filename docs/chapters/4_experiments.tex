@@ -30,13 +30,13 @@ This is roughly five (4.86) times as many samples as the small data set.
 Efforts have been made to maximally optimize the methods used, but due to some implementation details, the utilization of this dataset is infeasible for now.\\
 % Gutenberg
 We source the second dataset from \cite{stein2019unbiasedGutenbergCorpus}.
-It presents a dataset containing science fiction and adventure texts from the 19th and 20th century, compiled from books from Project Gutenberg\footnote{https://www.gutenberg.org/}.
+It presents a dataset containing science fiction and adventure texts from the 19th and 20th century, compiled from books from Project Gutenberg\footnote{\url{https://www.gutenberg.org/}}.
 As discussed earlier, the aim of this dataset is to reduce common biases in data sets for Authorship Verification.
 This makes it a good candidate for evaluating new authorship verifiers.
 With only 262 text pairs, it is much smaller than the first dataset used.
 % It is well suited for the much slower Unmasking algorithm, but might lead to overfitting.
 To mitigate overfitting, we use out-of-fold cross-validation to evaluate the models instead of a standard train-test-split method.
-This dataset is in the old PAN format\footnote{XXX Enter PANXX-PANXX years} and is converted to the new PAN20 format for standardization \footnote{The code for the conversion is available at \url{https://github.com/torond/NAACL-19}}.\\
+This dataset is in the old PAN format\footnote{\textcolor{violet}{TBD: Used from PANXX to PANXX}} and is converted to the new PAN20 format for standardization\footnote{The code for the conversion is available at \url{https://github.com/torond/NAACL-19}}.\\
 
 % Transcribing
 % Repeat that the transcriptions are used as inputs
@@ -46,7 +46,7 @@ Then we use the resulting transcription to generate the broader sound class tran
 CLTS serves as a mapping between different transcription and sound class systems.
 Given a list of IPA transcribed phonemes, they can be mapped to a range of different transcription systems.\\
 To begin with, g2pE expands numbers and currency symbols (e.g.,\ '\$400' -> 'four hundred dollars').
-It uses part-of-speech tags to find the correct pronunciations for heteronyms and then looks up pronunciations in the CMU Pronouncing Dictionary\footnote{}.
+It uses part-of-speech tags to find the correct pronunciations for heteronyms and then looks up pronunciations in the Carnegie Mellon University Pronouncing Dictionary\footnote{\url{http://www.speech.cs.cmu.edu/cgi-bin/cmudict/}}.
 For out-of-vocabulary words it employs a neural net model to predict their correct pronunciations.\\
 We use this algorithm, because it produces IPA representations, segmented into phonemes.
 \cite{list2018sequence} recommends using these segmented IPA representations.
@@ -54,10 +54,10 @@ Words in IPA can contain arbitrary supra-segmental letters, and it is hard to se
 Transcribing, for example, the word "make" to IPA results in \textipa{[meIk]}.
 In contrast to other algorithms, g2pE produces the correct segmentation \textipa{[m eI k]}.
 Using CLTS to convert this to the $Dolgo$ system we correctly get "MVK".
-If we were to naively segment \textipa{[meIk]} to \textipa{[m e I k]}, for example by interpreting each IPA symbol as a phoneme, we would incorrectly get "MVVK" as a result for the $Dolgo$ system.\\
-As Soundex, Refined Soundex and Metaphone work on verbatim text directly, we create those transcriptions with a different library, pyphonetics\footnote{https://github.com/Lilykos/pyphonetics}.
-The source code in this library is based (on Talisman.js which itself is based) on the Apache commons codec\footnote{\url{http://commons.apache.org/proper/commons-codec/userguide.html}}.
-The conversions in $t_{other}$ are done with spaCy\footnote{https://spacy.io/} for speed and robustness.
+If we were, for example, to naively segment \textipa{[meIk]} to \textipa{[m e I k]} by interpreting each IPA symbol as a phoneme, we would incorrectly get "MVVK" as a result for the $Dolgo$ system.\\
+As Soundex, Refined Soundex and Metaphone work on verbatim text directly, we create those transcriptions with a different library, pyphonetics\footnote{\url{https://github.com/Lilykos/pyphonetics}}.
+The source code in this library is based \textcolor{teal}{(on Talisman.js which itself is based)} on the Apache commons codec\footnote{\url{http://commons.apache.org/proper/commons-codec/userguide.html}}.
+Punctuation and stop word removal, as well as lemmatization is done with spaCy\footnote{\url{https://spacy.io/}} for speed and robustness.
 The source code for transcribing PAN20 datasets is available on GitHub\footnote{\url{https://github.com/torond/ba-util}}.
 
 
@@ -70,10 +70,10 @@ More specific, by using the compression model of some text A, the cross-entropy 
 This approach uses the Prediction by Partial Matching (PPM) model, a standard model for lossless text compression, first introduced by \cite{cleary1984PPM}.
 During training, for each pair, the PPM of the first text is used to encode the second text and vice-versa.
 In this process, the cross-entropy of the first to the second text can be calculated and vice-versa.
-In other words, if the compression of one text with the compression model (i.e. the "encoding") of the second text works well, the chance that both are written by the same author can be considered high.
+In other words, if the compression of one text with the compression model of the second text works well, the chance that both are written by the same author can be considered high.
 The source code used is based on a reimplementation of the Authorship Attribution approach from \cite{teahan2003compression} as part of a reproducibility study in \cite{potthast2016reimplementation}.
-An adaption for Authorship Verification stems from PAN20\footnote{https://github.com/pan-webis-de/pan-code/tree/master/clef20/authorship-verification}.
-The source code extending the algorithm to use phonetic features is available on GitHub\footnote{https://github.com/torond/teahan03-phonetic}.
+An adaption for Authorship Verification stems from PAN20\footnote{\url{https://github.com/pan-webis-de/pan-code/tree/master/clef20/authorship-verification}}.
+The source code extending the algorithm to use phonetic features is available on GitHub\footnote{\url{https://github.com/torond/teahan03-phonetic}}.
 % Add figure, only showing cross-validation side!
 
 % 1.3 Unmasking Approach
@@ -92,30 +92,31 @@ Secondly, a meta-classifier is trained on the resulting curves to differentiate 
 For a given pair, the texts are seen to be created by two generative processes $p_1$ and $p_2$.
 To compute a curve for a pair, both texts are chunked into parts longer then 500 words without splitting paragraphs.
 The 250 words with highest average frequencies in the two texts are used as features.
-XXX EXPLAIN BAG OF WORDS MODEL!
+\textcolor{violet}{TBD: Note bag-of-words approach}
 In a 10-fold cross-validation linear SVM models are trained to classify if a chunk belongs to $p_1$ or $p_2$.
-The resulting accuracy is noted and the three most influential(?) positive and negative features are removed from the feature set.
+The resulting accuracy is noted and the three most influential positive and negative features are removed from the feature set \textcolor{teal}{(Is influential the right word here?)}.
 The cross-validation and feature removal are repeated until there are no features left.\\
 % meta-learning step
 The set of curves is then used to train a meta-classifier linear SVM model.
-Features used are "the curve points, the curves' point-wise first- and second-order deriva
-tives, and the derivatives sorted by steepest point-wise drop" \cite{bevendorff2019unmaskingShortTexts}(how to paraphrase this?!).\\
+\textcolor{teal}{Note: Rearrange the following sentences to only cite \cite{bevendorff2019unmaskingShortTexts} once.}
+As brought to the point by \cite{bevendorff2019unmaskingShortTexts}, features used are "the curve points, the curves' point-wise first- and second-order derivatives, and the derivatives sorted by steepest point-wise drop" \textcolor{teal}{(Should this be paraphrased rather then quoted?)}.\\
 % Adaptation for short texts by Bevendorff et al., how is this different? Which features are actually being used?
-Unmasking is one of the most robust Authorship Verification algorithms (\cite{bevendorff2019unmaskingShortTexts}).
+Unmasking is one of the most robust Authorship Verification algorithms \textcolor{teal}{(\cite{bevendorff2019unmaskingShortTexts})}.
 But as it requires sufficient chunks of no less than 500 words length, it is only applicable for book-length texts.
 To counter this, \cite{bevendorff2019unmaskingShortTexts} generalizes the algorithm to accommodate for short texts.
 Chunks are generated by oversampling the bag-of-words pool of a given text.
 Words from this pool are picked randomly without replacement until a length of 700 words is reached and the pool is reset afterwards.
 In total, 30 chunks are generated, which are then used for curve generation as above, with the only exception that the five most positive and negative features are removed instead of only three.
 As this approach introduces a significant amount of variance in the resulting curves, the unmasking step is repeated three times and the curves are averaged.
-This time, the meta-classifier uses the curves' "central-difference gradients (first- and second-order), as well as their gradients sorted by magnitude" \cite{bevendorff2019unmaskingShortTexts}.
-\cite{bevendorff2019unmaskingShortTexts} also supplies an implementation of the generalized unmasking algorithm which is used as the base of our research\footnote{\url{https://github.com/webis-de/unmasking}}.\\
-We conduct two experiments using the unmasking algorithm.
-First, we simply used phonetic transcriptions of text pairs as the input to the unmasking algorithm.
-Secondly, we use the features $features_{clever}$ (change notation) instead of the averagely most frequent words.
-Note that we only use the Gutenberg dataset for unmasking, as processing the fanfiction dataset would take multiple weeks.
-We suspect that the differences would not be significant. (Can I phrase that like this??)
-We added out-of-fold cross-validation functionality to the unmasking framework to extract as much information as possible from the much smaller Gutenberg dataset.
+This time, the meta-classifier uses the curves' "central-difference gradients (first- and second-order), as well as their gradients sorted by magnitude" \textcolor{teal}{(\cite{bevendorff2019unmaskingShortTexts})}.
+\cite{bevendorff2019unmaskingShortTexts} also supplies an implementation of the generalized unmasking algorithm which is used as the basis for our research\footnote{\url{https://github.com/webis-de/unmasking}}.\\
+\textcolor{violet}{TBD: Explain that we'll use transcriptions with bag-of-words first, then $Dolgo$ with n-grams.}
+%We conduct two experiments using the unmasking algorithm.
+%First, we simply used phonetic transcriptions of text pairs as the input to the unmasking algorithm.
+%Secondly, we use the features $features_{clever}$ (change notation) instead of the averagely most frequent words.
+Note that we only use the Gutenberg dataset for unmasking, as processing the fanfiction dataset would for each of the transcriptions would take multiple weeks.
+%We suspect that the differences would not be significant. (Can I phrase that like this??)
+We added an out-of-fold cross-validation functionality to the unmasking framework to extract as much information as possible from the much smaller Gutenberg dataset.
 The results are then compared to results obtained from verbatim text.
 %(Maybe add more code details! What else was added etc.)
 

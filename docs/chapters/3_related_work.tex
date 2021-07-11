@@ -8,15 +8,15 @@ Through the PAN workshops in 2013--15 and 2020 onward, numerous approaches aimin
 % 1. Related work regarding non-phonological AI approaches
 % - Unmasking approach: Forwards reference functionality, note significance
 \cite{stein2019unbiasedGutenbergCorpus} reveals possible biases ($B1$--$B6$) in Authorship Verification and presents ways to mitigate these.
-First, biases of AV algorithms are discussed.
-$B1$: Models using corpus-relative features such as TF-IDF are prone to overfitting as in most cases the document frequencies are derived from the training set themselves.
+First, biases of AV algorithms are discussed.\\
+$B1$: Models using corpus-relative features such as TF-IDF are prone to overfitting as in most cases the document frequencies are derived from the training set themselves.\\
 $B2$: In a similar vein, models employing feature scaling also tend to overfit to the specifics of the training set.
 Thus, care should be taken to avoid modelling the training data to closely.\\
-Next, biases concerning the data are examined.
+Next, biases concerning the data are examined.\\
 $B3$: A text may contain artifacts that were not introduced by the author, such as editorial marks or plain text conversion errors.
-To prevent fitting to erroneous artifacts, texts should be fully homogenized to only contain artifacts entered by the author.
+To prevent fitting to erroneous artifacts, texts should be fully homogenized to only contain artifacts entered by the author.\\
 $B4$: To increase the size of a dataset, text chunks are often reused.
-This should not be done, as the resulting corpus might over- or underrepresent certain authors' styles.
+This should not be done, as the resulting corpus might over- or underrepresent certain authors' styles.\\
 $B5$: Reusing text might lead to overlap including topic words, named entities and other unique character sequences.
 To inhibit an AV algorithm learning these features, text overlap should be analyzed and corrected.\\
 $B6$: Lastly, it is unrealistic for an AV algorithm to be used in situations where it has access to a large test set.
@@ -28,15 +28,15 @@ We will use this dataset in our experiments.
 
 % Khomytska
 \cite{khomytska2018authorship} analyzes the influence of eight different consonant phoneme classes in differentiating between belles-lettres, colloquial and scientific styles of writing.
-The consonant phoneme classes used were "labial, forelingual, mediolingual, backlingual, nasal, constrictive,occlusive and sonorant" (verbatim, but quotes needed?).
+The consonant phoneme classes used were "labial, forelingual, mediolingual, backlingual, nasal, constrictive,occlusive and sonorant" \textcolor{teal}{(Verbatim quote. Are quotation marks needed here?)}.
 First, text data was transcribed and then processed to yield a sample of 31,000 consonant phonemes.
 The sample was divided into 31 parts and the mean frequencies of the classes was calculated.
 By comparing the frequencies between texts of different styles, differentiation-capabilities for each of the phoneme classes have been determined.
 It has been shown that the classes differ in their capability to serve for style differentiation based on the styles that are to be distinguished.
-(Based on these results, we use $Dolgo$ sound class $n$-grams in multiple ways.)
-(The above is the best I could do in understanding that paper, but I'm still unsure whether I actually understand it.
+Motivated by these results, we use $Dolgo$ sound class $n$-grams in our research.
+\textcolor{teal}{(Note: The above is the best I could do in understanding that paper, but I'm still unsure whether I actually understand it.
 It reads as if it was computer-generated.
-They also have papers directly on AV, but their research is really cryptic...)
+They also have papers directly on AV, but their research is really cryptic...)}
 
 %\\
 % 2. phonetic approaches for other approaches
@@ -47,7 +47,7 @@ Given a text, the goal is to determine the native language of the author from a 
 Labeled texts from a training set were transcribed using one of four algorithms.
 Three of the algorithms used were Soundex, Double Metaphone and New York State Identification and Intelligence System.
 Originally they were developed to improve recall in information retrieval systems when the exact spelling of a word is unknown.
-Thus, they can be interpreted as broad transcription algorithms (word explained later...).
+Thus, they can be interpreted as broad transcription algorithms.
 Also, text was transcribed using the Carnegie Mellon University Pronouncing Dictionary (CMU), resulting in a much narrower transcription.
 After transcribing, the samples were segmented into character $n$-grams of sizes 2--9.
 Then, the TF-IDF score for $n$-grams with a document frequency of at least 5 but not more than $5\%$ of the training set were calculated.

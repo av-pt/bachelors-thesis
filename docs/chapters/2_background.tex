@@ -9,16 +9,16 @@ World-wide literacy rates are estimated to have been at 12\% in 1820 and have ri
 \cite{buringh2009charting} estimates that the number of books produced annually in Western Europe in the sixth and seventh centuries was only around 120.
 In contrast, and not only due to the invention of letterpress printing with movable type, the production in 1790 was at a peak of 20,000,000 books per year.
 These historical processes gave rise to the linguistic branch of Stylometry, the analysis of "an author's work based especially on the recurrence of particular turns of expression or trends of thought"\footnote{\url{https://www.merriam-webster.com/dictionary/stylometry}}.
-The worth of profiling authors can be exemplified with a court case from 1979 (cit. needed, this is from wikipedia).
+The worth of profiling authors can be exemplified with a court case from 1979 \textcolor{olive}{(citation needed, this is from wikipedia)}.
 The American linguist Roger Shuy was able to infer that the author of a ransom note linked to a kidnapping case had to be well-educated and from Akron, Ohio.
 Using this information, the offender was caught and later confessed the crime.\\
 With the adaption of computers by the linguistic community, stylometry was increasingly done automatically.
-The wide availability of training data and the increasing speed of computers allowed for more involved and complex stylometric methods (cit. needed) [holmes1998].
-Nowadays, Author Identification (/Authorship Analysis?), aiming at determining authors of given texts, is consolidated as a subbranch of stylometry.
+The wide availability of training data and the increasing speed of computers allowed for more involved and complex stylometric methods \textcolor{olive}{(citation needed [holmes1998])}.
+Nowadays, Authorship Analysis, concerned mainly with determining authors of given texts, is consolidated as a subbranch of stylometry.
 According to \cite{bevendorff2020shared}, it can be further parted into the four disciplines \textit{Authorship Attribution}, \textit{Authorship Verification}, \textit{Authorship Obfuscation}, and \textit{Obfuscation Evaluation}.
 Of these tasks only \textit{Authorship Verification} is of interest to our research.
 It is defined as: "[G]iven a pair of documents, determine whether they are written by the same author"\footnote{
-Further definitions from \cite{bevendorff2020shared} (move to appendix?):
+Further definitions from \cite{bevendorff2020shared} \textcolor{teal}{(move to appendix?)}:
 \begin{itemize}
   \item \textit{Authorship Attribution}: given a document and a set of candidate authors, determine which of them wrote  the  documen
   \item \textit{Authorship Obfuscation}: given a document and a set of documents from the same author, paraphrase the former so that its author cannot be identified anymore
@@ -36,7 +36,7 @@ Thus, the goal is to implant those mechanics into an AV classifier that are appl
 
 % Phonetics
 \section{Phonetics}\label{sec:phonetics}
-As defined in \cite{ogrady2017introToLinguistics}, which serves as a reference for the notions in this section, phonetics\footnote{Merriam-Webster: "borrowed from New Latin ph$\bar{\mbox{o}}$n$\bar{\mbox{e}}$ticus "(of written characters) representing speech sounds rather than ideas,"[...]", \url{https://www.merriam-webster.com/dictionary/phonetics}. (Etymology is more complicated. Should it be expanded?)} is the branch of linguistics concerned with "the inventory and structure of the sounds of speech".
+As defined in \cite{ogrady2017introToLinguistics}, which serves as a reference for the notions in this section, phonetics\footnote{Merriam-Webster: "borrowed from New Latin ph$\bar{\mbox{o}}$n$\bar{\mbox{e}}$ticus "(of written characters) representing speech sounds rather than ideas,"[...]", \url{https://www.merriam-webster.com/dictionary/phonetics}. \textcolor{teal}{(Etymology is more complicated. Should it be expanded?)}} is the branch of linguistics concerned with "the inventory and structure of the sounds of speech".
 Not all sounds humans can articulate are present in the worlds languages.
 Yet a wide range, estimated to consist of 600 consonant and 200 vowel sounds, occur in human language.
 Note that phonetics is different from phonology, in that phonology examines how sounds create meaning in a language.
@@ -50,7 +50,7 @@ Swapping a phoneme in a word changes its meaning, while replacing a phone with a
 Those sets of phones that do not evoke a change of meaning when exchanged are called \textit{allophones} of their respective phonemes.
 For example, the alveolar nasal consonant [n] and the dental nasal consonant [\textipa{\|[n}] are allophones of the phoneme /n/ as they are not used to differentiate meaning in English -- [\textipa{w2n}] and [\textipa{w2\|[n}] both point to the same concept "one" \textcolor{teal}{(Do I need to explain [] notation? Is // ok here for phoneme notation?)}.
 However, the alveolar nasal consonant [n] and the bilabial nasal consonant [m] are different, contrasting phonemes -- [\textipa{m\ae{}p}] and [\textipa{n\ae{}p}] indicate the two distinct concepts "map" and "nap".
-While phones are universal, phonemes are language specific (source?).\\
+While phones are universal, phonemes are language specific \textcolor{olive}{(citation needed)}.\\
 As hypothesized in the introduction, we suspect that information valuable for identifying authorship exists on the phonetic level.
 Because Authorship Verification classifiers use text as input, we want to utilize methods to extract phonetically relevant features from these texts.
 One possible way of achieving this is with phonetic transcriptions.
@@ -60,8 +60,7 @@ By applying them, we anticipate that the phonetically relevant features stay app
 In total, we use seven phonetic transcription systems of different granularity.
 The \textit{narrower} a transcription, the more closely it follows the phonetic details of an utterance.
 This often leads to the system having a bigger alphabet, such as the IPA described below.
-The \textit{broader} a transcription, the more it generalizes phonetic features.
-(Table \ref{tab:system_characteristics} shows more information on the properties of these systems, from most narrow to most broad. (mentioned below))\\
+The \textit{broader} a transcription, the more it generalizes phonetic features.\\
 
 % IPA
 The most widely used phonetic transcription system is the International Phonetic Alphabet (\textbf{IPA}). % Cite O'Grady?! I mean, this is fact...
@@ -96,7 +95,7 @@ For conciseness, we will use the term more generically as defined above.
 In the Dolgopolsky sound class system (\textbf{Dolgo}), phonemes are organized into ten classes, so that the difference between sounds inside of a class is less than the difference between classes.
 These classes are derived manually from empirical data.
 % Based on empirical data, phonemes are organized into the classes, so that 'phonetic correspondences inside a "type" are more regular than between different types'.
-(Info is from List paper above, a bit unclear if "correspondence relations" simply means "coocurrences (of phonemes)".)
+\textcolor{teal}{(Info is from List paper above, a bit unclear if "correspondence relations" simply means "coocurrences (of phonemes)".)}
 We use a slightly extended version of the original $Dolgo$ sound class system, as implemented in \cite{list2018cltsIntro}.
 It includes an eleventh class for vowels and is compatible with all IPA symbols including common diacritics.
 A list of the $Dolgo$ sound classes with examples for corresponding phonemes can be seen in \ref{tab:dolgo_sound_classes}.
@@ -128,7 +127,7 @@ V & \textipa{A, E, I}           & other vowels (simple and diphtongs) \\
 
 % ASJP
 The Automated Similarity Judgment Program is a project aiming to classify the world's languages introduced in \cite{brown2008asjpCode}.
-As of June (26,) 2021, it consists of a database comprising 40-word lists of core vocabulary translated to 9,788 languages.
+As of June 26, 2021, it consists of a database comprising 40-word lists of core vocabulary translated to 9,788 languages.
 The word lists include meanings such as "I", "drink", and "water".
 Each word is transcribed using the asjpCode transcription system.
 This way, phonetic similarities between language pairs can be computed.
@@ -158,7 +157,7 @@ The remaining letters are encoded using the mapping from \ref{tab:soundex_sound_
 If two equal sound classes appear next to each other, the second occurrence is removed.
 The resulting code is truncated to a length of four characters in total.
 If the code is shorter than four characters it is filled up with trailing zeros.
-(\textcolor{olive}{citation needed}: patent differenciates between m and n, algorithms do not (-> class 5))\\
+\textcolor{olive}{(citation needed: patent differentiates between m and n, algorithms do not (-> class 5))}\\
 
 \begin{table}
 \caption{Soundex sound classes as used in our research.}
@@ -208,12 +207,12 @@ The word "and", for example, is transcribed to "A086", not "A86".
 \end{table}
 
 % Metaphone
-\textbf{Metaphone} is also a phonetic indexing algorithm first published in \cite{philips1990metaphone} (Paper not found).
+\textbf{Metaphone} is also a phonetic indexing algorithm first published in \cite{philips1990metaphone} \textcolor{olive}{(citation needed / paper not found)}.
 It improves on the Soundex family of algorithms by taking a larger number of inconsistencies and edge-cases of English pronunciation into account.
 Also its focus does not only lie on indexing names but rather English words in general.
-It consists of a series of roughly 27 (see source code) context-aware transformations, sequentially replacing phonetically similar patterns with representative symbols or removing them if they are not pronounced (unpronounced?).
+It consists of a series of 27 context-aware transformations\footnote{Number of transformations stems from the implementation used.}, sequentially replacing phonetically similar patterns with representative symbols or removing them if they are not unpronounced.
 For example, one such transformation is removing the first letter of a word if that word starts with "KN", "GN", "PN", "AE", or "WR".
-$Metaphone$'s alphabet consists of only 21 symbols -- 16 for consonants and 5 for vowels -- representing classes of phonemes (speech sounds?).
+$Metaphone$'s alphabet consists of only 21 symbols -- 16 for consonants and 5 for vowels -- representing classes of speech sounds.
 Vowel symbols only appear at the beginning of transcribed words.
 Metaphone was later superseded by Double Metaphone and the closed-source Metaphone 3, both of which use a substantially larger rule set.\\
 SMt like: There are more systems but they are not well supported for automatic transcription etc.
@@ -239,7 +238,7 @@ A $VSSF$ of 1.5, for example, indicates that the transcription system examined i
 This way, we can assess the granularity of the different transcription systems.
 A vocabulary reduction of 50\%, for example, indicates that on average two words are binned to the same transcription.
 In practice, there might be many words which have a unique transcription and some transcriptions which group many words.
-(This is done on both datasets we use, explain further.)
+\textcolor{violet}{TBD: Rearrange dataset introduction and exlpain that we analyze the vocab size reduction for both datasets.}
 Table \ref{tab:system_characteristics} shows the $VSSFs$ for the transcription system we use.
 Figure \ref{XXX} shows the absolute number of types for each transcription system as well as the $VSSF$ on top for both datasets.\\
 First, let us take a look at the Gutenberg dataset.
@@ -254,7 +253,7 @@ $RefSoundex$ and $Metaphone$ reduce the vocabulary size by 41.44\% and 47.29\% r
 Because of its length restriction to four characters, $Soundex$ can at most produce 8,918 unique types (A000 to Z666) with only 4250 of them appearing in the data.
 Lastly, $CV$ reduces the number of types the most and retains only 1954 types.
 A reduction to 3.89\% of the original vocabulary size implies that on average ca.\ 26 words are binned to one transcription.\\
-\textcolor{violet}{TBD: Analysis of Fan-fiction dataset & comparison.}
+\textcolor{violet}{TBD: Analysis of Fan-fiction dataset and comparison.}
 
 
 % Fan-fiction

@@ -1,7 +1,7 @@
 \chapter{Results}\label{results}
 % Introduction: PAN20 uses these measures, so we do, too.
 For the evaluation of our approaches we use several traditional as well as recently proposed measures.
-We use the convention that a pair is in the positive class iff both texts are written by the same author.
+\textcolor{olive}{(textbook citation needed for following definitions)} We use the convention that a pair is in the positive class iff both texts are written by the same author.
 $tp$, $tn$, $fp$, $fn$ stand for the number of cases that where classified correctly as positive (true positives), correctly as negative (true negatives), falsely as positive (false positives) and falsely as negative (false negatives) respectively.\\
 % Explain OOF cross-validation
 % Precision
@@ -40,8 +40,12 @@ Thus, the F0.5u-score highly emphasizes on the precision of an AV classifier.\\
 
 % PAN20 measures:     AUC, C@1, F0.5u, F1, overall
 % Unmasking measures: Precision, Recall, C@1, F0.5u
+\textcolor{violet}{
+TBD: Show and analyze results\\
+TBD: Explain possible problems using our approach (too much information is lost during transcription; Author's freedom on sub-segmental level is low; bag-of-words model in unmasking ignores much of the phonetic information)\\
+}
 
-As indicated earlier, through cross validation, we can use the entire data set for training and for testing, thus milking it in the most effective way.
+%As indicated earlier, through cross validation, we can use the entire data set for training and for testing, thus milking it in the most effective way.
 
 % Note run time for (transcription &) algorithms
 % Explain OOF crossval (with diagram?)
@@ -53,9 +57,9 @@ As indicated earlier, through cross validation, we can use the entire data set f
 
 
 % Discuss problem 1: text to phonemes is difficult and information is lost.
-As discussed above, converting speech to a detailed and accurate phonetic transcription is hard.
-Even more difficult is creating said transcription from text instead of speech.
-...
+%As discussed above, converting speech to a detailed and accurate phonetic transcription is hard.
+%Even more difficult is creating said transcription from text instead of speech.
+%...
 
 % Discuss problem 2: We examine mostly sub-segmental features. Author freedom is small. Maybe supra-segmental features are better.
 % ladefoged p278: phonetics of the individual [... are ...] difficult to describe een with spectrograms of the person's speech.
