@@ -20,7 +20,7 @@ Of these tasks only \textit{Authorship Verification} is of interest to our resea
 It is defined as: "[G]iven a pair of documents, determine whether they are written by the same author"\footnote{
 Further definitions from \cite{bevendorff2020shared} \textcolor{teal}{(move to appendix?)}:
 \begin{itemize}
-  \item \textit{Authorship Attribution}: given a document and a set of candidate authors, determine which of them wrote  the  documen
+  \item \textit{Authorship Attribution}: given a document and a set of candidate authors, determine which of them wrote the document
   \item \textit{Authorship Obfuscation}: given a document and a set of documents from the same author, paraphrase the former so that its author cannot be identified anymore
   \item \textit{Obfuscation Evaluation}: devise and implement performance measures that quantify safeness, soundness, and/or sensibleness of an obfuscation software
 \end{itemize}
@@ -265,6 +265,40 @@ A reduction to 3.89\% of the original vocabulary size implies that on average ca
 % 3. Soundex and CV switched places: prob. bc Soundex is capped, CV isn't
 
 
+% {"ff": {"same_authors": 6397, "diff_authors": 47813, "same_diff_intersection": 1555, "same_text_per_author": 8.702204158199155, "diff_text_per_author": 1.035994394829858}, "gb": {"same_authors": 54, "diff_authors": 56, "same_diff_intersection": 53, "same_text_per_author": 4.814814814814815, "diff_text_per_author": 4.714285714285714}}
+
+\begin{table}
+\caption{Characteristics of the datasets used. TPA = texts per author.}
+\label{tab:dataset_characteristics}
+\centering\small
+\begin{tabular}{@{}l@{\hspace{1\tabcolsep}}lll@{}} % Use @{\hspace{2\tabcolsep}} to double the spacing
+\toprule
+\bf  & \bf Gutenberg & \bf Fan-Fiction \\
+\midrule
+same-author authors & 54 & 6397 \\
+different-author authors & 56 & 47813 \\
+intersection & 53 & 1555 \\
+same-author TPA & 4.8148 & 8.7022 \\
+diff-author TPA & 4.7143 & 1.036 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% Re Heaps Law FF:
+% Why is there a sudden change of curvature in Verbatim text?
+% -> Dataset is sorted: First same-author pairs, then different-author pairs
+% BUUUUT: Even when pairs are split into single texts, the change in curvature still exists! (-> Maybe run again on remote, results now use naive split(' ') method on verbatim text)
+% This may(!) be a good marker for assessing a bias in AV datasets: Sort dataset as above, determine heaps law coefficients.
+% Check on GB dataset: Sort and plot Heaps Law -> No change of curvature!
+
+% Question standing: Why is the individual vocab size still the same? Shouldn't it be higher?
+% It doesn't need to be, but if the vocab sizes stay the same a change of curvature means that the vocabulary changes in itself.
+% Might have to do with reusing authors or something.
+% Check further: It seems that for FF in different-author part there are far more authors than for same-author part. Check if this is the same with GB.
+
+% Why is the distance between Verbatim and IPA not getting larger in one part of the plot?
+
+
 % Other statistics: text length (in characters)
 % Other todo:
 % Add function to count character length of text
@@ -327,8 +361,26 @@ Metaphone  & WK ANT RS ANT STP INT 0 KRN OTTRS \\
 \end{tabular}
 \end{table}
 
-% Supra-segmental features
 
+%\begin{table}
+%\caption{Naive Approach}
+%\label{tab:naive_approach}
+%\centering\small
+%\begin{tabular}{@{}l@{\hspace{3\tabcolsep}}llllll@{}} % Use @{\hspace{2\tabcolsep}} to double the spacing
+%\toprule
+%\bf Approach & \bf F1 & \bf AUC & \bf c@1 & \bf f0.5u & \bf precision & \bf recall \\
+%\midrule
+%Vocab size & 0.726 & 0.697  & 0.663 & 0.67 & 0.6368 & 0.8444\\
+%Random     & 0.512 & 0.498  & 0.498 & 0.521 & 0.5272 & 0.4979\\
+%\bottomrule
+%\end{tabular}
+%\end{table}
+
+% vocab size "overall": 0.689
+% random 'overall': 0.507
+
+
+% Supra-segmental features
 % Warum und Wie wird beides verbunden?
 % Maybe put this in Introduction!
 % Integrating phonetics into stylometric methods is not an entirely new endeavour...

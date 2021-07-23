@@ -5,14 +5,15 @@ In a preprocessing step, we standardize one of the datasets to the PAN20 format.
 Then, we transcribe the datasets using the phonetic transcription and non-phonetic conversion methods defined earlier.
 The resulting datasets, as well as the original dataset, are then used as the inputs to two widely used Authorship Verification algorithms.
 This way we can examine the effect of the transformation methods to the results.
-\ref{fig:process} gives an overview of the experimental process.
-%
-%\begin{figure}
-%    \label{fig:process}
-%    \centering
-%    \includesvg[width=0.6\columnwidth](figures/process.svg)
-%\end{figure}
+Figure \ref{fig:process} gives an overview of the experimental setup.
 % Also note that we'll use other features in unmasking!
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.6\textwidth]{figures/process}
+  \caption{Experimental setup}
+  \label{fig:process}
+\end{figure}
 
 \section{Datasets}
 We use learning-based classification algorithms.
@@ -24,7 +25,7 @@ A pair has the label $True$ if both texts were authored by the same person and $
 First, we will use the small official dataset from the PAN2020 task on Authorship Verification from \cite{bevendorff2020overview}.
 This allows us to compare our results to the other methods submitted.
 It consists of 52.601 text pairs collected from the fanfiction website \url{fanfiction.net}.
-The dataset file is formatted in the PAN20 format with each line containing a json object with the text pair, an ID, and optionally some additional information such as the corresponding fandoms\footnote{The franchise a fanfiction text belongs to. Can be seen as the topical domain of the text.}.
+The dataset file is formatted in the PAN20 format with each line containing a json object with the text pair, an ID, and optionally some additional information such as the corresponding fandoms\footnote{The franchise a fanfiction text belongs to. It can be seen as the topical domain of the text.}.
 In contrast, the large official dataset contains 256.000 samples.
 This is roughly five (4.86) times as many samples as the small data set.
 Efforts have been made to maximally optimize the methods used, but due to some implementation details, the utilization of this dataset is infeasible for now.\\
