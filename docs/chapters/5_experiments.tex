@@ -15,51 +15,7 @@ Figure \ref{fig:process} gives an overview of the experimental setup.
   \label{fig:process}
 \end{figure}
 
-\section{Datasets}
-We use learning-based classification algorithms.
-This means, given a set of rules, they try to induce the underlying patterns of a training set.
-The resulting patterns are then used to classify unseen entities of a test set.
-To train and test our algorithms we use two datasets, each consisting of labeled text pairs.
-A pair has the label $True$ if both texts were authored by the same person and $False$ if not.\\\\
-% PAN20 fan-fiction
-First, we will use the small official dataset from the PAN2020 task on Authorship Verification from \cite{bevendorff2020overview}.
-This allows us to compare our results to the other methods submitted.
-It consists of 52.601 text pairs collected from the fanfiction website \url{fanfiction.net}.
-The dataset file is formatted in the PAN20 format with each line containing a json object with the text pair, an ID, and optionally some additional information such as the corresponding fandoms\footnote{The franchise a fanfiction text belongs to. It can be seen as the topical domain of the text.}.
-In contrast, the large official dataset contains 256.000 samples.
-This is roughly five (4.86) times as many samples as the small data set.
-Efforts have been made to maximally optimize the methods used, but due to some implementation details, the utilization of this dataset is infeasible for now.\\
-% Gutenberg
-We source the second dataset from \cite{stein2019unbiasedGutenbergCorpus}.
-It presents a dataset containing science fiction and adventure texts from the 19th and 20th century, compiled from books from Project Gutenberg\footnote{\url{https://www.gutenberg.org/}}.
-As discussed earlier, the aim of this dataset is to reduce common biases in data sets for Authorship Verification.
-This makes it a good candidate for evaluating new authorship verifiers.
-With only 262 text pairs, it is much smaller than the first dataset used.
-% It is well suited for the much slower Unmasking algorithm, but might lead to overfitting.
-To mitigate overfitting, we use out-of-fold cross-validation to evaluate the models instead of a standard train-test-split method.
-This dataset is in the old PAN format\footnote{\textcolor{violet}{TBD: Used from PANXX to PANXX}} and is converted to the new PAN20 format for standardization\footnote{The code for the conversion is available at \url{https://github.com/torond/NAACL-19}}.\\
 
-% Transcribing
-% Repeat that the transcriptions are used as inputs
-We use a range of open-source libraries to transcribe the datasets.
-First, we transcribe a given text to IPA using g2pE introduced by \cite{kyubyong2019g2pE}.
-Then we use the resulting transcription to generate the broader sound class transcriptions using the Cross-Linguistic Transcription Systems project by \cite{list2018cltsIntro}.
-CLTS serves as a mapping between different transcription and sound class systems.
-Given a list of IPA transcribed phonemes, they can be mapped to a range of different transcription systems.\\
-To begin with, g2pE expands numbers and currency symbols (e.g.,\ '\$400' -> 'four hundred dollars').
-It uses part-of-speech tags to find the correct pronunciations for heteronyms and then looks up pronunciations in the Carnegie Mellon University Pronouncing Dictionary\footnote{\url{http://www.speech.cs.cmu.edu/cgi-bin/cmudict/}}.
-For out-of-vocabulary words it employs a neural net model to predict their correct pronunciations.\\
-We use this algorithm, because it produces IPA representations, segmented into phonemes.
-\cite{list2018sequence} recommends using these segmented IPA representations.
-Words in IPA can contain arbitrary supra-segmental letters, and it is hard to segment these words into phonemes after transcribing.
-Transcribing, for example, the word "make" to IPA results in \textipa{[meIk]}.
-In contrast to other algorithms, g2pE produces the correct segmentation \textipa{[m eI k]}.
-Using CLTS to convert this to the $Dolgo$ system we correctly get "MVK".
-If we were, for example, to naively segment \textipa{[meIk]} to \textipa{[m e I k]} by interpreting each IPA symbol as a phoneme, we would incorrectly get "MVVK" as a result for the $Dolgo$ system.\\
-As Soundex, Refined Soundex and Metaphone work on verbatim text directly, we create those transcriptions with a different library, pyphonetics\footnote{\url{https://github.com/Lilykos/pyphonetics}}.
-The source code in this library is based \textcolor{teal}{(on Talisman.js which itself is based)} on the Apache commons codec\footnote{\url{http://commons.apache.org/proper/commons-codec/userguide.html}}.
-Punctuation and stop word removal, as well as lemmatization is done with spaCy\footnote{\url{https://spacy.io/}} for speed and robustness.
-The source code for transcribing PAN20 datasets is available on GitHub\footnote{\url{https://github.com/torond/ba-util}}.
 
 
 % 1.2 Compression Approach

@@ -35,7 +35,7 @@ Note that we do not classify actual authors but only the fact of whether they ar
 Thus, the goal is to implant those mechanics into an AV classifier that are applicable for classification universally, regardless of the style of one specific author.
 
 % Phonetics
-\section{Phonetics}\label{sec:phonetics}
+\section{Phonetic Transcriptions}\label{sec:phonetic_transcriptions}
 As defined in \cite{ogrady2017introToLinguistics}, which serves as a reference for the notions in this section, phonetics\footnote{Merriam-Webster: "borrowed from New Latin ph$\bar{\mbox{o}}$n$\bar{\mbox{e}}$ticus "(of written characters) representing speech sounds rather than ideas,"[...]", \url{https://www.merriam-webster.com/dictionary/phonetics}. \textcolor{teal}{(Etymology is more complicated. Should it be expanded?)}} is the branch of linguistics concerned with "the inventory and structure of the sounds of speech".
 Not all sounds humans can articulate are present in the worlds languages.
 Yet a wide range, estimated to consist of 600 consonant and 200 vowel sounds, occur in human language.
@@ -284,19 +284,7 @@ diff-author TPA & 4.7143 & 1.036 \\
 \end{tabular}
 \end{table}
 
-% Re Heaps Law FF:
-% Why is there a sudden change of curvature in Verbatim text?
-% -> Dataset is sorted: First same-author pairs, then different-author pairs
-% BUUUUT: Even when pairs are split into single texts, the change in curvature still exists! (-> Maybe run again on remote, results now use naive split(' ') method on verbatim text)
-% This may(!) be a good marker for assessing a bias in AV datasets: Sort dataset as above, determine heaps law coefficients.
-% Check on GB dataset: Sort and plot Heaps Law -> No change of curvature!
 
-% Question standing: Why is the individual vocab size still the same? Shouldn't it be higher?
-% It doesn't need to be, but if the vocab sizes stay the same a change of curvature means that the vocabulary changes in itself.
-% Might have to do with reusing authors or something.
-% Check further: It seems that for FF in different-author part there are far more authors than for same-author part. Check if this is the same with GB.
-
-% Why is the distance between Verbatim and IPA not getting larger in one part of the plot?
 
 
 % Other statistics: text length (in characters)
