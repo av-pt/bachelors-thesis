@@ -1,4 +1,8 @@
 \chapter{Related Work}\label{related_work}
+% Maybe describe manual AA methods
+% Describe other AA methods
+
+
 Through the PAN workshops in 2013--15 and 2020 onward, numerous approaches aiming at solving Authorship Verification have been developed.
 % Introduce PAN to embed other related work into context
 % Other workshops?
@@ -27,16 +31,18 @@ We will use this dataset in our experiments.
 
 
 % Khomytska
-\cite{khomytska2018authorship} analyzes the influence of eight different consonant phoneme classes in differentiating between belles-lettres, colloquial and scientific styles of writing.
-The consonant phoneme classes used were "labial, forelingual, mediolingual, backlingual, nasal, constrictive,occlusive and sonorant" \textcolor{teal}{(Verbatim quote. Are quotation marks needed here?)}.
-First, text data was transcribed and then processed to yield a sample of 31,000 consonant phonemes.
-The sample was divided into 31 parts and the mean frequencies of the classes was calculated.
-By comparing the frequencies between texts of different styles, differentiation-capabilities for each of the phoneme classes have been determined.
-It has been shown that the classes differ in their capability to serve for style differentiation based on the styles that are to be distinguished.
-Motivated by these results, we use $Dolgo$ sound class $n$-grams in our research.
-\textcolor{teal}{(Note: The above is the best I could do in understanding that paper, but I'm still unsure whether I actually understand it.
-It reads as if it was computer-generated.
-They also have papers directly on AV, but their research is really cryptic...)}
+\cite{khomytska2019nonparametric} analyzes the influence of eight different consonant phoneme classes in differentiating authorial style.
+The consonant phoneme classes used group labial, velar, fricative, nasal, sonorous, coronal, dorsal, and stop phonemes.
+First, a text pair is transcribed and then processed to yield a sample of 51,000 consonant phonemes for each text.
+The sample is divided into 51 parts and the mean frequencies of the classes are calculated.
+Using Pearson's test, it is proven that the obtained class frequencies follow a normal distribution.
+To assess the similarity of the distributions, the Student's t-test, the Kolmogorov-Smirnov test, and the Chi-square test are examined.
+Also, by comparing the phoneme class frequencies between the texts, differentiation-capabilities for each of the classes are determined.
+It is concluded that labial, fricative, nasal, coronal, dorsal and  stop consonant phonemes in conjunction with the Kolmogorov-Smirnov test are useful for differentiating authorial style, whereas velar and sonorous consonant phonemes are not.
+Khomytska and Teslyuk have published a number of very similar articles on Style Differentiation and Authorship Attribution\footnote{\url{https://scholar.google.com/citations?view_op=list_works&hl=en&hl=en&user=dnsPizAAAAAJ}}.
+Unfortunately, no standard evaluation methods are used, preventing meaningful comparisons to other work in this area.
+In addition, the used datasets are small, with the paper outlined above deriving a not further specified improvement in the differentiation of authorial styles by analyzing only one text pair, questioning the validity of the results.
+
 
 %\\
 % 2. phonetic approaches for other approaches
