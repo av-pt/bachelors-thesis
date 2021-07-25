@@ -1,23 +1,19 @@
 \chapter{Introduction}\label{introduction}
-With the widespread availability and use of text as a medium of information transfer, the task of identifying authorship of given texts has become one of the main focuses of stylometric analysis.
-In this paper, we specifically tackle the problem of Authorship Verification which consists of classifying whether two given texts were written by the same author or not.
-Underlying our approach is the idea that authors have a \textit{phonetic preference}, based on which they produce different texts.
-\cite{ladefoged2014courseInPhonetics} titles this preference the "phonetics of the individual" and states that " [...] there can be little doubt that the set of phonetic habits and memories that each speaker possesses is different from those of every other speaker of the language".
-By applying a range of phonetic transcription systems, we aim to emphasize the phonetically relevant features implanted into texts by their authors.
-Then, we use the transcribed texts to train two well-known Authorship Verification classifiers.
-We are aware that by assuming an authors' pronunciation to be, for example, a standard British one, some information is lost in the process of automatic transcription.
-We will discuss the implications of this.
-Nevertheless, we anticipate that the phonetic information encoded into plain text and boosted by transcribing gives the classifiers an advantage over more na\"{\i}ve methods.\\
-In this paper, we will answer whether phonetic transcriptions are useful to boost certain features in the context of Authorship Verification.
-Also, we will implement a new cross-validation functionality for both algorithms used.
-All code and implementations will be open-sourced at \url{https://github.com/torond/bachelors-thesis} with an emphasis on ease of reproduction.
-
-
-
-
-
-
-
+With the widespread availability and use of text as a medium of information transfer, the problem of identifying authorship of given texts has become one of the main focuses of stylometric analysis.
+In this paper, we specifically tackle the task of Authorship Verification which consists of classifying whether two given texts were written by the same author or not.
+Underlying our approach is the hypothesis that authors have a \textit{phonetic preference}, based on which they produce different texts.
+\cite{ladefoged2014courseInPhonetics} titles this preference the ``phonetics of the individual'' and states that ``[...] the set of phonetic habits and memories that each speaker possesses is different from those of every other speaker of the language''.
+By applying phonetic transcription systems of varied granularity to the data used, we aim to emphasize these phonetically relevant features implanted into the texts by their authors.
+Then, we use the transcribed data to train two well-known Authorship Verification classifiers.
+By evaluating the results with standard measures used in Authorship Verification, we aim to answer the following questions:
+\begin{itemize}
+  \item Does the prior phonetic transcription of texts improve the performance of the algorithms over using verbatim text?
+  \item Are the results correlated to the granularities of the transcriptions?
+\end{itemize}
+We transcribe textual data to North American English pronunciation.
+We are aware that in this process some author-specific information is lost and will discuss the implications of this.
+Nevertheless, we anticipate that the phonetic information encoded into plain text and boosted by transcribing gives the classifiers an advantage over more na\"{\i}ve methods.
+All code attributions are open-sourced at \url{https://github.com/torond/bachelors-thesis} with an emphasis on ease of reproduction.
 
 
 % % Showing natbib citation commands
