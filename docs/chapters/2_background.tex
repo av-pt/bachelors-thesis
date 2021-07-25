@@ -15,24 +15,32 @@ Using this information, the offender was caught and later confessed the crime.\\
 With the adaption of computers by the linguistic community, stylometry was increasingly done automatically.
 The wide availability of training data and the increasing speed of computers allowed for more involved and complex stylometric methods \textcolor{olive}{(citation needed [holmes1998])}.
 Nowadays, Authorship Analysis, concerned mainly with determining authors of given texts, is consolidated as a subbranch of stylometry.
-According to \cite{bevendorff2020shared}, it can be further parted into the four disciplines \textit{Authorship Attribution}, \textit{Authorship Verification}, \textit{Authorship Obfuscation}, and \textit{Obfuscation Evaluation}.
-Of these tasks only \textit{Authorship Verification} is of interest to our research.
-It is defined as: "[G]iven a pair of documents, determine whether they are written by the same author"\footnote{
-Further definitions from \cite{bevendorff2020shared} \textcolor{teal}{(move to appendix?)}:
-\begin{itemize}
-  \item \textit{Authorship Attribution}: given a document and a set of candidate authors, determine which of them wrote the document
-  \item \textit{Authorship Obfuscation}: given a document and a set of documents from the same author, paraphrase the former so that its author cannot be identified anymore
-  \item \textit{Obfuscation Evaluation}: devise and implement performance measures that quantify safeness, soundness, and/or sensibleness of an obfuscation software
-\end{itemize}
-}.
+According to \cite{bevendorff2020shared}, it can be further parted into four disciplines:\\
+\textit{Authorship Attribution} aims at selecting the actual author of a given text document from a list of candidate authors.
+This task simulates, for example, a forensic situation where the document is a threatening letter, and it has to be determined which of the possible suspects created it.\\
+\textit{Authorship Obfuscation} changes the direction of the effort.
+Instead of trying to determine an author, the goal is to paraphrase a given text in such a way that its author cannot be identified by comparing it to other non-paraphrased texts of the same author.
+For example, the author of said threatening letter could actively try to use different language to conceal their identity.
+Although it seems at first counter-intuitive to model this behavior, by developing working obfuscation methods mistakes and pitfalls in the creation of Authorship Analysis methods can be uncovered.\\
+To this end, \textit{Obfuscation Evaluation} measures are devised which assess the performance of the obfuscation methods.\\
+Lastly, \textit{Authorship Verification}, which is the task of interest to our research, is defined as: "[G]iven a pair of documents, determine whether they are written by the same author".
 According to \cite{stein2019unbiasedGutenbergCorpus}, this task was first proposed in 2004 by \cite{koppel2004unmasking}, and thus is a rather recent development.
-As stated in \cite{bevendorff2020shared}, the PAN series of shared tasks\footnote{\url{https://pan.webis.de/}}\footnote{Wikipedia: "originally, plagiarism analysis, authorship identification, and near-duplicate detection, later more generally workshop on uncovering plagiarism, authorship, and social software misuse", \url{https://en.wikipedia.org/wiki/Stylometry\#PAN}} included Authorship Verification from 2013 to 2015 and picked them back up with PAN2020, with a planned total of three tasks over the years 2020 to 2022.
+Authorship Verification abstracts on other Authorship Analysis tasks by employing only basic inputs and outputs.
+In contrast to Authorship Attribution, it does not aim to identify actual authors but only the fact of whether they are different or not.
+This arguably makes Authorship Verification a more difficult task, since no additional information about the authors of the two texts can be used to extract author profiles from.
+Instead, Authorship Verification algorithms try to identify the universal characteristics by which authors can be differentiated, regardless of the style of one specific author.
+As stated in \cite{bevendorff2020shared}, the PAN series of shared tasks\footnote{\url{https://pan.webis.de/}}\textsuperscript{,}\footnote{Wikipedia: "originally, plagiarism analysis, authorship identification, and near-duplicate detection, later more generally workshop on uncovering plagiarism, authorship, and social software misuse", \url{https://en.wikipedia.org/wiki/Stylometry\#PAN}} included Authorship Verification tasks from 2013 to 2015 and picked them back up with PAN2020, with a planned total of three tasks over the years 2020 to 2022.
 In the course of reintegrating the task to PAN, a new data format has been devised, which we will use in our research.\\
-Roughly based on the notation in \cite{bevendorff2020shared} the task can be formalized as follows.
+%Roughly based on the notation in \cite{bevendorff2020shared} the task can be formalized as follows.
+Authorship Verification can be formalized as follows.
 Given a text pair $(d_1, d_2)$, classify it to ${True, False}$, i.e.,\ approximate the target function $\phi{}:(d_1, d_2)\to\{True, False\}$ where $\phi(d_1, d_2)=True$ iff $d_1$ and $d_2$ have the same author.
 We call an algorithm that approximates $\phi$ an Authorship Verification classifier, or AV classifier for short.
-Note that we do not classify actual authors but only the fact of whether they are different or not.
-Thus, the goal is to implant those mechanics into an AV classifier that are applicable for classification universally, regardless of the style of one specific author.
+In practice, the output of a binary classifier is often a real number in the interval $[0,1]$, signifying the probability that a sample belongs to the positive or $True$ class.
+As discussed later, the precision of an AV classifier is arguably more important than its recall.
+Because of this, PAN2020 uses metrics that take non-answers into account.
+An AV classifier can decide that the chance of a same-author classification is not high enough and withhold an answer.
+Usually, this is implemented with an uncertainty interval around $0.5$ for which $non\text{-}answer$ is returned.
+
 
 % Phonetics
 \section{Phonetic Transcriptions}\label{sec:phonetic_transcriptions}
