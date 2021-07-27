@@ -1,12 +1,58 @@
 \chapter{Related Work}\label{related_work}
-% Maybe describe manual AA methods
-% Describe other AA methods
+% History
+Before the inception of Authorship Verification as a task, Authorship Attribution was the main subject of investigation, as it is much closer to real-life circumstances.
+\cite{stamatatos2009survey} divides the scientific efforts on Authorship Attribution into two periods -- before and after the late 1990s -- and gives an overview of their development.\\
+The first application of statistics to authorship research was done in 1887 and 1901 by \citeauthor{mendenhall1887characteristic}.
+Histograms of word length frequencies were used to differentiate Shakespeare from other authors of his era.
+Mendenhall's work was later critized by \cite{williams1975mendenhall} as the differing histograms could better be explained by differences in presentation -- Shakespeare used verse while the other authors examined wrote prose.
+The most influential study of this early period was conducted by \citeauthor{mosteller1964inference} in 1964 on "The Federalist Papers".
+It employed a Bayesian statistical analysis on a small set of common words showing significant capabilities in distinguishing candidate authors.
+Whereas before, Authorship Attribution was mainly conducted manually by experts, this study paved the way for statistically supported methods.
+Nevertheless, research continued to mainly focus on solving specific literary disputes and finding new measures to quantify stylometric features.
+\citeauthor{stamatatos2009survey} states that the evaluation of the emerging methods was hindered mainly by datasets being too small, unstandardized, and unhomogenized for style and topic.
+This prevented meaningful comparisons of the different approaches during this first period.\\
+Through the expanding use of Internet media during the late 1990s, data utilized in Authorship Attribution began shifting towards electronic texts.
+Following this trend, research efforts began to concentrate on the development of applications that could be used in real-world scenarios such as forensics or law.
+Additionally, the evaluation of proposed methods was emphasized to enable an objective comparison between them.\\
+On a technical level, \citeauthor{stamatatos2009survey} splits the proposed approaches into two components: the features used to quantify writing style, and the methods used to attribute authorship.
+The stylometric features vary in complexity, ranging from lexical features up to semantic features.
+The most notable \textit{lexical} feature set is the set of most common words.
+Although for semantic analyses these so-called function words (articles, prepositions, etc.) do not carry much information, they are very well suited for discriminating between authors (\cite{argamon2005measuring}, \cite{burrows1987word}).
+The Unmasking algorithm by \cite{koppel2004unmasking}, described in more detail in section \ref{sec:unmasking-approach} uses the 250 most common words of the supplied data as features.
+On a \textit{character} level, many approaches employ character $n$-grams, reporting very good results (\cite{peng2003language}, \cite{kevselj2003n}, \cite{stamatatos2006ensemble}).
+In contrast to lexical features working with words as atomic and isolated units of information, character-based features such as $n$-grams can take advantage of subword and context information.
+Because of this, we also use $n$-grams in our research.
+The compression-based approach by \cite{teahan2003compression}, described in greater detail in section \ref{sec:compression-approach}, can also be interpreted as a character level approach, as the internal compression algorithm works with characters as atomic units.
+Commonly used \textit{syntactic} features include \textit{part-of-speech} frequencies and $n$-grams.
+Using a POS-tagger, syntactic information is annotated, signaling if a word is, for example, a noun or a preposition.
+On a higher level, \textit{semantic} features are used.
+Most noteworthy is the approach by \cite{argamon2007stylistic}.
+It extracts semantic information by mapping certain keywords and phrases in specific part-of-speech contexts to a semantic meaning.
+The word ``while'', for example, is semantically tagged as a \textit{conjunction} that could be followed by an \textit{elaboration}, an \textit{extension}, or an \textit{enhancement} of the previous statement.
+The frequencies of these semantic phenomena are then used as features for classification.\\
+In general, the different features function only to the extend that their underlying Natural Language Processing algorithms are robust.
+Low-level features such as character $n$-grams are trivial to generate and thus produce reliable output feature quality.
+High-level features like semantic analyses, on the other hand, require much more effort and depend on factors such as target language and corpus quality.\\
+XXX Explain that we're using learning algorithms?
+The methods of attributing authorship can further be divided into profile-based and instance-based approaches.
+The former concatenates the texts by each author into one file, creating a profile of that author.
+The latter treats each text as a separate instance from which the attribution model can be trained.
+Notable approaches.
+(Expand the above more?)
+As we examine Authorship Verification in our research, the approaches we use are instance-based.
+However, it can be noted that the compression-based approach was originally developed for Authorship Attribution and thus merged all texts per author, thus making it a profile-based approach.
+As we do not have information about the authors of the given texts, we use an adaption of the compression-based approach that does not create such profiles and simply compares two given texts.\\
+
+After 2008, through the PAN workshops in 2013--15 and 2020 onward numerous approaches aiming at solving Authorship Verification were contributed.
+XXX Rephrase:
+One of the datasets developed for the PAN20 shared task on Authorship Verification was big.
+This, for the first time, resulted in approaches using deep learning techniques in addition to more traditional machine learning approaches (\cite{boenninghoff2020deep}, \cite{weerasinghe2020feature}, \cite{araujo2020siamese}, \cite{ordonez2020will}).
 
 
-Through the PAN workshops in 2013--15 and 2020 onward, numerous approaches aiming at solving Authorship Verification have been developed.
-% Introduce PAN to embed other related work into context
-% Other workshops?
-\cite{stein2019unbiasedGutenbergCorpus} gives related work in Authorship Verification.
+
+
+
+
 
 % Maybe put this after 4. Experiments, so readers don't have to wait?
 % 1. Related work regarding non-phonological AI approaches
@@ -31,6 +77,8 @@ We will use this dataset in our experiments.
 
 
 % Khomytska
+Research combining Phonetics and Authorship Analysis is sparse.
+Perhaps, \citeauthor{khomytska2019nonparametric} conducted the only research on this topic so far.
 \cite{khomytska2019nonparametric} analyzes the influence of eight different consonant phoneme classes in differentiating authorial style.
 The consonant phoneme classes used group labial, velar, fricative, nasal, sonorous, coronal, dorsal, and stop phonemes.
 First, a text pair is transcribed and then processed to yield a sample of 51,000 consonant phonemes for each text.
@@ -43,12 +91,7 @@ Khomytska and Teslyuk have published a number of very similar articles on Style 
 Unfortunately, no standard evaluation methods are used, preventing meaningful comparisons to other work in this area.
 In addition, the used datasets are small, with the paper outlined above deriving a not further specified improvement in the differentiation of authorial styles by analyzing only one text pair, questioning the validity of the results.
 
-
-%\\
-% 2. phonetic approaches for other approaches
-% phonological approaches
-% -> Native language identification paper
-Phonetic features have also been used in the task of Native Language Identification in \cite{smiley2017native}.
+Phonetic transcriptions have also been used in the task of Native Language Identification in \cite{smiley2017native}.
 Given a text, the goal is to determine the native language of the author from a closed set of possible languages.
 Labeled texts from a training set were transcribed using one of four algorithms.
 Three of the algorithms used were Soundex, Double Metaphone and New York State Identification and Intelligence System.
@@ -63,6 +106,3 @@ But when these features were combined with plain $n$-grams they increased the F1
 Double Metaphone and plain $n$-grams resulted in the largest increase of $0.56\%$.
 Also, it turned out that in all cases the broader transcriptions outperformed the narrow CMU transcription, except when using only Soundex features.
 Thus, a transcription that is too narrow might increase the feature noise and damage the classifiers' performance.
-
-
-% Khomytska

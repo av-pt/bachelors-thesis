@@ -23,6 +23,9 @@ With only 262 text pairs, it is much smaller than the first dataset used.
 To mitigate overfitting, we use out-of-fold cross-validation to evaluate the models instead of a standard train-test-split method.
 This dataset is in the old PAN format\footnote{\textcolor{violet}{TBD: Used from PANXX to PANXX}} and is converted to the new PAN20 format for standardization\footnote{The code for the conversion is available at \url{https://github.com/torond/NAACL-19}}.\\
 
+% Cleaning
+% Describe FF cleaning
+
 % Transcribing
 % Repeat that the transcriptions are used as inputs
 We use a range of open-source libraries to transcribe the datasets.
@@ -43,6 +46,8 @@ If we were, for example, to naively segment \textipa{[meIk]} to \textipa{[m e I 
 As Soundex, Refined Soundex and Metaphone work on verbatim text directly, we create those transcriptions with a different library, pyphonetics\footnote{\url{https://github.com/Lilykos/pyphonetics}}.
 The source code in this library is based \textcolor{teal}{(on Talisman.js which itself is based)} on the Apache commons codec\footnote{\url{http://commons.apache.org/proper/commons-codec/userguide.html}}.
 Punctuation and stop word removal, as well as lemmatization is done with spaCy\footnote{\url{https://spacy.io/}} for speed and robustness.
+% Describe GB n-gram generation
+% Say: Process can be seen in some figure.
 The source code for transcribing PAN20 datasets is available on GitHub\footnote{\url{https://github.com/torond/ba-util}}.
 
 % Re Heaps Law FF:
