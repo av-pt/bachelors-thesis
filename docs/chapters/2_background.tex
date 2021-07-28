@@ -69,7 +69,28 @@ By applying them, we anticipate that the phonetically relevant features stay app
 In total, we use seven phonetic transcription systems of different granularity.
 The \textit{narrower} a transcription, the more closely it follows the phonetic details of an utterance.
 This often leads to the system having a bigger alphabet, such as the IPA described below.
-The \textit{broader} a transcription, the more it generalizes phonetic features.\\
+The \textit{broader} a transcription, the more it generalizes phonetic features.
+Table \ref{tab:example_transcriptions} shows examples for the transcription systems we employ.\\
+
+\begin{table}
+\caption{Example transcriptions.}
+\label{tab:example_transcriptions}
+\centering\small
+\begin{tabular}{@{}l@{\hspace{3\tabcolsep}}l@{}} % Use @{\hspace{2\tabcolsep}} to double the spacing
+\toprule
+\bf System & \bf Transcription \\
+\midrule
+Verbatim   & Wake and rise, and step into the green outdoors.\footnote{From \cite{ieee1969sentences}, Appendix C, List 58.5} \\
+IPA        & \textipa{weIk 2nd \*raIz 2nd stEp Intu D2 g\*rin aUtdO\*rz} \\
+Dolgo      & WVK VNT RVS VNT STVP VNTV TV KRVN VTTVRS \\
+ASJP       & wek ond raz ond stEp intu 8o grin atdorz \\
+CV         & CVC VCC CVC VCC CCVC VCCV CV CCVC VCCVCC \\
+Soundex    & W200 A530 R200 A530 S310 I530 T000 G650 O362 \\
+RefSoundex & W030 A086 R9030 A086 S3601 I0860 T60 G4908 O06093 \\
+Metaphone  & WK ANT RS ANT STP INT 0 KRN OTTRS \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 % IPA
 The most widely used phonetic transcription system is the International Phonetic Alphabet (\textbf{IPA}). % Cite O'Grady?! I mean, this is fact...
@@ -90,7 +111,6 @@ Using diacritics, many other qualities of speech, such as the roundedness of the
 Creating accurate and detailed transcriptions of a given speech sample on the level of phones is a difficult task usually done manually by linguists.
 This ties into a problem we have found in our research that we will discuss later on.
 To achieve more stable results, we use a slightly broader version of the IPA omitting prosodic markers and diacritics. % Note exact size?
-Table \ref{tab:example_transcriptions} shows examples for IPA and the other transcription systems used.
 \phantom{\cite{ipa1999ipaHandbook}}\\
 
 
@@ -238,125 +258,6 @@ In addition to the phonetic transcriptions above, we also create three other con
 We handle $Verbatim$ text and the three non-phonetic conversions the same way as transcribed text.
 
 
-% Statistical analysis
-% Vocab reduction on some corpus
-% Vocab size counting: Space Tokenize, count tokens that are not punctuation and are not numbers, upper- / lower-case is dismissed. This leaves soundex tokens in. Texts of a pair are concatenated
-To better understand the characteristics of the phonetic transcription systems used, we conduct some preliminary investigations.
-We calculate the vocabulary size scaling factor ($VSSF$) for each transcription system by determining the ratio of the number of distinct lexical types before and after transcribing.
-A $VSSF$ of 1.5, for example, indicates that the transcription system examined increases the vocabulary size by 50\%.
-This way, we can assess the granularity of the different transcription systems.
-A vocabulary reduction of 50\%, for example, indicates that on average two words are binned to the same transcription.
-In practice, there might be many words which have a unique transcription and some transcriptions which group many words.
-\textcolor{violet}{TBD: Rearrange dataset introduction and exlpain that we analyze the vocab size reduction for both datasets.}
-Table \ref{tab:system_characteristics} shows the $VSSFs$ for the transcription system we use.
-Figure \ref{XXX} shows the absolute number of types for each transcription system as well as the $VSSF$ on top for both datasets.\\
-First, let us take a look at the Gutenberg dataset.
-The $Verbatim$ text contains 47820 types.
-Both $IPA$ and $ASJP$ increase the vocabulary size by a significant amount, 26.88\% and 16.88\% respectively.
-This is to be expected as the alphabet of both systems is larger than the alphabet of verbatim text.
-The text with removed punctuation ($P$) retains the same amount of types as punctuation symbols are not counted towards them.
-By further lemmatizing the texts ($PL$), more tokens are binned and the resulting vocabulary is reduced by 18.56\%.
-Eliminating stop words ($PLS$) removes 218 more types.
-The $Dolgo$ system has an even smaller amount of types, but still retains more type granularity than the more simple phonetic algorithms.
-$RefSoundex$ and $Metaphone$ reduce the vocabulary size by 41.44\% and 47.29\% respectively.
-Because of its length restriction to four characters, $Soundex$ can at most produce 8,918 unique types (A000 to Z666) with only 4250 of them appearing in the data.
-Lastly, $CV$ reduces the number of types the most and retains only 1954 types.
-A reduction to 3.89\% of the original vocabulary size implies that on average ca.\ 26 words are binned to one transcription.\\
-\textcolor{violet}{TBD: Analysis of Fan-fiction dataset and comparison.}
-
-
-% Fan-fiction
-% Most changes are ok, things are the same
-% 1. ASJP moved down:
-%   Difference in VSSF between IPA->Dolgo and IPA->ASJP are similar for both datasets.
-%   -> Maybe Verbatim->IPA is the problem.
-% 2. Lemmatization doesn't have a big impact anymore. Unclear why.
-% 3. Soundex and CV switched places: prob. bc Soundex is capped, CV isn't
-
-
-% {"ff": {"same_authors": 6397, "diff_authors": 47813, "same_diff_intersection": 1555, "same_text_per_author": 8.702204158199155, "diff_text_per_author": 1.035994394829858}, "gb": {"same_authors": 54, "diff_authors": 56, "same_diff_intersection": 53, "same_text_per_author": 4.814814814814815, "diff_text_per_author": 4.714285714285714}}
-
-\begin{table}
-\caption{Characteristics of the datasets used. TPA = texts per author.}
-\label{tab:dataset_characteristics}
-\centering\small
-\begin{tabular}{@{}l@{\hspace{1\tabcolsep}}lll@{}} % Use @{\hspace{2\tabcolsep}} to double the spacing
-\toprule
-\bf  & \bf Gutenberg & \bf Fan-Fiction \\
-\midrule
-same-author authors & 54 & 6397 \\
-different-author authors & 56 & 47813 \\
-intersection & 53 & 1555 \\
-same-author TPA & 4.8148 & 8.7022 \\
-diff-author TPA & 4.7143 & 1.036 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-
-
-
-% Other statistics: text length (in characters)
-% Other todo:
-% Add function to count character length of text
-% Maybe rename vocab_sizes.py to characteristics.py
-% Change "properties" in text to "characteristics"
-
-\newcommand{\specialcell}[2][c]{%
-  \begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
-
-\begin{table}
-\caption{Characteristics of the transcription systems used. "Verbatim" represents original English text. Punctuation and whitespace not included in alphabet size.}
-\label{tab:system_characteristics}
-\centering\small
-\begin{tabular}{@{}l@{\hspace{1\tabcolsep}}lll@{}} % Use @{\hspace{2\tabcolsep}} to double the spacing
-\toprule
-\bf System & \bf \specialcell{VSSF (absolute)\\Gutenberg} & \bf \specialcell{VSSF (absolute)\\Fan-fiction} & \bf Alphabet size \\
-\midrule
-$IPA$ & 1.2068 (60673) &  & >100(?) \\
-$ASJP$ & 1.1121 (55913) &  & 41(?) \\
-$Verbatim$ & 1.0 (50277) &  & 26(?) \\
-$P$ & 1.0 (50277) &  & 26(?) \\
-$PL$ & 0.8146 (40957) &  & 26(?) \\
-$PLS$ & 0.8103 (40739) &  & 26(?) \\
-$Dolgo$ & 0.7218 (36288) &  & 11 \\
-$RefSoundex$ & 0.5856 (29441) &  & 36 \\
-$Metaphone$ & 0.5271 (26501) &  & 21 \\
-$Soundex$ & 0.0845 (4250) &  & 32 \\
-$CV$ & 0.0389 (1954) &  & 2 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-
-
-% "Clever Features"
-% - n-gram approach instead of word-tokenization
-% - phonetic richness / complexity (over time)
-% - vowel-phoneme over time
-% - sound-classes over time (e.g. hard sounds / plosives compared to soft sounds)
-% - sound classes: consonants and place of articulation (e.g. labial, nasal, ...)
-
-
-\begin{table}
-\caption{Example transcriptions.}
-\label{tab:example_transcriptions}
-\centering\small
-\begin{tabular}{@{}l@{\hspace{3\tabcolsep}}l@{}} % Use @{\hspace{2\tabcolsep}} to double the spacing
-\toprule
-\bf System & \bf Transcription \\
-\midrule
-Verbatim   & Wake and rise, and step into the green outdoors.\footnote{From \cite{ieee1969sentences}, Appendix C, List 58.5} \\
-IPA        & \textipa{weIk 2nd \*raIz 2nd stEp Intu D2 g\*rin aUtdO\*rz} \\
-Dolgo      & WVK VNT RVS VNT STVP VNTV TV KRVN VTTVRS \\
-ASJP       & wek ond raz ond stEp intu 8o grin atdorz \\
-CV         & CVC VCC CVC VCC CCVC VCCV CV CCVC VCCVCC \\
-Soundex    & W200 A530 R200 A530 S310 I530 T000 G650 O362 \\
-RefSoundex & W030 A086 R9030 A086 S3601 I0860 T60 G4908 O06093 \\
-Metaphone  & WK ANT RS ANT STP INT 0 KRN OTTRS \\
-\bottomrule
-\end{tabular}
-\end{table}
 
 
 %\begin{table}
