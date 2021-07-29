@@ -86,26 +86,26 @@ The source code for transcribing datasets formatted in the PAN20-standard is ava
 % Vocab reduction on some corpus
 % Vocab size counting: Space Tokenize, count tokens that are not punctuation and are not numbers, upper- / lower-case is dismissed. This leaves soundex tokens in. Texts of a pair are concatenated
 \section{Transcription Characteristics}
-To better understand the characteristics of the phonetic transcription systems used, we conduct some preliminary investigations.
+To better understand the characteristics of the phonetic transcription systems and the idiosyncrasies of the datasets, we conduct some preliminary investigations.
 We calculate the vocabulary size scaling factor ($VSSF$) for each transcription system by determining the ratio of the number of distinct lexical types before and after transcribing.
 A $VSSF$ of 1.5, for example, indicates that the transcription system examined increases the vocabulary size by 50\%.
 This way, we can assess the granularity of the different transcription systems.
 A vocabulary reduction of 50\%, for example, indicates that on average two words are binned into one transcription.
-In practice, there might be many transcriptions which were transcribed from unique words and some transcriptions which group many words.
+In practice, there may be some transcriptions grouping many words while many transcriptions would have a one-to-one mapping to a single word.
 We calculate the absolute vocabulary size and the $VSSF$ per transcription system per dataset.
-Table \ref{tab:system_characteristics} shows the results.\\
-First, let us take a look at findings for the Gutenberg dataset, which are visualized in \ref{fig:vssf_transcriptions_gb}.
+Table~\ref{tab:system_characteristics} shows the results.\\
+First, let us take a look at findings for the Gutenberg dataset, which are visualized in figure~\ref{fig:vssf_transcriptions_gb}.
 The $Verbatim$ text contains 50277 types.
 Both $IPA$ and $ASJP$ increase the vocabulary size by a significant amount, 20.68\% and 11.21\% respectively.
-This is to be expected as the alphabet of both systems is larger than the alphabet of verbatim text.
-The text with removed punctuation ($P$) retains the same amount of types as punctuation symbols are not counted towards them.
+This is to be expected as the alphabet of both systems is larger than the alphabet of verbatim text and thus more types can be generated.
+The text with removed punctuation ($P$) retains the same amount of types as verbatim text because punctuation symbols are not counted towards the vocabulary size.
 By further lemmatizing the texts ($PL$), more tokens are binned and the resulting vocabulary is reduced by 18.6\%.
 Eliminating stop words ($PLS$) removes 220 more types.
 The $Dolgo$ system has an even smaller amount of types, but still retains more type granularity than the more simple phonetic algorithms.
 $RefSoundex$ and $Metaphone$ reduce the vocabulary size by 41.44\% and 47.29\% respectively.
 Because of its length restriction to four characters, $Soundex$ can at most produce 8,918 unique types (A000 to Z666) with only 4250 of them appearing in the data.
 Lastly, $CV$ reduces the number of types the most and retains only 1954 types.
-A reduction to 3.89\% of the original vocabulary size implies that on average ca.\ 26 words are binned to one transcription.\\
+A reduction to 3.89\% of the original vocabulary size implies that on average ca.\ 26 words are binned into one transcription.\\
 
 \begin{figure}
   \centering
@@ -120,90 +120,109 @@ A reduction to 3.89\% of the original vocabulary size implies that on average ca
   \label{fig:vssf_transcriptions_ff}
 \end{figure}
 
-Figure \ref{fig:vssf_transcriptions_ff} shows the results for the same analysis using the Fan-fiction dataset.
-Both plots are predominantly similar but exhibit a few interesting differences.
-Note that the the Fan-fiction dataset is substantially larger than the Gutenberg dataset.\\
-The vocabulary size of the uncleaned (original) verbatim text is larger than that of the cleaned one.
-This was expected as we removed certain words.
+Figure \ref{fig:vssf_transcriptions_ff} shows the results for the same analysis but using the Fan-fiction dataset.
+Both plots are predominantly similar but exhibit a few interesting differences stemming from the characteristics of the transcription systems and the datasets.
+Note that the Fan-fiction dataset is substantially larger than the Gutenberg dataset, also leading to a larger total vocabulary count.\\
+First, the vocabulary size of the uncleaned (original) verbatim text is 4.26\% larger than that of the cleaned one.
+This was expected as we removed certain words during cleaning.
+Next, it can be observed that there is a difference between verbatim text and punctuation-removed text ($P$).
+This may stem from the Fan-fiction dataset including many more different punctuation symbols which are removed to create the $P$ transcription but not when counting types in verbatim text.
+Also, the relative difference between $P$ on the one hand and $PL$ as well as $PLS$ on the other is much smaller.
+This could indicate that the Fan-fiction dataset has many out-of-vocabulary tokens that are not easily lemmatized.
+Compared to the Gutenberg dataset, which consists of texts from published books, this would make sense as the acceptance criteria for Fan-fiction stories are much lower than those for books.
+For the phonetic algorithms, $Soundex$ has a smaller vocabulary than $CV$.
+As mentioned above, the codes generated by the $Soundex$ algorithm are bound to 4 characters in length.
+Because $CV$ tokens are only restricted to a binary alphabet, but do not have any length restrictions, with a large enough text sample the $CV$ vocabulary outnumbers the $Soundex$ vocabular.
+To substantiate this claim, we created a vocabulary list for each text pair in the Fan-fiction dataset.
+Then we accumulated the vocabulary lists one by one to examine if the transcribed texts follow Heaps' Law.
+Figure~\ref{fig:cumvocab_soundexcv} shows the sizes for the accumulated vocabulary for $Soundex$ and $CV$ when reading in the texts from the Fan-fiction dataset in a shuffled order.
+The vocabulary of the $Soundex$ transcription grows fast in the beginning but then begins to max out at around 6000 types.
+For the $CV$ transcription on the other hand, the accumulated vocabulary size grows slowly in the beginning, probably due to its restricted alphabet, but does not hit a ceiling and continues to grow beyond $Soundex$'s vocabulary size.\\
+Arguably, the most notable difference is that when transcribing the Gutenberg dataset $ASJP$ leads to an increase in vocabulary size whereas using the Fan-fiction dataset $ASJP$ surprisingly results in a significant reduction of the vocabulary.
+Note that as shown in figure~\ref{fig:transcription} $ASJP$ results from the $IPA$ transcription.
+To attain a clearer view of what is happening here, we also calculate the accumulated vocabulary sizes for verbatim, $IPA$, $ASJP$, and $Dolgo$, shown in figure~\ref{fig:cumvocab_all}.
+This plot poses two additional questions\footnote{Both phenomena persist when using single texts instead of text pairs for the cumulative vocabulary size analysis.}:
+\begin{enumerate}
+    \item Why is there a sudden change in curvature in the accumulated vocabulary size?
+    \item Why do $IPA$ and verbatim text diverge on the left side but stay at a constant difference after the change in curvature on the right side?
+\end{enumerate}
+The first question has an obvious answer.
+The Fan-fiction dataset is sorted.
+The first half consists of only same-author pairs with all different-author pairs residing in the second half.
+Table \ref{tab:dataset_authors} shows information on the author distribution of both datasets segmented into same-author and different-author parts.
+With 47813 authors, the different-author part of the Fan-fiction dataset has around 7.47 times as many authors as the same-author part.
+For the same-author part, on average one author wrote 1.036 individual texts whereas for the different-author part this number is 8.7022\footnote{Or in terms of dataset samples, on average authors contributed to 0.518 and 4.3511 text pairs respectively.}.
+It comes as no surprise then that -- despite individual text and vocabulary sizes being nearly equal for both parts -- the vocabulary of the different-author part is much more diverse.
+This diversity leads to the higher slope in the different-author part.
+As a side note, the bias-mitigated Gutenberg dataset does not exhibit a change of curvature when analyzing it as above.
+This is also reflected in the number of authors for the same- and different-author parts in table \ref{tab:dataset_authors}.
+The number of authors for both parts are almost identical, and most authors appear in both parts.
+Also, the number of texts an author contributed to the dataset is nearly equal between both parts.
+We conclude that the number of authors is correlated to the vocabulary size of a given dataset.
+Further investigations are necessary to determine whether the difference in author distribution and thus in vocabulary size in the Fan-fiction dataset has an effect on the results from the PAN20 task where this dataset was used.\\
+As of yet, we do not have an answer for the second question.
+To change the perspective of this phenomenon, figures~\ref{fig:cumvocab_same} and~\ref{fig:cumvocab_diff} show the cumulative vocabulary size for the same-author and different-author part in isolation.
+As expected, all curves follow Heaps' Law and the total vocabulary of the same-author part is lower than that of the different-author part.
+The surprising difference is that the curves for verbatim and $IPA$ in figure~\ref{fig:cumvocab_diff} do not diverge.
+In contrast to the same-author part, for the different-author part the transcription to $IPA$ does \textit{not} lead to an increased vocabulary size.
+We investigated some possible explanations of this phenomenon.
+The samples from both parts are transcribed in one coherent process and also plotted in one go, lowering the probability of an implementation error.
+The percentage of alphabet characters (a-zA-Z) in both parts is almost equal.
+The only small difference we found is in the fraction of words that occur in the ASPELL dictionary.
+For the same-author part 15\% of the words are in ASPELL while for the different-author part only 10\% are in ASPELL\@.\\
+We suspect that the decrease in vocabulary size of $ASJP$ compared to verbatim text (fig.~\ref{fig:vssf_transcriptions_ff}) has two reasons.
+First, the missing increase for the vocabulary size of $IPA$ in the different-author part.
+As $IPA$ is the transcription preceding $ASJP$, the vocabulary size of the former directly impacts the that of the latter.
+Second, in figure \ref{fig:cumvocab_same} we observe that $ASJP$ still produces a lower vocabulary count, even for the same-author part only.
+This lets us speculate that some other factor, e.g., the quality of the dataset, must also play a roll in its transcription.
+Maybe both, the same-author and the different-author part, are affected by the same phenomenon with the same-author part only slightly.
+This hypothesis could be supported by comparing the vocabulary increase of $IPA$ between both datasets.
+With the Gutenberg dataset, $IPA$ increases the vocabulary by 20.68\% (fig.~\ref{fig:vssf_transcriptions_gb}) while with the Fan-fiction dataset the vocabulary is only increased by 2.53\% (fig.~\ref{fig:vssf_transcriptions_ff}).
+Still, this comparison should be interpreted cautiously because of the bespoken size differences of the datasets.
+To this end, further investigation is needed.
 
-
-
-
-mainly similar
-- remind: Looking at datasets of vastly different size -> Effects could and do stem from this
-points
-- verbatimoriginal is bigger: ok bc tokens / words were removed
-- difference between verbatim and p: Probably bc of more noisy intra-word punctuation that is removed.
-- lower! difference between p and pl/pls: Maybe lemmatizing isn't as effective on noisy data.
-- Soundex lower than CV: Soundex is bound to 4, CV isn't
-
-The most notable difference is that when transcribing the Gutenberg dataset $ASJP$ leads to an increase in vocabulary size whereas using the Fan-fiction dataset $ASJP$ surprisingly results in a significant reduction of the vocabulary.
-It turns out that the cause for this phenomenon can be passed on to its preceding transcription, $IPA$.
-The vocabulary reduction by mapping $IPA$ to $ASJP$ is 7.85\% for the Gutenberg dataset and 11.67\% for the Fan-fiction dataset.
-
-dgb: 40.19\%
-dff: 50.87\%
-
-Adding random numbers cause it's late:
-If we raise FF IPA increase to 20.68\%, where would ASJP land? above verbatim?
--> 0.8833 * 1.2068 = 1.06596644
- 1.06596644 + (0.1167 - 0.0785) = 1.10416644 (vs. 1.1121)
--> Missing 4 percent coincide with increased ASJP decrease above.
-Does this also work for Dolgo?
--> 0.4913 * 1.2068 = 0.59290084
-->0.59290084 + (0.5087-0.4019) = 0.69970084 (vs. 0.7218)
-meh, kinda
-
-
-- ASJP is lower
-- remind: verbatim -> IPA -> ASJP
-- Only IPA ratio is different (calculate values)
-- And in fact, it turns out that this is the case.
-
-
-Outline:
-Show Heap's law: GB (shuffled), GB sorted, FF sorted, FF shuffled
-look at presentation: explain change of curvature
--> Show table of authors
-present open problem: line non-divergence
-Maybe mention in the beginning: "To get an idea of the transcription systems BUT ALSO OF THE DATASETS"
-
-% Fan-fiction
-% Most changes are ok, things are the same
-% 1. ASJP moved down:
-%   Difference in VSSF between IPA->Dolgo and IPA->ASJP are similar for both datasets.
-%   -> Maybe Verbatim->IPA is the problem.
-% 2. Lemmatization doesn't have a big impact anymore. Unclear why.
-% 3. Soundex and CV switched places: prob. bc Soundex is capped, CV isn't
-
-
-% {"ff": {"same_authors": 6397, "diff_authors": 47813, "same_diff_intersection": 1555, "same_text_per_author": 8.702204158199155, "diff_text_per_author": 1.035994394829858}, "gb": {"same_authors": 54, "diff_authors": 56, "same_diff_intersection": 53, "same_text_per_author": 4.814814814814815, "diff_text_per_author": 4.714285714285714}}
+\begin{figure}
+  \centering
+  \includegraphics[width=0.7\textwidth]{figures/cum_vocab_size_ff_shuffled_soundexcv}
+  \caption{Accumulated vocabulary size for $Soundex$ and $CV$, shuffled Fan-fiction dataset}
+  \label{fig:cumvocab_soundexcv}
+\end{figure}
+\begin{figure}
+  \centering
+  \includegraphics[width=0.7\textwidth]{figures/cum_vocab_size_ff_inorder_all}
+  \caption{Accumulated vocabulary size for verbatim, $IPA$, $ASJP$, and $Dolgo$, in-order Fan-fiction dataset}
+  \label{fig:cumvocab_all}
+\end{figure}
+\begin{figure}
+  \centering
+  \includegraphics[width=0.7\textwidth]{figures/cum_vocab_size_ff_inorder_onlysame_ipa}
+  \caption{Same-author part of accumulated vocabulary size for verbatim, $IPA$, $ASJP$, and $Dolgo$, in-order Fan-fiction dataset}
+  \label{fig:cumvocab_same}
+\end{figure}
+\begin{figure}
+  \centering
+  \includegraphics[width=0.7\textwidth]{figures/cum_vocab_size_ff_inorder_onlydiff_ipa}
+  \caption{Different-author part of accumulated vocabulary size for verbatim, $IPA$, $ASJP$, and $Dolgo$, in-order Fan-fiction dataset}
+  \label{fig:cumvocab_diff}
+\end{figure}
 
 \begin{table}
-\caption{Characteristics of the datasets used. TPA = texts per author.}
-\label{tab:dataset_characteristics}
+\caption{Author distribution of the datasets used.}
+\label{tab:dataset_authors}
 \centering\small
 \begin{tabular}{@{}l@{\hspace{1\tabcolsep}}lll@{}} % Use @{\hspace{2\tabcolsep}} to double the spacing
 \toprule
 \bf  & \bf Gutenberg & \bf Fan-Fiction \\
 \midrule
-same-author authors & 54 & 6397 \\
-different-author authors & 56 & 47813 \\
-intersection & 53 & 1555 \\
-same-author TPA & 4.8148 & 8.7022 \\
-diff-author TPA & 4.7143 & 1.036 \\
+\#authors in same-author part & 54 & 6397 \\
+\#authors in different-author part & 56 & 47813 \\
+\#authors in both parts & 53 & 1555 \\
+Texts per author in same-author part & 4.8148 & 8.7022 \\
+Texts per author in diff-author part & 4.7143 & 1.036 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-
-
-
-% Other statistics: text length (in characters)
-% Other todo:
-% Add function to count character length of text
-% Maybe rename vocab_sizes.py to characteristics.py
-% Change "properties" in text to "characteristics"
 
 \newcommand{\specialcell}[2][c]{%
   \begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
@@ -236,22 +255,3 @@ $CV$ $4$-$grams$ & 16 & 0.0003 & -- & -- & 2 \\
 \bottomrule
 \end{tabular}
 \end{table}
-
-
-
-
-
-
-% Re Heaps Law FF:
-% Why is there a sudden change of curvature in Verbatim text?
-% -> Dataset is sorted: First same-author pairs, then different-author pairs
-% BUUUUT: Even when pairs are split into single texts, the change in curvature still exists! (-> Maybe run again on remote, results now use naive split(' ') method on verbatim text)
-% This may(!) be a good marker for assessing a bias in AV datasets: Sort dataset as above, determine heaps law coefficients.
-% Check on GB dataset: Sort and plot Heaps Law -> No change of curvature!
-
-% Question standing: Why is the individual vocab size still the same? Shouldn't it be higher?
-% It doesn't need to be, but if the vocab sizes stay the same a change of curvature means that the vocabulary changes in itself.
-% Might have to do with reusing authors or something.
-% Check further: It seems that for FF in different-author part there are far more authors than for same-author part. Check if this is the same with GB.
-
-% Why is the distance between Verbatim and IPA not getting larger in one part of the plot?
