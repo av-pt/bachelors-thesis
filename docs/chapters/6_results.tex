@@ -42,42 +42,50 @@ Thus, the F0.5u-score highly emphasizes on the precision of an AV classifier.\\
 % Unmasking measures: Precision, Recall, C@1, F0.5u
 \textcolor{violet}{
 TBD: Show and analyze results\\
-TBD: Explain possible problems using our approach (too much information is lost during transcription; Author's freedom on sub-segmental level is low; bag-of-words model in unmasking ignores much of the phonetic information)\\
 }
 
-% 4 gram curves fall much quicker! Show them!
+% First: Gutenberg
+% ->
+
+% Then: Fan-fiction
+
+% Also: Remember to answer the questions from the Introduction
+
 
 % Compare to other approaches from PAN20
-
-
-
-%As indicated earlier, through cross validation, we can use the entire data set for training and for testing, thus milking it in the most effective way.
-
-% Note run time for (transcription &) algorithms
-% Explain OOF crossval (with diagram?)
-
-
+% 4 gram curves fall much quicker! Show them! -> Rather run again with better window.
+%As indicated earlier, through cross validation, we can use the entire data set for training and for testing, thus milking it in the most effective way. hehe, correction lolol.
 % Note Gutenberg dataset is really small
 
 
+In the following, we will discuss a number of possible reasons for the overall negative trend that phonetic transcriptions bring to the results.\\
+Converting graphemes to phonemes, in our case verbatim text to its $IPA$ transcription, is a difficult task.
+Moreover, when transcribing automatically, the transcription algorithm does not have any information about the pronunciation of the speaker of a given text.
+Thus, usually text is transcribed to either the General (North) American pronunciation or the Received Pronunciation\footnote{British English}.
+We use g2pE by \cite{kyubyong2019g2pE} which employs the Carnegie Mellon University Pronouncing Dictionary to look up transcriptions for words.
+The CMU dictionary uses North American English as its pronunciation standard.
+Thus, by transcribing we assume that the author has a North American English phonetic preference.
+Transcribing, for example, both an Irish author's and a Nigerian author's texts to American English, one can imagine that a lot of phonetically relevant information, that could be used to distinguish them, is lost.
+In the same vein, authors might \textit{actively} make efforts to impart certain phonetic qualities into their texts that are based on topic rather than the author's unconscious phonetic preference.
+This becomes especially clear when an author uses direct speech, which often occurs in the datasets we use as they are both based on sets of fictional stories.
+The ``voice in the author's head'' when writing a direct speech passage presumably varies greatly depending on the traits of the character depicted in the story.
+Thus, extracting these features might aid in topic or genre identification more so than in Authorship Verification.
+To mitigate this, direct speech could be removed from text entirely.\\
+Another limitation of phonetic transcriptions for Authorship Analysis is due to the low-level nature they work at.
+An authors' freedom of self-expression is limited on the sub-segmental level, i.e., concerning individual sounds.
+Usually, the meaning of a word changes together with its pronunciation.
+The only words for which this is not the case are synonyms such as the words "begin" and "start".
+Thus, authors that want to express similar ideas arguably will sound similar on the sub-segmental level not because of their phonetic preference but due to the proximity of the topics.
+More importantly, if authors want to express different ideas the resulting transcriptions will also be different, without the Authorship Verification classifier knowing if this difference stems from two unique authors with varied phonetic preferences or from one author discussing different topics.
+Supra-segmental features such as stress or prose can be utilized more freely and might give a more informative base for Authorship Analysis.\\
+Lastly and perhaps most importantly, standard Unmasking without using $n$-grams works on the lexical level, i.e., it uses entire words as atomic units and ignores the information encoded by the symbols inside a word.
+With the step of transcription, however, we are precisely attempting to enhance this inner-word information.
+Thus, for Unmasking the transcription of data serves only as a phonetically-informed binning method for types.
+To mitigate this, we tried to use an $n$-gram based transcription method, with XXX results.\\
 
 
-% Discuss problem 1: text to phonemes is difficult and information is lost.
-%As discussed above, converting speech to a detailed and accurate phonetic transcription is hard.
-%Even more difficult is creating said transcription from text instead of speech.
-%...
-% Addendum to 1:
-% Case 1: Author imparts phonetic preference unconsciously
-% Case 2: Author makes effort to sound a certain way, e.g. reverent in Moby Dick -> Hides / Skews phonetic information
-% Is there a way to amplify the first-case-features? If not then this doesn't make much sense.
 
-% Discuss problem 2: We examine mostly sub-segmental features. Author freedom is small. Maybe supra-segmental features are better.
-% ladefoged p278: phonetics of the individual [... are ...] difficult to describe een with spectrograms of the person's speech.
-% Idea: Authors don't have much freedom with segmental features => segm. features are not as useful => Try supra-segmental features
-% Also: For structures such as email addresses the freedom of choice is small. There are probably more things that are given by structures and thus give no author-specific information (e.g. syntactic rules).
-
-% Addendum to 2: words that are similar or equal in their meaning, often sound similar (e.g. place names, chemicals, ...)
-% And if they have they have different meanings, they most likely also have different lexical forms, rendering the need for a transcription obsolete.
+Describe n-gram effects of pt!
 
 
 % Problem 3 / Following thoughts: Phonetic transcriptions / features are probably bad Authorship predictors but better predictors for other features such as genre, topic, age of setting.

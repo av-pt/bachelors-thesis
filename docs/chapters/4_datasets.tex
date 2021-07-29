@@ -67,7 +67,7 @@ If we were, for example, to naively segment \textipa{[meIk]} to \textipa{[m e I 
 For the Gutenberg dataset, we also generate space separated character $4$-grams for the systems above.\\
 Punctuation and stop word removal, as well as lemmatization is done with spaCy\footnote{\url{https://spacy.io/}} for speed and robustness.
 For the punctuation-removed data ($P$) we also create $4$-grams.
-They can be used as a generic $n$-gram approach compared to $n-gram$ approaches using transcriptions as the transcriptions above also have punctuation removed.
+They can be used as a generic $n$-gram approach compared to $n$-gram approaches using transcriptions as the transcriptions above also have punctuation removed.
 The other phonetic algorithms -- $Soundex$, $RefSoundex$ and $Metaphone$ -- work with verbatim text on word-level, i.e.,\ they do not use context but transcribe each word in isolation.
 Thus, we space-tokenize the punctuation-removed data ($P$) and use the resulting lists as input for these algorithms.
 For the transcriptions themselves we use the library pyphonetics\footnote{\url{https://github.com/Lilykos/pyphonetics}}.
@@ -179,7 +179,15 @@ Maybe both, the same-author and the different-author part, are affected by the s
 This hypothesis could be supported by comparing the vocabulary increase of $IPA$ between both datasets.
 With the Gutenberg dataset, $IPA$ increases the vocabulary by 20.68\% (fig.~\ref{fig:vssf_transcriptions_gb}) while with the Fan-fiction dataset the vocabulary is only increased by 2.53\% (fig.~\ref{fig:vssf_transcriptions_ff}).
 Still, this comparison should be interpreted cautiously because of the bespoken size differences of the datasets.
-To this end, further investigation is needed.
+To this end, further investigation is needed.\\
+Figure~\ref{fig:vssf_ngrams_gb} shows the vocabulary sizes for the $4$-grams, i.e., the amount of unique $4$-grams generated from each transcription of the Gutenberg dataset, compared to the vocabulary size of verbatim text.
+With a binary alphabet, $CV$ creates only 16 unique $4$-grams.
+This is followed by $Dolgo$, which could at most create 20736 $4$-grams of which 4061 appear in the data.
+$ASJP$ increases upon the vocabulary count of verbatim text, as it has a bigger alphabet.
+$4$-grams generated from punctuation-removed text have an even higher count.
+This is due to intra-word punctuation not being removed and thus retaining many of the punctuation symbols from verbatim text.
+Lastly, $IPA$ generates by far the most $4$-grams, as it has the biggest alphabet of all transcriptions used.
+
 
 \begin{figure}
   \centering
@@ -202,7 +210,7 @@ To this end, further investigation is needed.
 \begin{figure}
   \centering
   \includegraphics[width=0.7\textwidth]{figures/cum_vocab_size_ff_inorder_onlydiff_ipa}
-  \caption{Different-author part of accumulated vocabulary size for verbatim, $IPA$, $ASJP$, and $Dolgo$, in-order Fan-fiction dataset}
+  \caption{Different-author part of accumulated vocabulary size for verbatim, $IPA$, $ASJP$, and $Dolgo$, in-order Fan-fiction dataset.}
   \label{fig:cumvocab_diff}
 \end{figure}
 
@@ -255,3 +263,10 @@ $CV$ $4$-$grams$ & 16 & 0.0003 & -- & -- & 2 \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.7\textwidth]{figures/vocab_sizes_2021-07-28_14-42-08_gb_ngram}
+  \caption{Vocabulary sizes for $4$-grams compared to verbatim.}
+  \label{fig:vssf_ngrams_gb}
+\end{figure}
