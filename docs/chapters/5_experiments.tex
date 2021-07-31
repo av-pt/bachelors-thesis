@@ -32,7 +32,6 @@ The source code extending the algorithm to use phonetic features and adding cros
 
 % 1.3 Unmasking Approach
 \section{Unmasking Approach}\label{sec:unmasking-approach}
-XXX What is the uncertainty interval used here? r=0 -> Implementation predicts labels directly\
 Unmasking was first introduced by \citeauthor{koppel2004unmasking} in 2004.
 In short, it exploits the degradation of classifier accuracy when removing distinguishing features.
 It turns out that iteratively removing those features leads to a faster degradation on text pairs by one author than on those by different authors.
@@ -61,5 +60,6 @@ As this approach introduces a significant amount of variance in the resulting cu
 It is recommended to average at least 15--20 unmasking runs for each text pair.
 In our experiments, we average the curves of 32 unmasking runs per text pair with varying chunk sizes of 500, 600, and 700 words respectively.
 In the implementation supplied by \cite{bevendorff2019unmaskingShortTexts}\footnote{\url{https://github.com/webis-de/unmasking}} and used as the basis for our research, the meta-classifier uses the curves' ``central-difference gradients (first- and second-order), as well as their gradients sorted by magnitude''.
+Also, the implementation predicts labels instead of confidence values, hence reducing F0.5u to F0.5\footnote{Weighting precision two times as much as recall, but not accounting for $non$-$answers$.} and C@1 to accuracy.
 The source code extending the Unmasking framework for the use of phonetically transcribed datasets and implementing a cross-validation functionality is available on GitHub\footnote{\url{https://github.com/torond/unmasking}}.
 Note that we only use the Gutenberg dataset for Unmasking as processing the larger Fan-fiction dataset for each transcription proved to be too time-intensive.
