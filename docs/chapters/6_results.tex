@@ -46,14 +46,29 @@ TBD: Show and analyze results\\
 
 % First: Gutenberg
 % ->
+%- For GB Unmasking: Argue 32 runs for stable results. This still only creates 262 curves. Show which parameters where used for those 32 runs
+Before analyzing the final results, let us take a look at the sets of the degradation curves that resulted from Unmasking
+% 4 gram curves fall much quicker! Show them! -> Rather run again with better window.
+
 
 % Then: Fan-fiction
+
+
+% FF
+As cleaning step is phonetically informed we'll use verbatimorignal for comparing.
+
+For r values higher than 0.05, prec rec higher, f05u cat1 lower.
+Throwing out cases, prec rec f1 only consider cases where classifier is more sure about the result.
+
+
+% GB
+For CV, CV 4-grams, and Dolgo 4-grams the dataset is too small and all samples are predicted to be false, thus, Precision and Recall are ill-defined (zero division) and we'll leave these out.
+Removed because ill-defined: 'cv', 'cv_4grams', 'dolgo_4grams', 'punct_4grams', 'dolgo', 'asjp_4grams', 'refsoundex', 'soundex'
 
 % Also: Remember to answer the questions from the Introduction
 
 
 % Compare to other approaches from PAN20
-% 4 gram curves fall much quicker! Show them! -> Rather run again with better window.
 %As indicated earlier, through cross validation, we can use the entire data set for training and for testing, thus milking it in the most effective way. hehe, correction lolol.
 % Note Gutenberg dataset is really small
 
@@ -89,3 +104,72 @@ Describe n-gram effects of pt!
 
 
 % Problem 3 / Following thoughts: Phonetic transcriptions / features are probably bad Authorship predictors but better predictors for other features such as genre, topic, age of setting.
+\begin{table}
+\caption{Significance of changes for Unmasking using the Gutenberg dataset, bonferroni-corrected.\\$=$: not statistically significant ($p \geq 0.05$)\\$*$: statistically significant ($p < 0.05$)\\$*\, *$: very statistically significant ($p < 0.01$)\\$***$: highly statistically significant ($p < 0.001$)}
+\label{tab:p_unmasking_gb}
+\centering\small
+\begin{tabular}{@{}l@{\hspace{1\tabcolsep}}cccccccc@{}} % Use @{\hspace{2\tabcolsep}} to double the spacing
+\toprule
+\bf System & \bf Precision & \bf Recall & \bf F1 & \bf F0.5u & \bf c@1 \\
+\midrule
+$IPA$ & $=$ & $=$ & $=$ & $=$ & $=$ \\
+$ASJP$ & $=$ & $=$ & $=$ & $=$ & $=$ \\
+$Dolgo$ & $=$ & $=$ & $=$ & $=$ & $=$ \\
+$RefSoundex$ & $=$ & $=$ & $=$ & $*\, *$ & $=$ \\
+$Metaphone$ & $=$ & $=$ & $*$ & $*\, *$ & $*\, *$ \\
+$Soundex$ & $=$ & $=$ & $=$ & $*\, *$ & $=$ \\
+$CV$ & $*\, *$ & $=$ & $*\, *$ & $***$ & $***$ \\
+$IPA$ $4$-$grams$ & $*\, *$ & $=$ & $*\, *$ & $***$ & $***$ \\
+$ASJP$ $4$-$grams$ & $=$ & $=$ & $=$ & $=$ & $=$ \\
+$P$ $4$-$grams$ & $=$ & $=$ & $=$ & $*$ & $*$ \\
+$Dolgo$ $4$-$grams$ & $=$ & $=$ & $=$ & $***$ & $*\, *$ \\
+$CV$ $4$-$grams$ & $*\, *$ & $=$ & $*\, *$ & $***$ & $***$ \\
+$P$ & $=$ & $=$ & $=$ & $=$ & $=$ \\
+$PL$ & $=$ & $=$ & $=$ & $=$ & $=$ \\
+$PLS$ & $=$ & $=$ & $=$ & $=$ & $=$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}
+\caption{Significance of changes for the compression approach using the Fan-fiction dataset compared to verbatim text (uncleaned), $r=0.05$, bonferroni-corrected.}
+\label{tab:p_teahan_ff}
+\centering\small
+\begin{tabular}{@{}l@{\hspace{1\tabcolsep}}ccccccc@{}} % Use @{\hspace{2\tabcolsep}} to double the spacing
+\toprule
+\bf System & \bf Precision & \bf Recall & \bf F1 & \bf F0.5u & \bf c@1 \\
+\midrule
+$Verbatim$ $(cleaned)$ & $***$ & $*\, *$ & $***$ & $***$ & $***$ \\
+$IPA$ & $***$ & $***$ & $***$ & $***$ & $***$ \\
+$ASJP$ & $*\, *$ & $***$ & $***$ & $=$ & $***$ \\
+$Dolgo$ & $***$ & $***$ & $***$ & $***$ & $***$ \\
+$RefSoundex$ & $***$ & $***$ & $***$ & $***$ & $***$ \\
+$Metaphone$ & $***$ & $***$ & $***$ & $***$ & $***$ \\
+$Soundex$ & $***$ & $***$ & $***$ & $***$ & $***$ \\
+$CV$ & $***$ & $*\, *$ & $***$ & $***$ & $***$ \\
+$P$ & $***$ & $***$ & $***$ & $***$ & $***$ \\
+$PL$ & $***$ & $***$ & $***$ & $***$ & $***$ \\
+$PLS$ & $***$ & $***$ & $***$ & $***$ & $***$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\begin{table}
+\caption{Significance of changes for the compression approach using the Gutenberg dataset compared to verbatim text, $r=0.05$, bonferroni-corrected.}
+\label{tab:p_teahan_gb}
+\centering\small
+\begin{tabular}{@{}l@{\hspace{1\tabcolsep}}ccccccc@{}} % Use @{\hspace{2\tabcolsep}} to double the spacing
+\toprule
+\bf System & \bf Precision & \bf Recall & \bf F1 & \bf F0.5u & \bf c@1 \\
+\midrule
+$IPA$ & $=$ & $*$ & $*$ & $=$ & $***$ \\
+$ASJP$ & $=$ & $=$ & $=$ & $=$ & $***$ \\
+$Metaphone$ & $**$ & $=$ & $=$ & $**$ & $***$ \\
+$IPA$ $4$-$grams$ & $=$ & $=$ & $=$ & $***$ & $***$ \\
+$P$ & $=$ & $=$ & $=$ & $=$ & $***$ \\
+$PL$ & $=$ & $=$ & $=$ & $**$ & $***$ \\
+$PLS$ & $=$ & $=$ & $*$ & $=$ & $=$ \\
+\bottomrule
+\end{tabular}
+\end{table}
