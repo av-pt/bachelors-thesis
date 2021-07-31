@@ -19,7 +19,7 @@ Note that the F1 score weights precision and recall equally.
 Especially for forensic Authorship Verification applications though, a high precision is more important than a high recall, as same-author decisions might be used as evidence and therefore must be reliable.
 Also, in our setup, the F1 score ignores true negatives and therefore does not give an insight into how well the classifier detects different-author cases correctly.
 For this, the different-author class would need to be assigned the positive label.\\
-To mitigate some of the problems of the measures above and to better asses AV classifier performance, we use two more recently introduced measures.
+To mitigate some of the problems of the measures above and to better assess AV classifier performance, we use two more recently introduced measures.
 % C@1, Point: non-answers (0.5) are possible
 To measure include same-author and different-author classifications in the evaluation, one could use the accuracy $acc = \frac{tp+tn}{n}$, where $n = tp+tn+fp+fn$ is the total number of cases.
 However, as \cite{bevendorff2019unmaskingShortTexts} points out, the results are often uncertain.
@@ -27,13 +27,13 @@ Also, in real-world applications wrong answers might be worse than non-answers.
 Therefore, to give classification systems the option to withhold answers for difficult-to-decide cases, we use the \textbf{c@1-score} introduced by \cite{penas2011c_at_1} and adopted by PAN.
 It is defined as $c@1 = \frac{n_{ac}}{n}+\frac{n_{ac}}{n}\cdot{}\frac{n_u}{n} = \frac{1}{n}\cdot{}\left(n_{ac}+\frac{n_{ac}}{n}\cdot{}n_u\right)$ where $n$ is again the total number of cases, $n_{ac} = tp+tn$ is the number of accurately classified cases and $n_u$ is the number of undecided cases.
 This way, undecided cases count towards the c@1-score as if they were answered with the accuracy of the decided cases.
-When an AV classifier gives an answer to all cases, the C@1-score is reduced to the accuracy.
+When an AV classifier gives an answer to all cases, the C@1-score is equivalent to the accuracy of the classifier.
 A system that leaves all cases unanswered, receives a score of 0.\\
 % F0.5u
 Lastly, we use the \textbf{F0.5u-score} introduced by \cite{bevendorff2019unmaskingShortTexts}.
 It is defined as $F_{0.5u} = \frac{(1+0.5^2)\cdot{}n_{tp}}{(1+0.5^2)\cdot{}n_{tp}+0.5^2\cdot{}(n_{fn}+n_u)+n_{fp}}$.
-As mentioned above, a high precision result is more robust than a high recall one.
-To account for this, the F0.5u-score weights precision two times as much as recall.
+As mentioned above, a high precision result is more reliable than a high recall one.
+To take this into consideration, the F0.5u-score weights precision two times as much as recall.
 In addition, it also allows the classifiers to give non-answers.
 However, as unanswered cases are often not useful in real-world applications, it interprets them as wrong answers.
 Thus, the F0.5u-score highly emphasizes on the precision of an AV classifier.\\
@@ -42,25 +42,75 @@ Thus, the F0.5u-score highly emphasizes on the precision of an AV classifier.\\
 % Unmasking measures: Precision, Recall, C@1, F0.5u
 
 
-The results of our experiments can be seen in figures \ref{tab:p_unmasking_gb}, \ref{tab:p_teahan_ff} and \ref{tab:p_teahan_gb}.
-The tables show the absolute values of the transcription systems and their statistical significance compared to verbatim text in the first row.
+The results of our experiments can be seen in figures~\ref{tab:p_unmasking_gb}, \ref{tab:p_teahan_ff} and \ref{tab:p_teahan_gb}.
+The tables show the absolute values for the transcription systems employed and their statistical significance compared to verbatim text in the first row.
 The thresholds for statistical significance are:
 \begin{itemize}
     \item $*$: statistically significant ($p < 0.05$)
     \item $*\! *$: very statistically significant ($p < 0.01$)
     \item $*\! *\! *$: highly statistically significant ($p < 0.001$)
 \end{itemize}
-$+$ marks an increase and $-$ marks a decrease compared to the top row.
+Additionally, $+$ marks an increase and $-$ marks a decrease compared to the top row.
 For example, $0.5936^{*\! *}_{-}$ indicates very statistically significant decrease of the current transcription's performance compared to verbatim text.
 
 
-% First: Unmasking
-% ->
-%- For GB Unmasking: Argue 32 runs for stable results. This still only creates 262 curves. Show which parameters where used for those 32 runs
+% Unmasking
 % - still variance is high, needs about 9%? to be significant
-Before analyzing the final results, let us take a look at the sets of the degradation curves that resulted from Unmasking
+First, we will discuss the results of the Unmasking approach using the Gutenberg dataset.
+Before analyzing the final results, let us take a look at the sets of the degradation curves generated through Unmasking.
+The curve sets generated for each transcription can be split into five types depending on how fast the accuracy drops. % correlating to the number of types present in the transcription.
+For $Verbatim$, $IPA$, $ASJP$, $Dolgo$, $RefSoundex$, $Metaphone$, $Soundex$, $P$, and $PL$, the curve degrades over the entirety of the iterations, giving the maximal resolution for further use as features.
+Figure~\ref{fig:verbatim_curves} shows this ``best-case'' resolution for $Verbatim$.
+Next, the curves for $IPA$ $4$-$grams$, $ASJP$ $4$-$grams$, $P$ $4$-$grams$, and $Dolgo$ $4$-$grams$ degrade quicker as can be seen in figure \ref{fig:ipa_4grams_curves} for $IPA$ $4$-$grams$.
+This may be caused by a reduction of author-distinguishing features through $4$-$gram$-generation.
+We suspect that -- analogous to stop words as discussed in chapter~\ref{related_work} -- certain of the possible $4$-$grams$ appear often and are suited well for distinguishing between authors while the following ones are not, resulting in a faster curve degradation.
+Further investigation is needed to confirm or deny this hypothesis.
+FOllowing: there's only 16 features so they're exhausted after taking away 5 features per round for 4 rounds.
+For $CV$ $4$-$grams$ (fig.~\ref{fig:cv_4grams_curves}) the accuracy drops to zero within few Unmasking iterations, for the simple reason that it only contains 16 different types that are used as features.
+The standard $CV$ transcription exhibits more chaotic curves, as shown in figure~\ref{fig:cv_curves}.
+Apparently, a binary alphabet does not give the linear SVMs enough information to make robust guesses during curve generation.
+Lastly, for $PLS$ (fig. \ref{fig:pls_curves}) the additional stop word removal leads to a much slower accuracy degradation.
+As discussed earlier, stopwords are good features for distinguishing between authors.
+Removing these common words results in the remaining features being more topic-related.
+Thus, the given texts can be distinguished more easily even after removing certain of the remaining features.
+As our goal, however, is not to retain a high accuracy of the curves, but to increase the differences between same-author and different-author curves, omitting stop words does not seem promising.\\
+The results of the cross-validation for Unmasking using the Gutenberg dataset can be seen in figure \ref{tab:p_unmasking_gb}.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.7\textwidth]{figures/verbatim_curves}
+  \caption{Unmasking curves for $Verbatim$ using the Gutenberg dataset}
+  \label{fig:verbatim_curves}
+\end{figure}
+\begin{figure}
+  \centering
+  \includegraphics[width=0.7\textwidth]{figures/ipa_4grams_curves}
+  \caption{Unmasking curves for $IPA$ $4$-$grams$ using the Gutenberg dataset}
+  \label{fig:ipa_4grams_curves}
+\end{figure}
+\begin{figure}
+  \centering
+  \includegraphics[width=0.7\textwidth]{figures/cv_4grams_curves}
+  \caption{Unmasking curves for $CV$ $4$-$grams$ using the Gutenberg dataset}
+  \label{fig:cv_4grams_curves}
+\end{figure}
+\begin{figure}
+  \centering
+  \includegraphics[width=0.7\textwidth]{figures/cv_curves}
+  \caption{Unmasking curves for $CV$ using the Gutenberg dataset}
+  \label{fig:cv_curves}
+\end{figure}
+\begin{figure}
+  \centering
+  \includegraphics[width=0.7\textwidth]{figures/pls_curves}
+  \caption{Unmasking curves for $PLS$ using the Gutenberg dataset}
+  \label{fig:pls_curves}
+\end{figure}
+
+
 % 4 gram curves fall much quicker! Show them! -> Rather run again with better window.
-% As tehere are no non-answers, f05u is only precision-enhanced, and c@1 prob also has changes
+% As tehere are no non-answers, f05u is only precision-enhanced, and c@1 is only accuracy
+% f0.5u = F0.5, c@1 = accuracy
 
 % Then: Teahan Compression
 Increasing this interval improves precision and recall, because $non$-$answers$ are omitted in their calculation and thus only those answers are counted that the classifier is more certain of.
