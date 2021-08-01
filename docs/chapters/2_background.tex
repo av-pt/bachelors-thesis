@@ -8,12 +8,12 @@ Through the spread of public education over time, increasingly more people were 
 World-wide literacy rates are estimated to have been at 12\% in 1820 and have risen to 86\% in 2016.
 \cite{buringh2009charting} estimates that the number of books produced annually in Western Europe in the sixth and seventh centuries was only around 120.
 In contrast, and not only due to the invention of letterpress printing with movable type, the production in 1790 was at a peak of 20,000,000 books per year.
-These historical processes gave rise to the linguistic branch of Stylometry, the analysis of "an author's work based especially on the recurrence of particular turns of expression or trends of thought"\footnote{\url{https://www.merriam-webster.com/dictionary/stylometry}}.
-The worth of profiling authors can be exemplified with a court case from 1979 \textcolor{olive}{(citation needed, this is from wikipedia)}.
+These historical processes gave rise to the linguistic branch of Stylometry, the analysis of ``an author's work based especially on the recurrence of particular turns of expression or trends of thought''\footnote{\url{https://www.merriam-webster.com/dictionary/stylometry}}.
+The worth of profiling authors can be illustrated with an anecdote about a court case from 1979 published in \cite{hitt2012shuyCase}.
 The American linguist Roger Shuy was able to infer that the author of a ransom note linked to a kidnapping case had to be well-educated and from Akron, Ohio.
 Using this information, the offender was caught and later confessed the crime.\\
 With the adaption of computers by the linguistic community, stylometry was increasingly done automatically.
-The wide availability of training data and the increasing speed of computers allowed for more involved and complex stylometric methods \textcolor{olive}{(citation needed [holmes1998])}.
+As presented in \cite{stamatatos2009survey}, the wide availability of training data and the increasing speed of computers allowed for more involved and complex stylometric methods.
 Nowadays, Authorship Analysis, concerned mainly with determining authors of given texts, is consolidated as a subbranch of stylometry.
 According to \cite{bevendorff2020shared}, it can be further parted into four disciplines:\\
 \textit{Authorship Attribution} aims at selecting the actual author of a given text document from a list of candidate authors.
@@ -44,7 +44,7 @@ Usually, this is implemented with an uncertainty interval around $0.5$ for which
 
 % Phonetics
 \section{Phonetic Transcriptions}\label{sec:phonetic_transcriptions}
-As defined in \cite{ogrady2017introToLinguistics}, which serves as a reference for the notions in this section, phonetics\footnote{Merriam-Webster: "borrowed from New Latin ph$\bar{\mbox{o}}$n$\bar{\mbox{e}}$ticus "(of written characters) representing speech sounds rather than ideas,"[...]", \url{https://www.merriam-webster.com/dictionary/phonetics}. \textcolor{teal}{(Etymology is more complicated. Should it be expanded?)}} is the branch of linguistics concerned with "the inventory and structure of the sounds of speech".
+As defined in \cite{ogrady2017introToLinguistics}, which serves as a reference for the notions in this section, phonetics\footnote{Merriam-Webster: from Greek ph$\bar{\mbox{o}}$n$\bar{\mbox{e}}$tik\'os, \url{https://www.merriam-webster.com/dictionary/phonetics}} is the branch of linguistics concerned with ``the inventory and structure of the sounds of speech''.
 Not all sounds humans can articulate are present in the worlds languages.
 Yet a wide range, estimated to consist of 600 consonant and 200 vowel sounds, occur in human language.
 Note that phonetics is different from phonology, in that phonology examines how sounds create meaning in a language.
@@ -56,12 +56,11 @@ On a more abstract level, linguists segment speech into \textit{phonemes}.
 Phonemes are defined as the smallest unit of sound distinguishing meaning in the words of a language.
 Swapping a phoneme in a word changes its meaning, while replacing a phone with a different one does not necessarily alter its meaning.
 Those sets of phones that do not evoke a change of meaning when exchanged are called \textit{allophones} of their respective phonemes.
-For example, the alveolar nasal consonant [n] and the dental nasal consonant [\textipa{\|[n}] are allophones of the phoneme /n/ as they are not used to differentiate meaning in English -- [\textipa{w2n}] and [\textipa{w2\|[n}] both point to the same concept "one" \textcolor{teal}{(Do I need to explain [] notation? Is // ok here for phoneme notation?)}.
+For example, the alveolar nasal consonant [n] and the dental nasal consonant [\textipa{\|[n}]\footnote{Square brackets are generally used to mark phonetic notation.} are allophones of the phoneme /n/\footnote{Slashes are used to mark an abstract phonemic notation, omitting details that would be used to distinguish sounds in the specific language notated.} as they are not used to differentiate meaning in English -- [\textipa{w2n}] and [\textipa{w2\|[n}] both point to the same concept ``one''.
 However, the alveolar nasal consonant [n] and the bilabial nasal consonant [m] are different, contrasting phonemes -- [\textipa{m\ae{}p}] and [\textipa{n\ae{}p}] indicate the two distinct concepts "map" and "nap".
-While phones are universal, phonemes are language specific \textcolor{olive}{(citation needed)}.\\
-XXX GO IN DEPTH ABOUT PHONETIC PREFERENCE
+While phones are universal, phonemes are language specific.\\
 As hypothesized in the introduction, we suspect that information valuable for identifying authorship exists on the phonetic level.
-Because Authorship Verification classifiers use text as input, we want to utilize methods to extract phonetically relevant features from these texts.
+Because Authorship Verification classifiers use text as input, we want to utilize methods to extract these phonetically relevant features from the texts.
 One possible way of achieving this is with phonetic transcriptions.
 For our purposes, these are transformations assigning a symbol to each sound of a text as if the text was spoken aloud.
 Phonetic transcriptions can be seen as data reduction methods.
@@ -70,7 +69,7 @@ In total, we use seven phonetic transcription systems of different granularity.
 The \textit{narrower} a transcription, the more closely it follows the phonetic details of an utterance.
 This often leads to the system having a bigger alphabet, such as the IPA described below.
 The \textit{broader} a transcription, the more it generalizes phonetic features.
-Table \ref{tab:example_transcriptions} shows examples for the transcription systems we employ.\\
+Table~\ref{tab:example_transcriptions} shows examples for the transcription systems we employ.\\
 
 \begin{table}
 \caption{Example transcriptions.}
@@ -80,21 +79,21 @@ Table \ref{tab:example_transcriptions} shows examples for the transcription syst
 \toprule
 \bf System & \bf Transcription \\
 \midrule
-Verbatim   & Wake and rise, and step into the green outdoors.\footnote{From \cite{ieee1969sentences}, Appendix C, List 58.5} \\
-IPA        & \textipa{weIk 2nd \*raIz 2nd stEp Intu D2 g\*rin aUtdO\*rz} \\
-Dolgo      & WVK VNT RVS VNT STVP VNTV TV KRVN VTTVRS \\
-ASJP       & wek ond raz ond stEp intu 8o grin atdorz \\
-CV         & CVC VCC CVC VCC CCVC VCCV CV CCVC VCCVCC \\
-Soundex    & W200 A530 R200 A530 S310 I530 T000 G650 O362 \\
-RefSoundex & W030 A086 R9030 A086 S3601 I0860 T60 G4908 O06093 \\
-Metaphone  & WK ANT RS ANT STP INT 0 KRN OTTRS \\
+$Verbatim$   & Wake and rise, and step into the green outdoors.\footnote{From \cite{ieee1969sentences}, Appendix C, List 58.5} \\
+$IPA$        & \textipa{weIk 2nd \*raIz 2nd stEp Intu D2 g\*rin aUtdO\*rz} \\
+$Dolgo$      & WVK VNT RVS VNT STVP VNTV TV KRVN VTTVRS \\
+$ASJP$       & wek ond raz ond stEp intu 8o grin atdorz \\
+$CV$         & CVC VCC CVC VCC CCVC VCCV CV CCVC VCCVCC \\
+$Soundex$    & W200 A530 R200 A530 S310 I530 T000 G650 O362 \\
+$RefSoundex$ & W030 A086 R9030 A086 S3601 I0860 T60 G4908 O06093 \\
+$Metaphone$  & WK ANT RS ANT STP INT 0 KRN OTTRS \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 % IPA
-The most widely used phonetic transcription system is the International Phonetic Alphabet (\textbf{IPA}). % Cite O'Grady?! I mean, this is fact...
-As outlined in Handbook of the International Phonetic Association [1999], it was developed by the International Phonetic Association founded in 1886 \textcolor{teal}{(How to cite the Handbook of the International Phonetic Association? There is no author.)}.
+The most widely used phonetic transcription system is the International Phonetic Alphabet (\textbf{IPA}).
+As outlined in Handbook of the International Phonetic Association [1999], it was developed by the International Phonetic Association founded in 1886.
 It serves as a system to notate the sounds of languages in an internationally agreed-upon manner.
 Pulmonic consonants - consonants initiated by a buildup of pressure from the lungs - are distinguished in their place and manner of articulation.
 The place of articulation describes the position in the vocal tract where the sound is produced.
@@ -113,30 +112,27 @@ This ties into a problem we have found in our research that we will discuss late
 To achieve more stable results, we use a slightly broader version of the IPA omitting prosodic markers and diacritics. % Note exact size?
 \phantom{\cite{ipa1999ipaHandbook}}\\
 
-
 % Sound Classes
-Because of its detailed nature, IPA transcriptions contain a lot of information.
+Because of their detailed nature, IPA transcriptions contain a lot of information.
 Continuing with the idea of reducing phonetically irrelevant information, we also employ broader transcription systems.
 The following ones can be categorized as sound class systems organizing speech sounds into linguistically-informed classes.\\
 % Dolgo
-According to \cite{list2012multiple}, the term sound class was first devised and detailed in \cite{dolgopolsky1986dolgoOriginal}.
+According to \cite{list2012multiple}, the term ``sound class'' was first devised and detailed in \cite{dolgopolsky1986dolgoOriginal}.
 For conciseness, we will use the term more generically as defined above.
-In the Dolgopolsky sound class system (\textbf{Dolgo}), phonemes are organized into ten classes, so that the difference between sounds inside of a class is less than the difference between classes.
+In the Dolgopolsky sound class system (\textbf{Dolgo}), phonemes are organized into ten classes, so that the difference between sounds inside a class is smaller than the difference between classes.
 These classes are derived manually from empirical data.
-% Based on empirical data, phonemes are organized into the classes, so that 'phonetic correspondences inside a "type" are more regular than between different types'.
-\textcolor{teal}{(Info is from List paper above, a bit unclear if "correspondence relations" simply means "coocurrences (of phonemes)".)}
 We use a slightly extended version of the original $Dolgo$ sound class system, as implemented in \cite{list2018cltsIntro}.
 It includes an eleventh class for vowels and is compatible with all IPA symbols including common diacritics.
-A list of the $Dolgo$ sound classes with examples for corresponding phonemes can be seen in \ref{tab:dolgo_sound_classes}.
+A list of the $Dolgo$ sound classes with examples for corresponding phonemes can be seen in table~\ref{tab:dolgo_sound_classes}.
 
 
 \begin{table}
 \caption{$Dolgo$ sound classes, adopted from \cite{list2010dolgoRefined} with the eleventh category "V" added.}
 \label{tab:dolgo_sound_classes}
 \centering\small
-\begin{tabular}{@{}c@{\hspace{3\tabcolsep}}cc@{}} % Use @{\hspace{2\tabcolsep}} to double the spacing
+\begin{tabular}{@{}c@{\hspace{2\tabcolsep}}cc@{}} % Use @{\hspace{2\tabcolsep}} to double the spacing
 \toprule
-\bf Symbol & \bf Example phonemes (IPA) & \bf Category \\
+\bf Symbol & \bf \specialcell{Example\\phonemes} & \bf Category \\
 \midrule
 P & p, b, f                     & labial obstruents \\
 T & d, t, \textipa{T, D}        & dental obstruents \\
@@ -147,7 +143,7 @@ N & n, \textipa{\textltailn, N} & remaining nasals \\
 R & r, l                        & liquids \\
 W & v, u                        & voiced labial fricative and initial rounded vowels \\
 J & j                           & palatal approximant \\
-H & h, \textipa{H, N}(repeat?)  & laryngeals and initial velar nasal \\
+H & h, \textipa{H}              & laryngeals and initial velar nasal \\
 V & \textipa{A, E, I}           & other vowels (simple and diphtongs) \\
 \bottomrule
 \end{tabular}
@@ -178,15 +174,14 @@ By grouping names by phonetic similarity instead of alphabetically, the time nee
 Also, similar sounding names that are written differently would be organized into the same categories simplifying access when, for example, only a spoken name is given.
 A word is represented by a code consisting of a capital letter, the first character of the word, and three digits.
 The digits, ranging from 1 to 6, represent sound classes of letters occurring later in the word.
-Table \ref{tab:soundex_sound_classes} shows these classes in more detail.
+Table~\ref{tab:soundex_sound_classes} shows these classes in more detail.
 The process of assigning these codes roughly functions as follows.
 The first letter in the word is used as the beginning letter of the code.
 The first letter and all occurrences of the letters "a", "e", "i", "o", "u", "y", "h", and "w" are removed.
-The remaining letters are encoded using the mapping from \ref{tab:soundex_sound_classes}.
+The remaining letters are encoded using the mapping from table~\ref{tab:soundex_sound_classes}.
 If two equal sound classes appear next to each other, the second occurrence is removed.
 The resulting code is truncated to a length of four characters in total.
-If the code is shorter than four characters it is filled up with trailing zeros.
-\textcolor{olive}{(citation needed: patent differentiates between m and n, algorithms do not (-> class 5))}\\
+If the code is shorter than four characters it is filled up with trailing zeros.\\
 
 \begin{table}
 \caption{Soundex sound classes as used in our research.}
@@ -208,7 +203,7 @@ If the code is shorter than four characters it is filled up with trailing zeros.
 
 The Refined Soundex algorithm (\textbf{RefSoundex}) improves upon its predecessor, with the main difference being that the resulting codes are no longer truncated or extended to a length of 4 but instead retain their original length.
 Also, the number of the sound classes is increased to nine, instead of six, leading to a narrower transcription.
-The alternate mapping can be seen in \ref{tab:refsoundex_sound_classes}.
+The alternate mapping can be seen in table \ref{tab:refsoundex_sound_classes}.
 Lastly, the digit sequence following the first character also includes this character's sound class symbol.
 The word "and", for example, is transcribed to "A086", not "A86".
 \cite{howard2019refsoundexSource1} traces the origins of Refined Soundex back to an implementation in the Apache Commons Library as noted in \cite{fossati2008refsoundexSource2}, but indicates that the idea of modifying the sound classes already appeared in \cite{zobel1995refsoundexSource3}.\\
@@ -217,29 +212,29 @@ The word "and", for example, is transcribed to "A086", not "A86".
 \caption{Refined Soundex sound classes as used in our research.}
 \label{tab:refsoundex_sound_classes}
 \centering\small
-\begin{tabular}{@{}c@{\hspace{3\tabcolsep}}cc@{}} % Use @{\hspace{2\tabcolsep}} to double the spacing
+\begin{tabular}{@{}c@{\hspace{3\tabcolsep}}c@{}} % Use @{\hspace{2\tabcolsep}} to double the spacing
 \toprule
-\bf Symbol & \bf Associated characters & \bf Category \\
+\bf Symbol & \bf Associated characters \\
 \midrule
-0 & a, e, i, o, u, y, h, w & (vowel-like?) \\
-1 & b, p                   & labials \\
-2 & f, v                   & labio-dentals \\
-3 & c, k, s                & (?) \\
-1 & g, j                   & (gutturals?) \\
-2 & q, x, z                & (?) \\
-3 & d, t                   & dental-mutes \\
-4 & l                      & palatal-fricatives \\
-5 & m, n                   & nasals \\
-6 & r                      & dental-fricatives \\
+0 & a, e, i, o, u, y, h, w \\
+1 & b, p                   \\
+2 & f, v                   \\
+3 & c, k, s                \\
+1 & g, j                   \\
+2 & q, x, z                \\
+3 & d, t                   \\
+4 & l                      \\
+5 & m, n                   \\
+6 & r                      \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 % Metaphone
-\textbf{Metaphone} is also a phonetic indexing algorithm first published in \cite{philips1990metaphone} \textcolor{olive}{(citation needed / paper not found)}.
+\textbf{Metaphone} is also a phonetic indexing algorithm first published in \cite{philips1990metaphone}.
 It improves on the Soundex family of algorithms by taking a larger number of inconsistencies and edge-cases of English pronunciation into account.
 Also its focus does not only lie on indexing names but rather English words in general.
-It consists of a series of 27 context-aware transformations\footnote{Number of transformations stems from the implementation used.}, sequentially replacing phonetically similar patterns with representative symbols or removing them if they are not unpronounced.
+It consists of a series of 27 context-aware transformations\footnote{The number of transformations stems from the implementation used.}, sequentially replacing phonetically similar patterns with representative symbols or removing them if they are not unpronounced.
 For example, one such transformation is removing the first letter of a word if that word starts with "KN", "GN", "PN", "AE", or "WR".
 $Metaphone$'s alphabet consists of only 21 symbols -- 16 for consonants and 5 for vowels -- representing classes of speech sounds.
 Vowel symbols only appear at the beginning of transcribed words.
@@ -256,31 +251,3 @@ In addition to the phonetic transcriptions above, we also create three other con
   \item \textbf{PLS}: Removing punctuation, lemmatizing, and removing stop words
 \end{itemize}
 We handle $Verbatim$ text and the three non-phonetic conversions the same way as transcribed text.
-
-
-
-
-%\begin{table}
-%\caption{Naive Approach}
-%\label{tab:naive_approach}
-%\centering\small
-%\begin{tabular}{@{}l@{\hspace{3\tabcolsep}}llllll@{}} % Use @{\hspace{2\tabcolsep}} to double the spacing
-%\toprule
-%\bf Approach & \bf F1 & \bf AUC & \bf c@1 & \bf f0.5u & \bf precision & \bf recall \\
-%\midrule
-%Vocab size & 0.726 & 0.697  & 0.663 & 0.67 & 0.6368 & 0.8444\\
-%Random     & 0.512 & 0.498  & 0.498 & 0.521 & 0.5272 & 0.4979\\
-%\bottomrule
-%\end{tabular}
-%\end{table}
-
-% vocab size "overall": 0.689
-% random 'overall': 0.507
-
-
-% Supra-segmental features
-% Warum und Wie wird beides verbunden?
-% Maybe put this in Introduction!
-% Integrating phonetics into stylometric methods is not an entirely new endeavour...
-% Hypothesis: Phonetic preference
-

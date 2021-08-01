@@ -4,13 +4,12 @@ In a preprocessing step, we standardize the Gutenberg dataset to the new PAN20 f
 Then, we transcribe the datasets using the phonetic transcription methods defined earlier.
 The resulting datasets, as well as the original dataset, are then used as the inputs to two widely used Authorship Verification algorithms which are described in more detail in this chapter.
 For all experiments, we conduct three cross-validation runs with ten folds each.
-We then average the results and compute the Bonferroni-corrected\footnote{As we conduct 30 runs on the same data, the likelihood of encountering a rare configuration that performs well and accepting it as statistically significant is high. Thus we divide the $p$-values for accepting statistical significance by 30.} statistical significance.
+We then average the results and compute the Bonferroni-corrected\footnote{As we conduct 30 runs on the same data, the likelihood of encountering a rare configuration that performs well and accepting it as statistically significant is high. Thus we divide the $p$-values for accepting statistical significance by 30.} statistical significance using a paired t-test as the test statistic.
 Finally, we analyze the results.
-
 \begin{figure}
   \centering
   \includegraphics[width=0.6\textwidth]{figures/process}
-  \caption{Experimental setup, orange = data, blue = process}
+  \caption{Experimental setup, orange = data, blue = process.}
   \label{fig:process}
 \end{figure}
 

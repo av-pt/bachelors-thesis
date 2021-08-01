@@ -6,7 +6,7 @@
 %
 % Values
 % ------
-\ThesisSetTitle{Authorship Verification with Phonetic Transcriptions}
+\ThesisSetTitle{On the Viability of Phonetic Transcriptions for Authorship Verification}
 \ThesisSetKeywords{Authorship Verification, Phonetic Transcription} % only for PDF meta attributes
 
 \ThesisSetAuthor{David Reinartz}
@@ -63,6 +63,14 @@
 
 % Bigger spaces between table rows
 \renewcommand{\arraystretch}{1.2}
+
+% \specialcell can be used for multiline cell in table
+\newcommand{\specialcell}[2][c]{%
+  \begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
+
+% Make floating figures only get a separate page when they occupy more than
+% 80% of the page, default = 60%.
+\renewcommand{\floatpagefraction}{.8}%
 
 \begin{document}
 \begin{frontmatter}

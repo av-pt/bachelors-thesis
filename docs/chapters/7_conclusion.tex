@@ -1,31 +1,27 @@
 \chapter{Conclusion}\label{conclusion}
 % Short summary
-\textcolor{violet}{
-TBD: Summary, conclusion, outlook
-}
-
-Conclude from end of last section: (Maybe throw out direct speech), use supra-segmental features, use more character-based methods.
-
-%Care has been taken to make all research easily reproducible and understandable (source-code READMES etc.).
-
-% Discussion
-% Initially suspected no improvement with transcription approaches. Probably too much information is lost in transcribing.
-% Where to put this?
-
-
-%Outlook:\\
-%- Improve usability of unmasking, cite DH paper (Juola 2007), got a request for use of unmasking
-%- Use large PAN20 dataset on better hardware.
-%- Closer inspection of possible correlation: vocab size ~ evaluation results
-%- Down-sample transcriptions so that vocab size is the same.
-%- Feature set analysis, what martin said.
-%- Use more clever methods that infer meaning by phonetic markers, e.g., intonation (questions with "?")
-%- More thorough, e.g. Grid search, for best parameters
-
-
-% "Clever Features"
-% - n-gram approach instead of word-tokenization
-% - phonetic richness / complexity (over time)
-% - vowel-phoneme over time
-% - sound-classes over time (e.g. hard sounds / plosives compared to soft sounds)
-% - sound classes: consonants and place of articulation (e.g. labial, nasal, ...)
+In this paper we analyzed the viability of phonetically transcribing textual data prior to the use in Authorship Verification algorithms.
+Despite our initial expectations, we conclude that using phonetic transcriptions of data for Unmasking by \cite{koppel2004unmasking} and the compression approach by \cite{teahan2003compression} does \textit{not} result in an improvement in performance.
+In fact, we observed many statistically significant decreases in overall performance.
+Nonetheless, we could identify a trend, namely the more a phonetic transcription system decreases the vocabulary size after transcription, the worse the performance of the algorithms.
+This may indicate that broader transcription systems lose more information that could have been useful for classification.
+The other extreme, inflating the vocabulary to 3.5 times its original size by generating $4$-$grams$ of the already detailed $IPA$ transcription, also leads to a very significant drop in performance across most of the measures analyzed.
+The only exception to this is the $Metaphone$ algorithm in conjunction with the compression approach when using a sufficiently sized data set, in our case one of the data sets introduced in \cite{bevendorff2020overview} comprising more than 50,000 training samples.
+For this configuration, we could record a slight improvement of 0.85\% in Precision over using verbatim text.\\
+As is naturally the case with negative results, we cannot disprove that phonetically informed methods are generally not viable for Authorship Verification.
+We did, however, discuss some possible explanations for the absence of positive results from our research:
+\begin{itemize}
+    \item During automatic transcription, too much phonetic information may be lost, as the transcription algorithm does not have any information about the specific pronunciation of the author.
+    \item When working on the level of individual sounds, as we do with phonetic transcriptions, the sounds expressed when verbalizing an idea are often tied to their meaning. Therefore, sub-segmental features might be better predictors for topic than for authorship.
+    \item Unmasking works on the lexical level, treating words as atomic units and ignoring the information encoded inside of them. This way, phonetic transcriptions are reduced to simple data reduction methods not exhausting their full potential.
+\end{itemize}
+Regarding possible improvements of our research, a more thorough inspection of the observed trend of diminishing performance with decreasing transcription granularity could lead to the substantiation of a correlation thereof.
+If other not phonetically-informed token binning methods exhibit a similar correlation between performance and granularity, one could conclude that this trend is, in fact, not due to any phonetic phenomena.
+A different way of verifying this would be to down-sample the transcriptions so the vocabulary sizes are the same.
+Any remaining difference in performance cannot stem from the systems' granularities.\\
+To achieve a better understanding of the utilization of phonetic transcriptions, verbatim and phonetically transcribed texts could be combined and feature selection algorithms could be used to identify the subset of features that is being employed by the algorithms in classification.\\
+Additionally to the investigations above, a detailed grid search for the best parameters for each transcription could be performed and might lead to an improvement of the results.\\
+For further research, we suggest a more profound investigation of the existence and nature of the \textit{phonetic preference}.
+With a more thorough understanding of the ways people are influenced by their personal and subconscious phonetic palette, more meaningful feature extraction methods could be developed.
+These could include more in-depth approaches that, for example, disambiguate semantic information by analyzing certain punctuation structures within the text on the phonetic level.
+Also, shifting the focus from the low-level sub-segmental features to supra-segmental features spanning longer segments of text, such as stress, intonation, and rhythm, seems promising as authors have more freedom of self-expression on this level.

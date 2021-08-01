@@ -217,7 +217,7 @@
 \newtoks\thesisfrontmatterkeywords
 \ifthenelse{\equal{\documentlanguage}{english}}{%
   \global\thesisfrontpagefaculty{Faculty of Computer Science}
-  \global\thesisfrontpagecourse{Degree Programme }
+  \global\thesisfrontpagecourse{}
   \global\thesisfrontpagetypename{'s Thesis}
   \global\thesisfrontpagestudentnumber{Matriculation Number}
   \global\thesisfrontpageborn{Born \the\thesisauthordateofbirth{} in %

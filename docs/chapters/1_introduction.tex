@@ -2,7 +2,7 @@
 With the widespread availability and use of text as a medium of information transfer, the problem of identifying authorship of given texts has become one of the main focuses of stylometric analysis.
 In this paper, we specifically tackle the task of Authorship Verification which consists of classifying whether two given texts were written by the same author or not.
 Underlying our approach is the hypothesis that authors have a \textit{phonetic preference}, based on which they produce different texts.
-\cite{ladefoged2014courseInPhonetics} titles this preference the ``phonetics of the individual'' and states that ``[...] the set of phonetic habits and memories that each speaker possesses is different from those of every other speaker of the language''.
+\cite{ladefoged2014courseInPhonetics} titles this preference the ``phonetics of the individual'' and states that ``[\ldots] the set of phonetic habits and memories that each speaker possesses is different from those of every other speaker of the language''.
 By applying phonetic transcription systems of varied granularity to the data used, we aim to emphasize these phonetically relevant features implanted into the texts by their authors.
 Then, we use the transcribed data to train two well-known Authorship Verification classifiers.
 By evaluating the results with standard measures used in Authorship Verification, we aim to answer the following questions:
@@ -14,34 +14,3 @@ We transcribe textual data to North American English pronunciation.
 We are aware that in this process some author-specific information is lost and will discuss the implications of this.
 Nevertheless, we anticipate that the phonetic information encoded into plain text and boosted by transcribing gives the classifiers an advantage over more na\"{\i}ve methods.
 All code attributions are open-sourced at \url{https://github.com/torond/bachelors-thesis} with an emphasis on ease of reproduction.
-
-
-% % Showing natbib citation commands
-% Let us get started by citing \citet{manning:1999}!
-% So what did \citeauthor{manning:1999} do in % \citeyear{manning:1999}?
-% Good question!
-% % Showing hyperref reference commands
-% Maybe it is answered in \autoref{introduction} on % page~\pageref{introduction}?
-% Just to have something show up in the list of figures, I % included \autoref{fig:a}.
-% \begin{figure}[bt]% bottom or top of page (for small % figures/tables)
-%   \begin{center}{\huge\bf A}\end{center}
-%   \caption{The first letter in the Roman % alphabet.}\label{fig:a}
-% \end{figure}
-% % \formatdate (or \formatdateshort)
-% This date does not exist: \formatdateshort{30}{2}{2014}
-% and is the same as \formatdate{30}{2}{2014}.
-% % An example table
-% And here is some table with some numbers % (\autoref{tab:numbers})
-% which deserves to be on an extra page.
-% \begin{table}[p]% extra page (usually for large figures/tables)
-%   \caption{Tables have their captions above, figures below.}
-%   \begin{center}
-%     \begin{tabular}{lccc}\toprule
-%       \multicolumn{4}{c}{Some numbers}\\\midrule
-%       & 1999 & 2000 & 2001 \\\cmidrule(l){2-4}
-%       % cmidrule: A line from 2nd to 4th column, trimmed on the % left hand side
-%       Distance (km) & 23 & 18 & 42 \\
-%       Awesomeness (aws) & 3.2 & 8.1 & 2.4 \\\bottomrule
-%     \end{tabular}
-%   \end{center}\label{tab:numbers}%
-% \end{table}
