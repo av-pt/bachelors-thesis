@@ -16,7 +16,7 @@
 
 \ThesisSetSupervisors{Prof.\ Dr.\ Martin Potthast,Prof.\ Dr.\ Benno Stein}
 
-\ThesisSetSubmissionDate{31}{7}{2021}
+\ThesisSetSubmissionDate{4}{8}{2021}
 
 %
 % Suggested Packages
@@ -61,9 +61,6 @@
 % Additional options to the hyperref package can be provided in the braces []
 \usehyperref[backref] % This will add back references in the bibliography
 
-% Bigger spaces between table rows
-\renewcommand{\arraystretch}{1.2}
-
 % \specialcell can be used for multiline cell in table
 \newcommand{\specialcell}[2][c]{%
   \begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
@@ -75,8 +72,8 @@
 \begin{document}
 \begin{frontmatter}
 \include{chapters/0_abstract}
-
   \tableofcontents
+  \thispagestyle{empty}
 
   %\chapter*{Acknowledgements} % optional
   %I thank the authors of the webisthesis template for their excellent work!
@@ -89,6 +86,7 @@
   %    requires package algorithm2e
 
   % optional: list of symbols/notation (e.g., using the nomencl package)
+
 \end{frontmatter}
 
 \input{chapters/1_introduction}
@@ -99,19 +97,8 @@
 \input{chapters/6_results}
 \input{chapters/7_conclusion}
 
-% Structure
-% 0. Abstract
-% 1. Introduction
-% 2. Basics (What is phonetics, transcriptions)
-% 3. Related Work
-% 4. Experiments
-%   4.1 Sub-segmental
-%   4.2 Supra-segmental
-% 5. Results / Analysis / Discussion
-% 6. Conclusion / Outlook
-
 % Bibliography
-\bibliographystyle{plainnat} % requires package natbib. An alternative is apalike
+\bibliographystyle{apalike} % plainnat requires package natbib. An alternative is apalike
 \bibliography{literature}    % load file literature.bib
 
 \end{document}
