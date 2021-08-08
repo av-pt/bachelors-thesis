@@ -1,13 +1,14 @@
 \chapter{Conclusion}\label{conclusion}
 % Short summary
-In this paper we analyzed the viability of phonetically transcribing textual data prior to the use in Authorship Verification algorithms.
+In this report we analyzed the viability of phonetically transcribing textual data prior to the use in Authorship Verification algorithms.
 Despite our initial expectations, we conclude that using phonetic transcriptions of data for Unmasking by \cite{koppel2004unmasking} and the compression approach by \cite{teahan2003compression} does \textit{not} result in an improvement in performance.
 In fact, we observed many statistically significant decreases in overall performance.
 Nonetheless, we could identify a trend, namely the more a phonetic transcription system decreases the vocabulary size after transcription, the worse the performance of the algorithms.
 This may indicate that broader transcription systems lose more information that could have been useful for classification.
-The other extreme, inflating the vocabulary to 3.5 times its original size by generating $4$-grams of the already detailed \textit{IPA} transcription, also leads to a very significant drop in performance across most of the measures analyzed.
-The only exception to this is the \textit{Metaphone} algorithm in conjunction with the compression approach when using a sufficiently sized dataset, in our case one of the datasets introduced in \cite{bevendorff2020overview} comprising more than 50,000 training samples.
-For this configuration, we could record a slight improvement of 0.85\% in precision over using verbatim text.\\
+The other extreme, inflating the vocabulary to 3.5 times its original size by generating $4$-grams of the already detailed \textit{IPA} transcription, also leads to a significant drop in performance across most of the measures analyzed.
+The only exception to the decrease in performance is the \textit{Metaphone} algorithm in conjunction with the compression approach when using a sufficiently sized dataset, in our case one of the datasets introduced in \cite{bevendorff2020overview} comprising more than 50,000 training samples.
+For this configuration, we could record a slight improvement of 0.85\% in precision over using verbatim text.
+
 As is naturally the case with negative results, we cannot disprove that phonetically informed methods are generally not viable for Authorship Verification.
 We did, however, discuss some possible explanations for the absence of positive results from our research:
 \begin{itemize}
@@ -18,10 +19,13 @@ We did, however, discuss some possible explanations for the absence of positive 
 Regarding possible improvements of our research, a more thorough inspection of the observed trend of diminishing performance with decreasing transcription granularity could lead to the substantiation of a correlation thereof.
 If other non-phonetically-informed token binning methods exhibit a similar correlation between performance and granularity, one could conclude that this trend is, in fact, not due to any phonetic phenomena.
 A different way of verifying this would be to down-sample the transcriptions so the vocabulary sizes are the same.
-Any remaining differences in performance cannot stem from the systems' granularities.\\
+Any remaining differences in performance cannot stem from the systems' granularities.
+
 To achieve a better understanding of the utilization of phonetic transcriptions, verbatim and phonetically transcribed texts could be combined and feature selection algorithms could be used to identify the subset of features that is being employed by the algorithms in classification.
-This way, it could be determined whether AV classifiers utilize phonetically transcribed data over verbatim data.\\
-Additionally to the investigations above, a detailed grid search for the best parameters for each transcription could be performed and might lead to an improvement of the results.\\
+This way, it could be determined whether AV classifiers utilize phonetically transcribed data over verbatim data.
+
+Additionally to the investigations above, a detailed grid search for the best parameters for each transcription might lead to an improvement of the results.
+
 For further research, we suggest a more profound investigation of the existence and nature of the \textit{phonetic preference}.
 With a more thorough understanding of the ways people are influenced by their personal and subconscious phonetic palette, more meaningful feature extraction methods could be developed.
 These could include more in-depth approaches that, for example, disambiguate semantic information by analyzing certain punctuation structures within the text on the phonetic level.

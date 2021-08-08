@@ -11,27 +11,29 @@ In contrast, and not only due to the invention of letterpress printing with mova
 These historical processes gave rise to the linguistic branch of stylometry, the analysis of ``an author's work based especially on the recurrence of particular turns of expression or trends of thought''\footnote{\url{https://www.merriam-webster.com/dictionary/stylometry}}.
 The worth of profiling authors can be illustrated with an anecdote about a court case from 1979 published in \cite{hitt2012shuyCase}.
 The American linguist Roger Shuy was able to infer that the author of a ransom note linked to a kidnapping case had to be well-educated and from Akron, Ohio.
-Using this information, the offender was caught and later confessed the crime.\\
+Using this information, the offender was caught and later confessed the crime.
+
 With the adaption of computers by the linguistic community, stylometry was increasingly done automatically.
 As presented in \cite{stamatatos2009survey}, the wide availability of training data and the increasing speed of computers allowed for more involved and complex stylometric methods.
 Nowadays, Authorship Analysis, concerned mainly with determining authors of given texts, is consolidated as a subbranch of stylometry.
-According to \cite{bevendorff2020shared}, it can be further parted into four disciplines:\\
-\textit{Authorship Attribution} aims at selecting the actual author of a given text document from a list of candidate authors.
-This task simulates, for example, a forensic situation where the document is a threatening letter, and it has to be determined which of the possible suspects created it.\\
+According to \cite{bevendorff2020shared}, it can be further parted into four disciplines:
+
+\textit{Authorship Attribution} aims at selecting the author of a given text document from a list of candidate authors.
+This task simulates, for example, a forensic situation where the document is a threatening letter, and it has to be determined which of the possible suspects created it.
 \textit{Authorship Obfuscation} changes the direction of the effort.
 Instead of trying to determine an author, the goal is to paraphrase a given text in such a way that its author cannot be identified by comparing it to other non-paraphrased texts of the same author.
 For example, the author of said threatening letter could actively try to use different language to conceal their identity.
-Although it seems at first counter-intuitive to model this behavior, by developing working obfuscation methods mistakes and pitfalls in the creation of Authorship Analysis methods can be uncovered.\\
-To this end, \textit{Obfuscation Evaluation} measures are devised which assess the performance of the obfuscation methods.\\
-Lastly, \textit{Authorship Verification}, which is the task of interest to our research, is defined in \cite{stein2019unbiasedGutenbergCorpus} as: ``[G]iven a pair of documents, determine whether they are written by the same author''.
-This task was first proposed in 2004 by \cite{koppel2004unmasking}, and thus is a rather recent development.
+Although it seems at first counter-intuitive to model this behavior, by developing working obfuscation methods mistakes and pitfalls in the creation of Authorship Analysis methods can be uncovered.
+To this end, \textit{Obfuscation Evaluation} measures are devised which assess the performance of the obfuscation methods.
+Lastly, \textit{Authorship Verification} (AV), which is the task of interest to our research, is defined in \cite{stein2019unbiasedGutenbergCorpus} as: ``[G]iven a pair of documents, determine whether they are written by the same author''.
+This task was first proposed in 2004 by \citeauthor{koppel2004unmasking}, and thus is a rather recent development.
 Authorship Verification abstracts on other Authorship Analysis tasks by employing only basic inputs and outputs.
 In contrast to Authorship Attribution, it does not aim to identify actual authors but only the fact of whether they are different or not.
 This arguably makes Authorship Verification a more difficult task, since no additional information about the authors of the two texts can be used to extract author profiles from.
 Instead, Authorship Verification algorithms try to identify the universal characteristics by which authors can be differentiated, regardless of the style of one specific author.
 As stated in \cite{bevendorff2020shared}, the PAN\footnote{\url{https://pan.webis.de/}}\textsuperscript{,}\footnote{Wikipedia: ``originally, plagiarism analysis, authorship identification, and near-duplicate detection, later more generally workshop on uncovering plagiarism, authorship, and social software misuse'', \url{https://en.wikipedia.org/wiki/Stylometry\#PAN}} series of shared tasks included Authorship Verification tasks from 2013 to 2015 and picked them back up with PAN 2020, with a planned total of three tasks over the years 2020 to 2022.
-In the course of reintegrating the task to PAN 2020, a new data format has been devised, which we will use in our research.\\
-%Roughly based on the notation in \cite{bevendorff2020shared} the task can be formalized as follows.
+In the course of reintegrating the task to PAN 2020, a new data format has been devised, which we will use in our research.
+
 Authorship Verification can be formalized as follows.
 Given a text pair $(d_1, d_2)$, classify it to ${True, False}$, i.e.,\ approximate the target function $\phi{}:(d_1, d_2)\to\{True, False\}$ where $\phi(d_1, d_2)=True$ iff $d_1$ and $d_2$ have the same author.
 We call an algorithm that approximates $\phi$ an Authorship Verification classifier, or AV classifier for short.
@@ -44,13 +46,14 @@ Usually, this is implemented with an uncertainty interval around $0.5$ for which
 
 % Phonetics
 \section{Phonetic Transcriptions}\label{sec:phonetic_transcriptions}
-As defined in \cite{ogrady2017introToLinguistics}, which serves as a reference for the notions in this section, phonetics\footnote{Merriam-Webster: from Greek ph$\bar{\mbox{o}}$n$\bar{\mbox{e}}$tik\'os, \url{https://www.merriam-webster.com/dictionary/phonetics}} is the branch of linguistics concerned with ``the inventory and structure of the sounds of speech''.
+As defined in \cite{ogrady2017introToLinguistics}, which serves as a reference for the notions in this section, phonetics\footnote{Merriam-Webster: from Greek ph$\bar{\mbox{o}}$n$\bar{\mbox{e}}$tik\'os, ``of speech, endowed with speech'' , \url{https://www.merriam-webster.com/dictionary/phonetics}} is the branch of linguistics concerned with ``the inventory and structure of the sounds of speech''.
 Not all sounds humans can articulate are present in the worlds languages.
 Yet a wide range, estimated to consist of 600 consonant and 200 vowel sounds, occur in human language.
 Note that phonetics is different from phonology, in that phonology examines how sounds create meaning in a language.
 Two subbranches of phonetics are articulatory phonetics and acoustic phonetics.
 The former concerns itself with the physiological processes involved in speech production while the latter examines acoustic characteristics of speech.
-In this paper we focus on articulatory phonetics.\\
+In this report we focus on articulatory phonetics.
+
 The distinct sounds of which a spoken utterance is made up are called \textit{phones}.
 On a more abstract level, linguists segment speech into \textit{phonemes}.
 Phonemes are defined as the smallest units of sound distinguishing meaning in the words of a language.
@@ -58,18 +61,19 @@ Swapping a phoneme in a word for another one changes its meaning, while replacin
 Those sets of phones that do not evoke a change of meaning when exchanged are called \textit{allophones} of their respective phonemes.
 For example, the alveolar nasal consonant [n]\footnote{Square brackets are used to generally mark phonetic notation in IPA.} and the dental nasal consonant [\textipa{\|[n}] are allophones of the phoneme /n/\footnote{Slashes are used to mark an abstract phonemic notation in IPA, omitting details that would be used to distinguish sounds in the specific language notated.} as they are not used to differentiate meaning in English --- [\textipa{w2n}] and [\textipa{w2\|[n}] both point to the same concept ``one''.
 However, the alveolar nasal consonant [n] and the bilabial nasal consonant [m] are different, contrasting phonemes --- [\textipa{m\ae{}p}] and [\textipa{n\ae{}p}] indicate the two distinct concepts ``map'' and ``nap''.
-While phones are universal, phonemes are language specific.\\
+While phones are universal, phonemes are language specific.
+
 As hypothesized in the introduction, we suspect that information valuable for identifying authorship exists on the phonetic level.
 Because Authorship Verification classifiers use text as input, we want to utilize methods to extract these phonetically relevant features from the texts.
 One possible way of achieving this is by employing phonetic transcriptions.
 For our purposes, these are transformations assigning a symbol to each sound of a text as if the text was spoken aloud.
 Phonetic transcriptions can be seen as data reduction methods.
 By applying them, we anticipate that the phonetically relevant features stay apparent while other, less relevant features stand out less.
-In total, we use seven phonetic transcription systems of different granularity.
+In total, we use eight phonetic transcription systems of different granularity.
 The \textit{narrower} a transcription, the more closely it follows the phonetic details of an utterance.
 This often leads to the system having a bigger alphabet, such as the IPA described below.
 The \textit{broader} a transcription, the more it generalizes phonetic features.
-Table~\ref{tab:example_transcriptions} shows example transcriptions of a ``phonetically balanced'' sentence from \cite{ieee1969sentences} (Appendix C, List 58.5).\\
+Table~\ref{tab:example_transcriptions} shows example transcriptions for one of the ``phonetically balanced'' sentences developed by the \cite{ieee1969sentences}.\newline
 
 \begin{table}
 \caption{Example transcriptions.}
@@ -93,9 +97,9 @@ Table~\ref{tab:example_transcriptions} shows example transcriptions of a ``phone
 
 % IPA
 The most widely used phonetic transcription system is the International Phonetic Alphabet (\textbf{IPA}).
-As outlined in Handbook of the International Phonetic Association [1999], it was developed by the International Phonetic Association founded in 1886.
+As outlined in the Handbook of the International Phonetic Association [1999], it was developed by the International Phonetic Association founded in 1886.
 It serves as a system to notate the sounds of languages in an internationally agreed-upon manner.
-Pulmonic consonants - consonants initiated by a buildup of pressure from the lungs - are distinguished in their place and manner of articulation.
+Pulmonic consonants --- consonants initiated by a buildup of pressure from the lungs --- are distinguished in their place and manner of articulation.
 The place of articulation describes the position in the vocal tract where the sound is produced.
 For example, a bilabial sound, such as the ``b'' in ``beer'', is articulated with both lips whereas a glottal sound, such as the ``h'' in ``hello'', is articulated all the way back at the glottis.  % Explain glottis in footnote?
 The manner of articulation includes several factors regarding distinctive ways of sound production.
@@ -103,28 +107,28 @@ To give an example, a plosive, such as the ``p'' in ``explosion'', is created by
 The IPA also differentiates between voiced and voiceless consonants such as the first phonemes in the words ``vast'' and ``fast''.
 In a similar way, non-pulmonic consonants and vowels are organized on scales such as position and manner of articulation.
 This way, a system to classify arbitrary sounds of a language has been created.
-With 155 symbols, its alphabet is the largest of the transcription systems considered in this thesis.
+With 155 symbols, its alphabet is the largest of the transcription systems considered in this report.
 Therefore, the produced transcriptions are usually the narrowest.
 It should be noted that when using the IPA system a transcription can be much more detailed than just using the correct symbols for the phonemes.
-Using diacritics, many other qualities of speech, such as the roundedness of the lips, can be indicated.
+Using diacritics, many other qualities of speech can be indicated, for example, to transcribe specific dialects.
 Creating accurate and detailed transcriptions of a given speech sample on the level of phones is a difficult task usually done manually by linguists.
 This ties into a problem we have found in our research that we will discuss later on.
 To achieve more stable results, we use a slightly broader version of the IPA omitting prosodic markers and diacritics.
-\phantom{\cite{ipa1999ipaHandbook}}\\
+\phantom{\cite{ipa1999ipaHandbook}}\newline
 
 % Sound Classes
 Because of their detailed nature, IPA transcriptions contain a lot of information.
 Continuing with the idea of reducing phonetically irrelevant information, we also employ broader transcription systems.
-The following ones can be categorized as sound class systems organizing speech sounds into linguistically-informed classes.\\
+The following ones can be categorized as sound class systems organizing speech sounds into linguistically-informed classes.
+
 % Dolgo
 According to \cite{list2012multiple}, the term ``sound class'' was first devised and detailed in \cite{dolgopolsky1986dolgoOriginal}.
 For conciseness, we will use the term more generically as defined above.
 In the Dolgopolsky sound class system (\textbf{Dolgo}), phonemes are organized into ten classes, so that the difference between sounds inside a class is smaller than the difference between classes.
-These classes are derived manually from empirical data.
+The classes were derived manually from empirical data.
 We use a slightly extended version of the original \textit{Dolgo} sound class system, as implemented in \cite{list2018cltsIntro}.
 It includes an eleventh class for vowels and is compatible with all IPA symbols including common diacritics.
-A list of the \textit{Dolgo} sound classes with examples for corresponding phonemes can be seen in table~\ref{tab:dolgo_sound_classes}.
-
+A list of the \textit{Dolgo} sound classes with examples for corresponding phonemes can be seen in Table~\ref{tab:dolgo_sound_classes}.
 
 \begin{table}
 \caption{\textit{Dolgo} sound classes, adopted from \cite{list2010dolgoRefined} with the eleventh category ``V'' added.}
@@ -149,10 +153,9 @@ V & \textipa{A, E, I}           & other vowels (simple and diphtongs) \\
 \end{tabular}
 \end{table}
 
-
 % ASJP
 The Automated Similarity Judgment Program is a project aiming to classify the world's languages introduced in \cite{brown2008asjpCode}.
-As of June 26, 2021, it consists of a database comprising 40-word lists of core vocabulary translated to 9,788 languages.
+As of August 8, 2021, it consists of a database comprising 40-word lists of core vocabulary translated to 9,788 languages.
 The word lists include meanings such as ``I'', ``drink'', and ``water''.
 Each word is transcribed using the asjpCode transcription system.
 This way, phonetic similarities between language pairs can be computed.
@@ -161,15 +164,16 @@ AsjpCode (\textbf{ASJP}) consists of 34 consonant and 7 vowel symbols.
 It can be seen as a simplified variant of the IPA system, with some symbols representing a broader class of speech sounds.
 For example, ``N'' represents the velar nasal [\textipa{N}] directly, while ``o'' represents all rounded and unrounded mid and low back vowels [\textipa{7, 2, A, o, O, 6}].
 Another benefit of asjpCode, although not directly influential to our research, is that it consists of only those symbols which are found on a standard QWERTY keyboard.
-This facilitates manual transcription.\\
+This facilitates manual transcription.
+
 % CV
 Lastly, the \textbf{CV} sound class system assigns the symbol ``C'' to consonant phonemes and the symbol ``V'' to vowel phonemes as done in \cite{list2017lingpy}.
-With a binary alphabet it is the broadest of the transcription systems we use.\\
+With a binary alphabet it is the broadest of the transcription systems we use.\newline
 
 % Soundex
 Apart from these systems we also examine the impact of three simple phonetic algorithms.
 These algorithms were invented to match words of similar pronunciation in English.
-The \textbf{Soundex} algorithm, patented by Robert C. Russell in \cite{russel1918soundex} and \cite{russel1922soundex}, was devised for indexing names.
+The \textbf{Soundex} algorithm, patented by Robert C. Russell in \citeyear{russel1918soundex} and \citeyear{russel1922soundex}, was devised for indexing names.
 By grouping names by phonetic similarity instead of alphabetically, the time needed to search for a given name would be shortened.
 Also, similar-sounding names that are written differently would be organized into the same categories simplifying access when, for example, only a spoken name is given.
 A word is represented by a code consisting of a capital letter, the first character of the word, and three digits.
@@ -177,11 +181,11 @@ The digits, ranging from 1 to 6, represent sound classes of letters occurring la
 Table~\ref{tab:soundex_sound_classes} shows these classes in more detail.
 The process of assigning these codes roughly functions as follows.
 The first letter in the word is used as the beginning letter of the code.
-The first letter and all occurrences of the letters ``a'', ``e'', ``i'', ``o'', ``u'', ``y'', ``h'', and ``w'' are removed.
-The remaining letters are encoded using the mapping from table~\ref{tab:soundex_sound_classes}.
+The first letter along with all occurrences of the letters ``a'', ``e'', ``i'', ``o'', ``u'', ``y'', ``h'', and ``w'' are removed.
+The remaining letters are encoded using the mapping from Table~\ref{tab:soundex_sound_classes}.
 If two equal sound classes appear next to each other, the second occurrence is removed.
 The resulting code is truncated to a length of four characters in total.
-If the code is shorter than four characters it is filled up with trailing zeros.\\
+If the code is shorter than four characters it is filled up with trailing zeros.
 
 \begin{table}
 \caption{Soundex sound classes as used in our research.}
@@ -203,10 +207,10 @@ If the code is shorter than four characters it is filled up with trailing zeros.
 
 The Refined Soundex algorithm (\textbf{RefSoundex}) extends its predecessor, with the main difference being that the resulting codes are no longer truncated or extended to a length of 4 but instead retain their original length.
 Also, the number of the sound classes is increased to nine, instead of six, leading to a narrower transcription.
-The alternate mapping can be seen in table~\ref{tab:refsoundex_sound_classes}.
+The alternate mapping can be seen in Table~\ref{tab:refsoundex_sound_classes}.
 Lastly, the digit sequence following the first character also includes this character's sound class symbol.
 The word ``and'', for example, is transcribed to ``A086'', not ``A86''.
-\cite{howard2019refsoundexSource1} traces the origins of Refined Soundex back to an implementation in the Apache Commons Library as noted in \cite{fossati2008refsoundexSource2}, but indicates that the idea of modifying the sound classes already appeared in \cite{zobel1995refsoundexSource3}.\\
+\cite{howard2019refsoundexSource1} traces the origins of Refined Soundex back to an implementation in the Apache Commons Library as noted in \cite{fossati2008refsoundexSource2}, but indicates that the idea of modifying the sound classes already appeared in \cite{zobel1995refsoundexSource3}.
 
 \begin{table}
 \caption{Refined Soundex sound classes as used in our research.}
@@ -220,12 +224,12 @@ The word ``and'', for example, is transcribed to ``A086'', not ``A86''.
 1 & b, p                   \\
 2 & f, v                   \\
 3 & c, k, s                \\
-1 & g, j                   \\
-2 & q, x, z                \\
-3 & d, t                   \\
-4 & l                      \\
-5 & m, n                   \\
-6 & r                      \\
+4 & g, j                   \\
+5 & q, x, z                \\
+6 & d, t                   \\
+7 & l                      \\
+8 & m, n                   \\
+9 & r                      \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -233,12 +237,12 @@ The word ``and'', for example, is transcribed to ``A086'', not ``A86''.
 % Metaphone
 \textbf{Metaphone} is also a phonetic indexing algorithm first published in \cite{philips1990metaphone}.
 It improves on the Soundex family of algorithms by taking a larger number of inconsistencies and edge-cases of English pronunciation into account.
-Also its focus does not only lie on indexing names but rather English words in general.
+Also, its focus does not only lie on indexing names but rather English words in general.
 It consists of a series of 27 context-aware transformations\footnote{The number of transformations stems from the implementation used.}, sequentially replacing phonetically similar patterns with representative symbols or removing them if they are not unpronounced.
 For example, one such transformation is removing the first letter of a word if that word starts with ``KN'', ``GN'', ``PN'', ``AE'', or ``WR''.
-\textit{Metaphone}'s alphabet consists of only 21 symbols --- 16 for consonants and 5 for vowels --- representing classes of speech sounds.
+\textit{Metaphone}'s alphabet consists of 21 symbols --- 16 for consonants and 5 for vowels --- representing classes of speech sounds.
 Vowel symbols only appear at the beginning of transcribed words.
-Metaphone was later superseded by Double Metaphone and the closed-source Metaphone 3, both of which use a substantially larger rule set.\\
+Metaphone was later superseded by Double Metaphone and the closed-source Metaphone 3, both of which use a substantially larger rule set.\newline
 
 For normalization, we remove all inter-word punctuation in the texts.
 Intra-word punctuation, such as in ``don't'', is phonetically significant and thus not removed.

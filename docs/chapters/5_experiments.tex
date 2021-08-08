@@ -1,5 +1,5 @@
 \chapter{Experiments}\label{experiments}
-As shown in figure~\ref{fig:process}, the main experimental setup can be structured into four parts.
+As shown in Figure~\ref{fig:process}, the main experimental setup can be structured into four parts.
 In a preprocessing step, we standardize the Gutenberg dataset to the new PAN 2020 format and we clean the Fanfiction dataset.
 Then, we transcribe the datasets using the phonetic transcription methods defined earlier.
 The resulting datasets, as well as the original dataset, are then used as the inputs to two widely used Authorship Verification algorithms which are described in more detail in this chapter.
@@ -34,21 +34,20 @@ The source code extending the algorithm to use phonetic features and adding cros
 Unmasking was first introduced by \citeauthor{koppel2004unmasking} in 2004.
 In short, it exploits the degradation of classifier accuracy when removing distinguishing features.
 It turns out that iteratively removing those features leads to a faster degradation on text pairs by one author than on those by different authors.
-Thus, the algorithm ``unmasks'' the text pairs and thereby reveals the information needed for classification.\\
-% Formal definiton & explanation: unmasking step
-This approach comprises two steps: First, a cross-validation method is employed to create the accuracy degradation curves for all training samples.
-Second, a meta-classifier is trained on the resulting curves to differentiate between same-author and different-author curves.\\
-%XXX From here on!
-%For a given pair, the texts are seen to be created by two generative processes $p_1$ and $p_2$.
+Thus, the algorithm ``unmasks'' the text pairs and thereby reveals the information needed for classification.
+
+This approach comprises two steps:
+First, a cross-validation method is employed to create the accuracy degradation curves for all training samples.
+Secondly, a meta-classifier is trained on the resulting curves to differentiate between same-author and different-author curves.
+
 To compute a curve for a pair, both texts are chunked into parts longer than 500 words without splitting paragraphs.
 The 250 words with highest average frequencies in the two texts are used as features.
 In a 10-fold cross-validation, linear support vector machine (SVM) models are trained to classify if a chunk belongs to the first or the second text.
 The resulting accuracy is noted and the three most discriminating positive and negative features are removed from the feature set.
-The cross-validation and feature removal are repeated until no features are left.\\
-% meta-learning step
+The cross-validation and feature removal are repeated until no features are left.
 The set of curves is then used to train a linear SVM model as a meta-classifier.
-As brought to the point by \cite{bevendorff2019unmaskingShortTexts}, the features used are ``the curve points, the curves' point-wise first- and second-order derivatives, and the derivatives sorted by steepest point-wise drop''.\\
-% Adaptation for short texts by Bevendorff et al., how is this different? Which features are actually being used?
+As brought to the point by \cite{bevendorff2019unmaskingShortTexts}, the features used are ``the curve points, the curves' point-wise first- and second-order derivatives, and the derivatives sorted by steepest point-wise drop''.
+
 Unmasking is one of the most robust Authorship Verification algorithms.
 But as it requires sufficient chunks of no less than 500 words in length, it is only applicable for book-length texts.
 To counter this, \cite{bevendorff2019unmaskingShortTexts} generalizes the algorithm to accommodate for short texts.
@@ -58,7 +57,7 @@ In total, 30 chunks are generated which are then used for curve generation as ab
 As this approach introduces a significant amount of variance in the resulting curves, the Unmasking step is repeated multiple times and the curves are averaged.
 It is recommended to average at least 15--20 Unmasking runs for each text pair.
 In our experiments, we average the curves of 32 Unmasking runs per text pair with varying chunk sizes of 500, 600, and 700 words respectively.
-In the implementation supplied by \cite{bevendorff2019unmaskingShortTexts}\footnote{\url{https://github.com/webis-de/unmasking}} and used as the basis for our research, the meta-classifier uses the curves' ``central-difference gradients (first- and second-order), as well as their gradients sorted by magnitude''.
-Also, the implementation predicts labels instead of confidence values, hence reducing $F_{0.5u}$ to $F_{0.5}$\footnote{Weighting precision two times as much as recall, but not accounting for \textit{non-answers}.} and $c@1$ to accuracy.
+In the implementation supplied by \cite{bevendorff2019unmaskingShortTexts}\footnote{\url{https://github.com/webis-de/unmasking}} and used as the basis for our research, the meta-classifier uses the curves' ``central-difference gradients (first- and second-order), as well as their gradients sorted by magnitude'' as features.
+Also, the implementation predicts labels instead of confidence values and hence does not produce \textit{non-answers}.
 The source code extending the Unmasking framework for the use of phonetically transcribed datasets and implementing a cross-validation functionality is available on GitHub\footnote{\url{https://github.com/av-pt/unmasking}}.
 Note that we only use the Gutenberg dataset for Unmasking as processing the larger Fanfiction dataset for each transcription proved to be too time-consuming.

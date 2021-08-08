@@ -1,7 +1,8 @@
 \chapter{Related Work}\label{related_work}
 % History
 Before the inception of Authorship Verification as a task, Authorship Attribution was the main subject of stylometric investigation, as it is much closer to real-life circumstances.
-\cite{stamatatos2009survey} divides the scientific efforts on Authorship Attribution into two periods --- before and after the late 1990s --- and gives an overview of their development.\\
+\cite{stamatatos2009survey} divides the scientific efforts on Authorship Attribution into two periods --- before and after the late 1990s --- and gives an overview of their development.
+
 The first application of statistics to authorship research was done in 1887 and 1901 by \citeauthor{mendenhall1887characteristic}.
 Histograms of word length frequencies were used to differentiate Shakespeare from other authors of his era.
 Mendenhall's work was later critized by \cite{williams1975mendenhall} as the differing histograms could better be explained by differences in presentation --- Shakespeare used verse while the other authors wrote prose.
@@ -10,19 +11,21 @@ It employed a Bayesian statistical analysis on a small set of common words showi
 Whereas before, Authorship Attribution was mainly conducted manually by experts, this study paved the way for statistically supported methods.
 Nevertheless, research continued to mainly focus on solving specific literary disputes and finding new measures to quantify stylometric features.
 \citeauthor{stamatatos2009survey} states that the evaluation of the emerging methods was hindered mainly by datasets being too small, unstandardized, and unhomogenized for style and topic.
-This prevented meaningful comparisons of the different approaches during this first period.\\
+This prevented meaningful comparisons of the different approaches during this first period.
+
 Through the expanding use of Internet media during the late 1990s, data utilized in Authorship Attribution began shifting towards electronic texts.
 Following this trend, research efforts began to focus on the development of applications that could be used in real-world scenarios such as forensics or law.
-Additionally, the evaluation of proposed methods was emphasized to enable an objective comparison between them.\\
+Additionally, the evaluation of proposed methods was emphasized to enable an objective comparison between them.
+
 On a technical level, \citeauthor{stamatatos2009survey} splits the proposed approaches into two components: the features used to quantify writing style, and the methods used to attribute authorship.
 The stylometric features vary in complexity, ranging from lexical features working on word level up to semantic features aiming at extracting the meaning of a text.
 The most notable \textit{lexical} feature set is the set of most common words.
-Although for semantic analyses these so-called function words (articles, prepositions, etc.) do not carry much information, they are very well suited for discriminating between authors (\cite{argamon2005measuring}, \cite{burrows1987word}).
-The Unmasking algorithm by \cite{koppel2004unmasking}, described in more detail in section~\ref{sec:unmasking-approach} uses the 250 most common words of the supplied data as features.
+Although for semantic analyses these so-called function words (articles, prepositions, etc.) do not carry much information, they are well suited for discriminating between authors (\cite{argamon2005measuring}, \cite{burrows1987word}).
+The Unmasking algorithm by \cite{koppel2004unmasking}, described in more detail in Section~\ref{sec:unmasking-approach}, uses the 250 most common words of the supplied data as features.
 On \textit{character} level, many approaches employ character $n$-grams, reporting very good results (\cite{peng2003language}, \cite{kevselj2003n}, \cite{stamatatos2006ensemble}).
 In contrast to lexical features working with words as atomic and isolated units of information, character-based features such as $n$-grams can take advantage of subword and context information.
 Because of this, we also use $n$-grams in our research.
-The compression-based approach by \cite{teahan2003compression}, described in greater detail in section~\ref{sec:compression-approach}, can also be interpreted as a character level approach, as the internal compression algorithm works with characters as atomic units.
+The compression-based approach by \cite{teahan2003compression}, described in greater detail in Section~\ref{sec:compression-approach}, can also be interpreted as a character level approach, as the internal compression algorithm works with characters as atomic units.
 Commonly used \textit{syntactic} features include \textit{part-of-speech} (POS) frequencies and $n$-grams.
 Using a POS-tagger, syntactic information is annotated, signaling if a word is, for example, a noun or a preposition.
 The resulting tags or sequences thereof are counted, and their frequencies used as features.
@@ -30,18 +33,21 @@ On a higher level, \textit{semantic} features are used.
 Most noteworthy is the approach by \cite{argamon2007stylistic}.
 It extracts semantic information by mapping certain keywords and phrases in specific part-of-speech contexts to semantic meanings.
 The word ``while'', for example, is semantically tagged as a \textit{conjunction} that could be followed by an \textit{elaboration}, an \textit{extension}, or an \textit{enhancement} of the previous statement.
-The frequencies of these semantic phenomena are then used as features for classification.\\
-In general, the different features function only to the extend that their underlying Natural Language Processing algorithms are robust.
+The frequencies of these semantic phenomena are then used as features for classification.
+
+In general, the different features function only to the extent that their underlying Natural Language Processing algorithms are robust.
 Low-level features such as character $n$-grams are trivial to generate from given text and thus produce reliable output feature quality.
-High-level features like semantic analyses, on the other hand, require much more effort and depend on factors such as target language and corpus quality.\\
+High-level features like semantic analyses, on the other hand, require much more effort and depend on factors such as target language and corpus quality.
+
 The methods of attributing authorship can further be divided into profile-based and instance-based approaches.
 The former concatenates the texts by each author into one file, creating a profile of that author.
 The latter treats each text as a separate instance from which the attribution model can be trained.
 As we examine Authorship Verification in our research, the approaches we use are instance-based.
 However, it can be noted that the compression-based approach was originally developed for Authorship Attribution and merged the texts of each author into one document, rendering it a profile-based approach.
-As we do not have information about the authors of the given texts, we use an adaption of the compression-based approach that does not create such profiles and simply compares two given texts.\\
+As we do not have information about the authors of the given texts, we use an adaption of the compression-based approach that does not create such profiles and simply compares two given texts.
+
 After 2008, through the PAN workshops in 2013--15 and 2020 onward, numerous approaches aiming at solving Authorship Verification were contributed.
-The most notable recent development is the inception of approaches using deep learning techniques which was enabled by the introduction of a large dataset in PAN 2020 (\cite{boenninghoff2020deep}, \cite{weerasinghe2020feature}, \cite{araujo2020siamese}, \cite{ordonez2020will}).\\
+The most notable recent development is the inception of approaches using deep learning techniques which was enabled by the introduction of a large dataset in PAN 2020 (\cite{boenninghoff2020deep}, \cite{weerasinghe2020feature}, \cite{araujo2020siamese}, \cite{ordonez2020will}).\newline
 
 % Biases in Authorship Verification
 \cite{stein2019unbiasedGutenbergCorpus} reveals possible biases ($B1$--$B6$) in Authorship Verification and presents ways to mitigate these.
@@ -53,7 +59,7 @@ Thus, care should be taken to avoid modelling the training data too closely.
 \end{itemize}
 Next, biases concerning the data are examined:
 \begin{itemize}
-    \item $B3$: A text may contain artifacts that were not introduced by the author, such as editorial marks or plain text conversion errors.
+    \item $B3$: A text may contain artifacts that were not introduced by the author, such as editorial marks or text conversion errors.
 To prevent fitting to erroneous artifacts, texts should be fully homogenized to only contain artifacts entered by the author.
     \item $B4$: To increase the size of a dataset, text chunks are often reused.
 This should not be done, as the resulting corpus might over- or underrepresent certain authors' styles.
@@ -67,7 +73,7 @@ Therefore, while evaluating the algorithms should only have access to one text p
 This more closely models manual Authorship Verification where a forensic linguist also inspects text pairs on a case-by-case basis.
 \end{itemize}
 To mitigate the biases stemming from the data, a corpus containing texts from Project Gutenberg is presented.
-We will use this dataset in our experiments.\\
+We will use this dataset in our experiments.\newline
 
 % Khomytska
 Research combining Phonetics and Authorship Analysis is sparse.
@@ -80,9 +86,9 @@ Using Pearson's test, it is proven that the obtained class frequencies follow a 
 To assess the similarity of the distributions, the Student's t-test, the Kolmogorov-Smirnov test, and the Chi-square test are examined.
 Also, by comparing the phoneme class frequencies between the texts, differentiation capabilities for each of the classes are determined.
 It is concluded that labial, fricative, nasal, coronal, dorsal and  stop consonant phonemes in conjunction with the Kolmogorov-Smirnov test are useful for differentiating authorial style, whereas velar and sonorous consonant phonemes are not.
-\citeauthor{khomytska2019nonparametric} have published a number of very similar articles on Style Differentiation and Authorship Attribution.
+\citeauthor{khomytska2019nonparametric} have published a number of similar articles on Style Differentiation and Authorship Attribution.
 Unfortunately, no standard evaluation methods are used, preventing meaningful comparisons to other work in this area.
-In addition, the used datasets are small, with the paper outlined above deriving a not further specified improvement in the differentiation of authorial styles by analyzing only one text pair, questioning the validity of the results.\\
+In addition, the used datasets are small, with the paper outlined above deriving a not further specified improvement in the differentiation of authorial styles by analyzing only one text pair, questioning the validity of the results.\newline
 
 Phonetic transcriptions have also been used as classification features before, namely in the task of Native Language Identification in \cite{smiley2017native}.
 Given a text, the goal is to determine the native language of the author from a closed set of possible languages.
@@ -90,7 +96,7 @@ Labeled texts from a training set were transcribed using one of four algorithms.
 Three of the algorithms used were Soundex, Double Metaphone and New York State Identification and Intelligence System.
 Originally they were developed to improve recall in information retrieval systems when the exact spelling of a word was unknown.
 Thus, they can be interpreted as broad transcription algorithms.
-Also, text was transcribed using the Carnegie Mellon University Pronouncing Dictionary (CMU), resulting in a much narrower transcription.
+Also, text was transcribed to IPA using the Carnegie Mellon University Pronouncing Dictionary (CMU) resulting in a much narrower transcription.
 After transcribing, the samples were segmented into character $n$-grams of sizes 2--9.
 Then, the TF-IDF score for $n$-grams with a document frequency of at least 5 but not more than $5\%$ of the training set were calculated.
 The scores were then used for training a linear C-Support Vector Machine.

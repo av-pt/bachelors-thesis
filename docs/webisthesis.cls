@@ -216,7 +216,7 @@
 \newtoks\thesisdeclarationtext
 \newtoks\thesisfrontmatterkeywords
 \ifthenelse{\equal{\documentlanguage}{english}}{%
-  \global\thesisfrontpagefaculty{Faculty of Computer Science}
+  \global\thesisfrontpagefaculty{Faculty of Mathematics and Computer Science}
   \global\thesisfrontpagecourse{}
   \global\thesisfrontpagetypename{'s Thesis}
   \global\thesisfrontpagestudentnumber{Matriculation Number}
@@ -275,7 +275,7 @@
     \the\thesisfrontpageborn\\[3em]
     \newcounter{supervisors}\makeatletter%
     \@for \name:=\the\thesissupervisors\do{%
-      \addtocounter{supervisors}{1}\arabic{supervisors}. %
+%      \addtocounter{supervisors}{1}\arabic{supervisors}. %
       \the\thesisfrontpagesupervisor: \name \\%
     }%
     \makeatother\\[3em]%
